@@ -9,13 +9,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
 @SuppressWarnings("serial")
 public class FilterTestClass extends JFrame {
 	private JPanel actionPanel;
 	private JButton orig, grayscale, sepia, invertedGrayscale, external;
 	private Canvas canvas;
-	private Filter filter;
 	
 	public FilterTestClass() throws IOException {
 		initialize();	
@@ -23,7 +21,6 @@ public class FilterTestClass extends JFrame {
 	
 	private void initialize() {
 		canvas = new Canvas();
-		filter = new Filter();
 		actionPanel = new JPanel();
 		
 		actionPanel.setPreferredSize(new Dimension(0, 50));
@@ -39,56 +36,51 @@ public class FilterTestClass extends JFrame {
 		
 		orig = new JButton("Orignal");
 		orig.addMouseListener(new MouseListener() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
 				canvas.setOriginalVisible(true);
 			}
-			@Override public void mousePressed(MouseEvent e) {}
-			@Override public void mouseReleased(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseExited(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
 		});
 		
 		grayscale = new JButton("Grayscale");
 		grayscale.addMouseListener(new MouseListener() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
-				canvas.setFilterImage(filter.applyGrayscale(canvas.getOriginalImage()));
+				canvas.setFilterImage(ImageTools.applyGrayscale(canvas.getOriginalImage()));
 			}
-			@Override public void mousePressed(MouseEvent e) {}
-			@Override public void mouseReleased(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseExited(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
 		});
 		
 		sepia = new JButton("Sepia");
 		sepia.addMouseListener(new MouseListener() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
-				canvas.setFilterImage(filter.applySepia(canvas.getOriginalImage()));
+				canvas.setFilterImage(ImageTools.applySepia(canvas.getOriginalImage()));
 			}
-			@Override public void mousePressed(MouseEvent e) {}
-			@Override public void mouseReleased(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseExited(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
 		});
 		
 		invertedGrayscale = new JButton("Inverted grayscale");
 		invertedGrayscale.addMouseListener(new MouseListener() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
-				canvas.setFilterImage(filter.applyInvertedGrayscale(canvas.getOriginalImage()));
+				canvas.setFilterImage(ImageTools.applyInvertedGrayscale(canvas.getOriginalImage()));
 			}
-			@Override public void mousePressed(MouseEvent e) {}
-			@Override public void mouseReleased(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseExited(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
 		});
 		
 		final JFrame f = this;
 		external = new JButton("External");
 		external.addMouseListener(new MouseListener() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser fc = new JFileChooser();
 				int result = fc.showOpenDialog(f);
@@ -96,16 +88,16 @@ public class FilterTestClass extends JFrame {
 		        	File file = fc.getSelectedFile();
 		        	try {
 						BufferedImage img = ImageIO.read(file);
-						canvas.setFilterImage(filter.applyLayer(canvas.getOriginalImage(),img));
+						canvas.setFilterImage(ImageTools.applyLayer(canvas.getOriginalImage(),img));
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
 		        }
 			}
-			@Override public void mousePressed(MouseEvent e) {}
-			@Override public void mouseReleased(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseExited(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
 		});
 		
 		actionPanel.add(orig);

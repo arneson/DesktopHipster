@@ -1,9 +1,10 @@
 package Filter;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-public class Filter {
-	public BufferedImage applyGrayscale(BufferedImage b) {
+public class ImageTools {
+	public static BufferedImage applyGrayscale(BufferedImage b) {
 		IModify ef = new IModify() {
 			public int modify(int red, int green, int blue, int alpha,
 					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
@@ -13,10 +14,10 @@ public class Filter {
 				return rgb;
 			}
 		};
-		return modifyPixels(b, ef, null);
+		return ImageProcessor.modifyPixels(b, ef);
 	}
 	
-	public BufferedImage applySepia(BufferedImage b) {
+	public static BufferedImage applySepia(BufferedImage b) {
 		IModify ef = new IModify() {
 			public int modify(int red, int green, int blue, int alpha,
 					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
@@ -32,10 +33,10 @@ public class Filter {
 				return rgb;
 			}
 		};
-		return modifyPixels(b, ef, null);
+		return ImageProcessor.modifyPixels(b, ef);
 	}
 	
-	public BufferedImage applyInvertedGrayscale(BufferedImage b) {
+	public static BufferedImage applyInvertedGrayscale(BufferedImage b) {
 		IModify ef = new IModify() {
 			public int modify(int red, int green, int blue, int alpha,
 					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
@@ -45,10 +46,10 @@ public class Filter {
 				return rgb;
 			}
 		};
-		return modifyPixels(b, ef, null);
+		return ImageProcessor.modifyPixels(b, ef);
 	}
 	
-	public BufferedImage applyLayer(BufferedImage b, BufferedImage layer) {
+	public static BufferedImage applyLayer(BufferedImage b, BufferedImage layer) {
 		IModify ef = new IModify() {
 			public int modify(int red, int green, int blue, int alpha,
 					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
@@ -78,36 +79,6 @@ public class Filter {
 				return new Color(newR, newG, newB).getRGB();
 			}
 		};
-		return modifyPixels(b, ef, layer);
-	}
-	
-	private BufferedImage modifyPixels(BufferedImage b, IModify ef, BufferedImage layer) {
-		int width = b.getWidth();
-		int height = b.getHeight();
-		BufferedImage modified = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		//System.out.println(new java.text.SimpleDateFormat("yyyyMMdd_HHmmss_SSSS").format(java.util.Calendar.getInstance().getTime()));
-		for(int w = 0; w < width; w++) {
-			for(int h = 0; h < height; h++) {
-				int rgb = b.getRGB(w, h);
-				int alpha = (rgb >> 24) & 0x000000FF;
-				int red = (rgb >> 16 ) & 0x000000FF;
-				int green = (rgb >> 8 ) & 0x000000FF;
-				int blue = (rgb) & 0x000000FF;
-				
-				int eR = 0, eG = 0, eB = 0, eA = 0;
-				if(layer != null) {
-					int externalRGB = layer.getRGB(w, h);
-					eA = (externalRGB >> 24 ) & 0x000000FF;
-					eR = (externalRGB >> 16 ) & 0x000000FF;
-					eG = (externalRGB >> 8 ) & 0x000000FF;
-					eB = (externalRGB) & 0x000000FF;
-				} 
-				
-				int newColor = ef.modify(red, green, blue, alpha, eR, eG, eB, eA);
-				modified.setRGB(w, h, newColor);
-			}
-		}
-		//System.out.println(new java.text.SimpleDateFormat("yyyyMMdd_HHmmss_SSSS").format(java.util.Calendar.getInstance().getTime()));
-		return modified;
+		return ImageProcessor.modifyPixels(b, ef, layer);
 	}
 }
