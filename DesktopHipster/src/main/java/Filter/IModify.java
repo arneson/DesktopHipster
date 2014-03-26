@@ -1,4 +1,4 @@
-package filter;
+package Filter;
 
 
 public interface IModify {
