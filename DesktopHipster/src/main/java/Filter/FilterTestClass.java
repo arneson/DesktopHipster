@@ -70,7 +70,14 @@ public class FilterTestClass extends JFrame {
 		invertedGrayscale = new JButton("Inverted grayscale");
 		invertedGrayscale.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
-				canvas.setFilterImage(ImageTools.applyInvertedGrayscale(canvas.getOriginalImage()));
+				//canvas.setFilterImage(ImageTools.applyInvertedGrayscale(canvas.getOriginalImage()));
+				//canvas.setFilterImage(ImageTools.applyEnhancedColors(canvas.getOriginalImage()));
+				ImageIcon oldImageIcon = new ImageIcon(getClass().getResource("/OldImageLayer.jpg"));
+				BufferedImage oldImageLayer = new BufferedImage(oldImageIcon.getIconWidth(),oldImageIcon.getIconHeight(),
+						BufferedImage.TYPE_INT_ARGB);
+				Graphics g = oldImageLayer.createGraphics();
+				oldImageIcon.paintIcon(null, g, 0, 0);
+				canvas.setFilterImage(Filter.oldImage(canvas.getOriginalImage(), oldImageLayer));
 			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}

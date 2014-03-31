@@ -17,6 +17,30 @@ public class ImageTools {
 		return ImageProcessor.modifyPixels(b, ef);
 	}
 	
+	public static BufferedImage applyEnhancedColors(BufferedImage b, final int dark, final int bright) {
+		IModify ef = new IModify() {
+			public int modify(int red, int green, int blue, int alpha,
+					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
+
+				int newR = (red > 125) ? red + bright : red - dark;
+				int newG = (green > 125) ? green + bright : green - dark;
+				int newB = (blue > 125) ? blue + bright : blue - dark;
+				
+				newR = (newR < 0) ? 0 : newR;
+				newG = (newG < 0) ? 0 : newG;
+				newB = (newB < 0) ? 0 : newB;
+				
+				newR = (newR > 255) ? 255 : newR;
+				newG = (newG > 255) ? 255 : newG;
+				newB = (newB > 255) ? 255 : newB;
+				
+				int rgb = new Color(newR, newG, newB).getRGB();
+				return rgb;
+			}
+		};
+		return ImageProcessor.modifyPixels(b, ef);
+	}
+	
 	public static BufferedImage applySepia(BufferedImage b) {
 		IModify ef = new IModify() {
 			public int modify(int red, int green, int blue, int alpha,
