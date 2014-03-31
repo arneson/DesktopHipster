@@ -9,28 +9,25 @@ package model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.nio.file.Path;
 import java.util.TreeMap;
-
 import javax.swing.ImageIcon;
 
 public class ExtendedImage extends BufferedImage {
 
-	private BufferedImage original, preview, thumbnail;
+	private BufferedImage preview, thumbnail;
 	private TreeMap<String, BufferedImage> versions = new TreeMap<String, BufferedImage>();
 	// Needed?
 	// private Path pathToFile;
 	
-	public ExtendedImage(ImageIcon image, Path path){
+	public ExtendedImage(ImageIcon image){
 		super(image.getIconWidth(), image.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics g = this.createGraphics();
 		image.paintIcon(null, g, 0, 0);
+		g.dispose();
+				
+		preview =  Filter.ImageTools.toBufferedImage(getScaledInstance(600, -1, Image.SCALE_SMOOTH));
 		
-		original = Filter.ImageTools.copyImage(this);
-		
-		preview = (BufferedImage) original.getScaledInstance(600, -1, Image.SCALE_SMOOTH);
-		
-		thumbnail = (BufferedImage) original.getScaledInstance(100, -1, Image.SCALE_FAST);
+		thumbnail = Filter.ImageTools.toBufferedImage(getScaledInstance(100, -1, Image.SCALE_FAST));
 		
 	}
 	
@@ -57,15 +54,6 @@ public class ExtendedImage extends BufferedImage {
 		}else{
 			throw new NoSuchVersionException();
 		}
-	}
-	
-	/**
-	 * Returns the original image
-	 * 
-	 * @return Original, untouched version of this image
-	 */
-	public BufferedImage getOriginal(){
-		return original;
 	}
 	
 	/**
