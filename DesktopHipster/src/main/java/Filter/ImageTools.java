@@ -1,6 +1,7 @@
 package Filter;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class ImageTools {
@@ -80,5 +81,13 @@ public class ImageTools {
 			}
 		};
 		return ImageProcessor.modifyPixels(b, ef, layer);
+	}
+	
+	public static BufferedImage copyImage(BufferedImage source){
+	    BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_INT_ARGB);
+	    Graphics g = b.getGraphics();
+	    g.drawImage(source, 0, 0, null);
+	    g.dispose();
+	    return b;
 	}
 }
