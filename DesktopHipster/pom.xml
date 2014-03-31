@@ -5,4 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Desktop Hipster</name>
   <description>Desktop software for managing picture, applying basic filters and upload social media sites.</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.tumblr</groupId>
+  		<artifactId>jumblr</artifactId>
+  		<version>0.0.8</version>
+  	</dependency>
+  </dependencies>
 </project>
