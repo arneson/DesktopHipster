@@ -1,9 +1,3 @@
-/**
- * Image class extending BufferedImage for having preview and thumbnail sized versions.
- * 
- * @author Edvard Hübinette
- */
-
 package model;
 
 import java.awt.Graphics;
@@ -12,9 +6,17 @@ import java.awt.image.BufferedImage;
 import java.util.TreeMap;
 import javax.swing.ImageIcon;
 
+/**
+ * Image class extending BufferedImage for having preview and thumbnail sized versions.
+ * 
+ * @author Edvard Hübinette
+ */
 public class ExtendedImage extends BufferedImage {
 
-	private BufferedImage preview, thumbnail;
+	private BufferedImage preview;
+	private BufferedImage thumbnail;
+	
+	// Map for managing image edit versions
 	private TreeMap<String, BufferedImage> versions = new TreeMap<String, BufferedImage>();
 	// Needed?
 	// private Path pathToFile;
