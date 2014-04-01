@@ -12,6 +12,7 @@ public class Model {
 	private PropertyChangeSupport pcs;
 	//private Library library = new Library();
 	//private DdBox ddBox = new DdBox();
+	private ExtendedImage activeImage;
 	private IHost[] hosts;
 	private Filter[] filters;
 	
@@ -30,5 +31,12 @@ public class Model {
 	
 	public void changeCardView(View.SubView sv) {
 		pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, sv);
+	}
+	public void setActiveImage(ExtendedImage newImage){
+		activeImage=newImage;
+		pcs.firePropertyChange(PropertyNames.ACTIVE_IMAGE_CHANGED_EVENT, null, activeImage);
+	}
+	public ExtendedImage getActiveImage(){
+		return activeImage;
 	}
 }
