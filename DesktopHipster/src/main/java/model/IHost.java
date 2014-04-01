@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.image.BufferedImage;
+
 public interface IHost {
-	public void uploadImage(ExtendedImage image);
+	public boolean uploadImage(BufferedImage image);
 }

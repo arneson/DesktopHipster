@@ -16,5 +16,10 @@ public class DesktopHipster {
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")
 		DesktopHipster dh = new DesktopHipster();
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+		    public void run() { 
+		    	System.out.println("Shutdown hook!");
+		    }
+		});
 	}
 }

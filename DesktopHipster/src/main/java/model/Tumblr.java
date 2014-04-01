@@ -1,10 +1,13 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
 import javax.imageio.ImageIO;
+
+import org.scribe.exceptions.OAuthConnectionException;
 
 import com.tumblr.jumblr.JumblrClient;
 import com.tumblr.jumblr.types.Blog;
@@ -23,16 +26,15 @@ public class Tumblr implements IHost {
 		  "axzIbckazyEegTEcxfMC9PxYvw9I3wxJZohAabAz5uRubK7dCm",
 		  "S6udACXRQQ7xb3ihAlt7MLHQsVUQ8i60doMjmZM4J3L2qkPASF"
 		);
+
 		client.setToken(
 		  "06knuERQ7Mcw6t4hxAgula4aZI2NjfNju3ZyuCQFuM9kgsVdds",
 		  "6VeVPyAITqWk1v52VV0n6d1PggTDhKKtv0t5vH97RCnDXpxqxu"
 		);
-
-		// Do we need user-based information?
 		user = client.user();
 	}
 	
-	public void uploadImage(ExtendedImage image) {
+	public boolean uploadImage(BufferedImage image) {
 		File file = new File("/tmp/DHtmp");
 		try {
 			ImageIO.write(image, "jpg", file);
@@ -45,9 +47,11 @@ public class Tumblr implements IHost {
 		try {
 			post = blog.newPost(PhotoPost.class);
 		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
+			// This should really not happen
+			System.out.println("Boom1");
 		} catch (InstantiationException e1) {
-			e1.printStackTrace();
+			// This should really not happen
+			System.out.println("Boom2");
 		}
 		
 		post.setPhoto(new Photo(file));
@@ -57,9 +61,11 @@ public class Tumblr implements IHost {
 		try {
 			post.save();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// This should really not happen
 			e.printStackTrace();
 		}
-		file.delete();
+		// Needed?
+		//file.delete();
+		return false;
 	}
 }

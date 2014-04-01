@@ -42,7 +42,7 @@ public class ExtendedImage extends BufferedImage {
 	public void addVersion(String filterName, BufferedImage image){
 		versions.put(filterName, image);
 	}
-	
+
 	/**
 	 * Gets a version of the image with a specific filter
 	 * 
@@ -57,7 +57,7 @@ public class ExtendedImage extends BufferedImage {
 			throw new NoSuchVersionException();
 		}
 	}
-	
+
 	/**
 	 * Returns a smaller version of the image
 	 * 
@@ -66,7 +66,7 @@ public class ExtendedImage extends BufferedImage {
 	public BufferedImage getPreview(){
 		return preview;
 	}
-	
+
 	/**
 	 * Returns a small version of the image
 	 * 
