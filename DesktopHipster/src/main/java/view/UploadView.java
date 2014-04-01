@@ -1,4 +1,4 @@
-package GUI;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +8,7 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
 
-import MVC.PropertyNames;
-import MVC.View;
+import General.PropertyNames;
 
 @SuppressWarnings("serial")
 public class UploadView extends JPanel implements PropertyChangeListener {

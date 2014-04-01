@@ -41,6 +41,7 @@ public class Tumblr implements IHost {
 		}
 		Blog blog = user.getBlogs().get(0);
 		PhotoPost post = null;
+		
 		try {
 			post = blog.newPost(PhotoPost.class);
 		} catch (IllegalAccessException e1) {
@@ -48,6 +49,7 @@ public class Tumblr implements IHost {
 		} catch (InstantiationException e1) {
 			e1.printStackTrace();
 		}
+		
 		post.setPhoto(new Photo(file));
 		post.setClient(client);
 		post.setDate(Calendar.getInstance().getTime());

@@ -1,4 +1,4 @@
-package MVC;
+package view;
 
 import java.awt.CardLayout;
 import java.awt.GridLayout;
@@ -8,7 +8,8 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
 
-import GUI.*;
+import view.*;
+import General.PropertyNames;
 
 @SuppressWarnings("serial")
 public class View extends JFrame implements PropertyChangeListener {

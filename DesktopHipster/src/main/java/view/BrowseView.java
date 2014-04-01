@@ -1,4 +1,4 @@
-package GUI;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,17 +8,16 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
 
-import MVC.PropertyNames;
-import MVC.View;
+import General.PropertyNames;
 
 @SuppressWarnings("serial")
-public class EditView extends JPanel implements PropertyChangeListener {
+public class BrowseView extends JPanel implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 	
 	private JButton proceedButton;
 	private JLabel desc;
 	
-	public EditView(PropertyChangeSupport pcs) {
+	public BrowseView(PropertyChangeSupport pcs) {
 		super();
 		initialize();
 		this.pcs = pcs;
@@ -26,22 +25,21 @@ public class EditView extends JPanel implements PropertyChangeListener {
 	
 	public void initialize() {
 		proceedButton = new JButton("proceed");
-		desc = new JLabel("EditView");
+		desc = new JLabel("BrowseView");
 		
 		add(proceedButton);
 		add(desc);
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.UPLOAD);
+				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.EDIT);
 			}
 		});
 		
-		setBackground(java.awt.Color.green);
+		setBackground(java.awt.Color.blue);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		
 	}
-	
 }

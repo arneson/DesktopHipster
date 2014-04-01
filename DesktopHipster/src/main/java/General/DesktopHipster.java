@@ -1,6 +1,8 @@
 package General;
 
-import MVC.*;
+import controller.Controller;
+import view.View;
+import model.Model;
 
 public class DesktopHipster {
 	public DesktopHipster() {

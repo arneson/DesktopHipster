@@ -1,7 +1,11 @@
-package MVC;
+package controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import General.PropertyNames;
+import view.View;
+import model.Model;
 
 public class Controller implements PropertyChangeListener {
 	private Model model;

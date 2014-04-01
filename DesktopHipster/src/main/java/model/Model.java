@@ -1,7 +1,11 @@
-package MVC;
+package model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
+import view.View;
+import view.View.SubView;
+import General.PropertyNames;
 
 public class Model {
 	private PropertyChangeSupport pcs;
