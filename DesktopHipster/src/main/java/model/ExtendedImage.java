@@ -4,12 +4,16 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.TreeMap;
+
 import javax.swing.ImageIcon;
+
+import filter.*;
 
 /**
  * Image class extending BufferedImage for having preview and thumbnail sized versions.
  * 
- * @author Edvard Hübinette
+ * @author Edvard Hubinette
+ * @revised by Simon Arneson
  */
 public class ExtendedImage extends BufferedImage {
 
@@ -17,7 +21,7 @@ public class ExtendedImage extends BufferedImage {
 	private BufferedImage thumbnail;
 	
 	// Map for managing image edit versions
-	private TreeMap<String, BufferedImage> versions = new TreeMap<String, BufferedImage>();
+	private TreeMap<FiltersEnum, BufferedImage> versions = new TreeMap<FiltersEnum, BufferedImage>();
 	// Needed?
 	// private Path pathToFile;
 	
@@ -39,7 +43,7 @@ public class ExtendedImage extends BufferedImage {
 	 * @param filterName The name of the filter used
 	 * @param image The edited image to stash
 	 */
-	public void addVersion(String filterName, BufferedImage image){
+	public void addVersion(FiltersEnum filterName, BufferedImage image){
 		versions.put(filterName, image);
 	}
 
@@ -50,7 +54,7 @@ public class ExtendedImage extends BufferedImage {
 	 * @return The edited image to stash
 	 * @throws NoSuchVersionException Image version with that filter does not exist
 	 */
-	public BufferedImage getVersion(String filterName) throws NoSuchVersionException{
+	public BufferedImage getVersion(FiltersEnum filterName) throws NoSuchVersionException{
 		if(versions.containsKey(filterName)){
 			return versions.get(filterName);
 		}else{
@@ -65,6 +69,9 @@ public class ExtendedImage extends BufferedImage {
 	 */
 	public BufferedImage getPreview(){
 		return preview;
+	}
+	public void setPreview(BufferedImage newPreview){
+		preview=newPreview;
 	}
 
 	/**

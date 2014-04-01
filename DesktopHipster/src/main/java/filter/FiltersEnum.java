@@ -2,8 +2,8 @@ package filter;
 
 public enum FiltersEnum {
 
-	BWFILTER (new BlackWhiteFilter());
-	
+	BWFILTER (new BlackWhiteFilter()),
+	SEPIAFILTER (new SepiaFilter());
 	
 	private IFilter filter;
 	private FiltersEnum(IFilter filter){

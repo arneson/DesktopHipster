@@ -1,9 +1,12 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.TreeMap;
 
 import filter.Filter;
+import filter.FiltersEnum;
 import view.View;
 import view.View.SubView;
 import General.PropertyNames;
@@ -13,8 +16,10 @@ public class Model {
 	//private Library library = new Library();
 	//private DdBox ddBox = new DdBox();
 	private ExtendedImage activeImage;
+	private FiltersEnum activeFilter;
 	private IHost[] hosts;
-	private Filter[] filters;
+	//private Filter[] filters;
+	private TreeMap<String, BufferedImage> filters = new TreeMap<String, BufferedImage>();
 	
 	public Model() {
 		pcs = new PropertyChangeSupport(this);
@@ -38,5 +43,13 @@ public class Model {
 	}
 	public ExtendedImage getActiveImage(){
 		return activeImage;
+	}
+
+	public FiltersEnum getActiveFilter() {
+		return activeFilter;
+	}
+
+	public void setActiveFilter(FiltersEnum activeFilter) {
+		this.activeFilter = activeFilter;
 	}
 }
