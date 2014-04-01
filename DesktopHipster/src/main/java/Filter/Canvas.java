@@ -1,4 +1,4 @@
-package Filter;
+package filter;
 import javax.swing.*;
 
 import java.awt.*;

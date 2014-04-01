@@ -1,4 +1,4 @@
-package Filter;
+package filter;
 
 import java.awt.image.BufferedImage;
 

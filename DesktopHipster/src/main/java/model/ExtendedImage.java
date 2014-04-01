@@ -27,9 +27,9 @@ public class ExtendedImage extends BufferedImage {
 		image.paintIcon(null, g, 0, 0);
 		g.dispose();
 				
-		preview =  Filter.ImageTools.toBufferedImage(getScaledInstance(600, -1, Image.SCALE_SMOOTH));
+		preview =  filter.ImageTools.toBufferedImage(getScaledInstance(600, -1, Image.SCALE_SMOOTH));
 		
-		thumbnail = Filter.ImageTools.toBufferedImage(getScaledInstance(100, -1, Image.SCALE_FAST));
+		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(100, -1, Image.SCALE_FAST));
 		
 	}
 	
