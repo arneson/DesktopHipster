@@ -2,6 +2,13 @@ package filter;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * This class loops through all the pixels in the 
+ * given image and applies the given IModify to it.
+ * 
+ * @author Robin Sveningson
+ *
+ */
 public class ImageProcessor {
 	
 	public static BufferedImage modifyPixels(BufferedImage b, IModify m) {

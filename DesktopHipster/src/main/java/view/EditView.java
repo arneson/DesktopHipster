@@ -16,6 +16,13 @@ import filter.FiltersEnum;
 import model.ExtendedImage;
 import General.PropertyNames;
 
+/**
+ * The edit view is a card that is used by the View.java. The edit
+ * view is the stage where the user edits his/hers image.
+ * 
+ * @author Robin Sveningson
+ *	
+ */
 @SuppressWarnings("serial")
 public class EditView extends JPanel implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;

@@ -1,5 +1,12 @@
 package General;
 
+/**
+ * This class contains property names that will be used by
+ * the PropertyChangeSupports/Listeners in the application.
+ * 
+ * @author Robin Sveningson
+ *	
+ */
 public class PropertyNames {
 	public static final String CHANGE_CARD_VIEW = "CHANGE_CARD_VIEW";
 	public static final String OPEN_FILE_EVENT = "OPEN_FILE_EVENT";

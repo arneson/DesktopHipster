@@ -13,6 +13,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import General.PropertyNames;
 
+
+/**
+ * One of the cards used in View.java. This jPanel represents
+ * the browse view where the user browses all of his/hers 
+ * images.
+ * 
+ * @author Robin Sveningson
+ *
+ */
 @SuppressWarnings("serial")
 public class BrowseView extends JPanel implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;

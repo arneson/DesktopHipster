@@ -4,6 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * This class is used by the filter test class only. It is
+ * made to containt the library logic aswell as display 
+ * different images. 
+ * 
+ * @author Robin Sveningson
+ *
+ */
 @SuppressWarnings("serial")
 public class Canvas extends JPanel{
 	private BufferedImage filter;

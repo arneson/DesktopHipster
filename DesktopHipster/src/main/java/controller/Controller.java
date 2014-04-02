@@ -15,6 +15,14 @@ import model.IHost;
 import model.Model;
 import model.NoSuchVersionException;
 
+/**
+ * The controller is a part of the MVC. It will listen
+ * to events from the View and then tell the model how
+ * to react.
+ * 
+ * @author Robin Sveningson
+ *
+ */
 public class Controller implements PropertyChangeListener {
 	private Model model;
 

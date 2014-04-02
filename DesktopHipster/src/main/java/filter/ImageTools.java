@@ -6,6 +6,13 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+/**
+ * This class contains all the different tools that can be used
+ * on an image. 
+ * 
+ * @author Robin Sveningson
+ *
+ */
 public class ImageTools {
 	public static BufferedImage applyGrayscale(BufferedImage b) {
 		IModify ef = new IModify() {

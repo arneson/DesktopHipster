@@ -5,12 +5,18 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.TreeMap;
 
-import filter.Filter;
 import filter.FiltersEnum;
 import view.View;
 import view.View.SubView;
 import General.PropertyNames;
 
+/**
+ * The model class is a part of the MVC. The model
+ * contains the application's logic.
+ * 
+ * @author Robin Sveningson
+ *	
+ */
 public class Model {
 	private PropertyChangeSupport pcs;
 	//private Library library = new Library();

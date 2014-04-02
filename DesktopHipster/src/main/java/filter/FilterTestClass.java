@@ -9,6 +9,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * This class is written only to test the different filters.
+ * The code is not pretty because it isn't supposed to be
+ * a part of the final product.
+ * 
+ * @author Robin Sveningson
+ *
+ */
 @SuppressWarnings("serial")
 public class FilterTestClass extends JFrame {
 	private JPanel actionPanel;
@@ -72,12 +80,7 @@ public class FilterTestClass extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				//canvas.setFilterImage(ImageTools.applyInvertedGrayscale(canvas.getOriginalImage()));
 				//canvas.setFilterImage(ImageTools.applyEnhancedColors(canvas.getOriginalImage()));
-				ImageIcon oldImageIcon = new ImageIcon(getClass().getResource("/OldImageLayer.jpg"));
-				BufferedImage oldImageLayer = new BufferedImage(oldImageIcon.getIconWidth(),oldImageIcon.getIconHeight(),
-						BufferedImage.TYPE_INT_ARGB);
-				Graphics g = oldImageLayer.createGraphics();
-				oldImageIcon.paintIcon(null, g, 0, 0);
-				canvas.setFilterImage(Filter.oldImage(canvas.getOriginalImage(), oldImageLayer));
+				canvas.setFilterImage(ImageTools.applyInvertedGrayscale(canvas.getOriginalImage()));
 			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}
