@@ -19,7 +19,7 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 	
 	private JButton proceedButton;
 	private JLabel desc;
-	private JButton imageButton;
+	private JButton chooseImageButton;
 	private final JFileChooser jfc = new JFileChooser();
 	
 	public BrowseView(PropertyChangeSupport pcs) {
@@ -32,12 +32,12 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 		proceedButton = new JButton("proceed");
 		proceedButton.setEnabled(false);
 		desc = new JLabel("BrowseView");
-		imageButton = new JButton("Choose image");
+		chooseImageButton = new JButton("Choose image");
 		jfc.setAcceptAllFileFilterUsed(false);
 		jfc.addChoosableFileFilter(new FileNameExtensionFilter(
 				"Image files", ImageIO.getReaderFileSuffixes()));
 		
-		add(imageButton);
+		add(chooseImageButton);
 		add(proceedButton);
 		add(desc);
 		
@@ -46,13 +46,12 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.EDIT);
 			}
 		});
-		imageButton.addActionListener(new ActionListener(){
+		chooseImageButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//TODO needs parent later
 				int returnVal = jfc.showOpenDialog(null);
 				if(returnVal==JFileChooser.APPROVE_OPTION){
 					pcs.firePropertyChange(PropertyNames.OPEN_FILE_EVENT,null,jfc.getSelectedFile());
-					proceedButton.setEnabled(true);
 				}
 			}
 		});
@@ -61,6 +60,10 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		
+		switch(evt.getPropertyName()){
+		case PropertyNames.ACTIVE_IMAGE_CHANGED_EVENT:
+			proceedButton.setEnabled(true);
+			break;
+		}
 	}
 }

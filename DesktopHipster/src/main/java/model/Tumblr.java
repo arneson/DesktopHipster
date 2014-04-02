@@ -37,7 +37,7 @@ public class Tumblr implements IHost {
 	public boolean uploadImage(BufferedImage image) {
 		File file = new File("/tmp/DHtmp");
 		try {
-			ImageIO.write(image, "jpg", file);
+			ImageIO.write(image, "png", file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
