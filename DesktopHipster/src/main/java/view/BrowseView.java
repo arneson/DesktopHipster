@@ -5,17 +5,31 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import General.PropertyNames;
 
+
+/**
+ * One of the cards used in View.java. This jPanel represents
+ * the browse view where the user browses all of his/hers 
+ * images.
+ * 
+ * @author Robin Sveningson
+ *
+ */
 @SuppressWarnings("serial")
 public class BrowseView extends JPanel implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 	
 	private JButton proceedButton;
 	private JLabel desc;
+	private JButton chooseImageButton;
+	private final JFileChooser jfc = new JFileChooser();
 	
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
@@ -25,8 +39,14 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 	
 	public void initialize() {
 		proceedButton = new JButton("proceed");
+		proceedButton.setEnabled(false);
 		desc = new JLabel("BrowseView");
+		chooseImageButton = new JButton("Choose image");
+		jfc.setAcceptAllFileFilterUsed(false);
+		jfc.addChoosableFileFilter(new FileNameExtensionFilter(
+				"Image files", ImageIO.getReaderFileSuffixes()));
 		
+		add(chooseImageButton);
 		add(proceedButton);
 		add(desc);
 		
@@ -35,11 +55,24 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.EDIT);
 			}
 		});
+		chooseImageButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				//TODO needs parent later
+				int returnVal = jfc.showOpenDialog(null);
+				if(returnVal==JFileChooser.APPROVE_OPTION){
+					pcs.firePropertyChange(PropertyNames.OPEN_FILE_EVENT,null,jfc.getSelectedFile());
+				}
+			}
+		});
 		
 		setBackground(java.awt.Color.blue);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		
+		switch(evt.getPropertyName()){
+		case PropertyNames.ACTIVE_IMAGE_CHANGED_EVENT:
+			proceedButton.setEnabled(true);
+			break;
+		}
 	}
 }

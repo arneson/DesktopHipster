@@ -11,6 +11,14 @@ import javax.swing.*;
 import view.*;
 import General.PropertyNames;
 
+/**
+ * The View is part of the MVC. It is the main frame
+ * that the application will use. The view will contain the 
+ * cards that are the different states of the program. 
+ * 
+ * @author Robin Sveningson
+ *	
+ */
 @SuppressWarnings("serial")
 public class View extends JFrame implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;

@@ -1,23 +1,82 @@
 package controller;
 
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
+import javax.swing.ImageIcon;
+
+import filter.FiltersEnum;
 import General.PropertyNames;
 import view.View;
+import model.ExtendedImage;
+import model.IHost;
 import model.Model;
+import model.NoSuchVersionException;
 
+/**
+ * The controller is a part of the MVC. It will listen
+ * to events from the View and then tell the model how
+ * to react.
+ * 
+ * @author Robin Sveningson
+ *
+ */
 public class Controller implements PropertyChangeListener {
 	private Model model;
-	
+
 	public Controller(Model model) {
 		this.model = model;
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		String name = evt.getPropertyName();
-		if(name.equals(PropertyNames.CHANGE_CARD_VIEW)) {
-			model.changeCardView((View.SubView)evt.getNewValue());
+
+		switch (name) {
+		case PropertyNames.CHANGE_CARD_VIEW:
+			model.changeCardView((View.SubView) evt.getNewValue());
+			break;
+		case PropertyNames.OPEN_FILE_EVENT:
+			File file = (File) evt.getNewValue();
+			model.setActiveImage(new ExtendedImage(new ImageIcon(file
+					.getAbsolutePath())));
+			break;
+		case PropertyNames.ACTIVE_FILTER_CHANGED_EVENT:
+			ExtendedImage tempImg = model.getActiveImage();
+			tempImg.setPreview(((FiltersEnum) evt.getNewValue()).getFilter()
+					.applyFilter(tempImg.getPreview()));
+			model.setActiveImage(tempImg);
+			model.setActiveFilter((FiltersEnum) evt.getNewValue());
+			// System.out.println("APPLY FILTER TO PREVIEW");
+			break;
+		case PropertyNames.APPLY_ACTIVE_FILTER:
+			FiltersEnum activeFilterName = model.getActiveFilter();
+			if (activeFilterName != null) {
+				model.getActiveImage().addVersion(
+						activeFilterName,
+						activeFilterName.getFilter().applyFilter(
+								model.getActiveImage()));
+			}
+			break;
+		case PropertyNames.UPLOAD_ACTIVE_IMAGE:
+			IHost chosenHost = (IHost) evt.getNewValue();
+			try {
+				BufferedImage imageToUpload;
+				if (model.getActiveFilter() != null) {
+					imageToUpload = model.getActiveImage().getVersion(
+							model.getActiveFilter());
+
+				} else {
+					imageToUpload = model.getActiveImage();
+				}
+				chosenHost.uploadImage(imageToUpload);
+
+			} catch (NoSuchVersionException e) {
+				// Should be impossible
+				System.out
+						.println("Good job, send us an email on how you managed!");
+			}
 		}
 	}
 }
