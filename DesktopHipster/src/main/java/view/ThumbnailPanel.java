@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 
@@ -13,20 +14,28 @@ import java.awt.image.BufferedImage;
  */
 @SuppressWarnings("serial")
 public class ThumbnailPanel extends JPanel {
-	private ThumbnailCanvas canvas;
+	private final int borderSize = 2;
 	
-	public ThumbnailPanel(BufferedImage image) {
+	public ThumbnailPanel(BufferedImage image, int width) {
 		super();
-		initialize(image);
+		initialize(image, width);
 	}
 	
-	private void initialize(BufferedImage image) {
-		canvas = new ThumbnailCanvas(image);
-		canvas.setOpaque(true);
+	private void initialize(final BufferedImage image, int width) {
+		JLabel canvas = new JLabel(new ImageIcon(image));
 		
-		setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		width -= borderSize * 2;
+		
+		setPreferredSize(new Dimension(width, getScaledHeight(image, width)));
+		setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize, borderSize, borderSize));
 		setBackground(java.awt.Color.gray);
 		setLayout(new GridLayout(1,1));
 		add(canvas);
+	}
+	
+	private int getScaledHeight(BufferedImage image, int width) {
+		double widthHeightRatio = image.getWidth() / image.getHeight();
+		double height = width / widthHeightRatio;
+		return (int)Math.round(height);
 	}
 }

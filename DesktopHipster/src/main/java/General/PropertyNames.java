@@ -14,4 +14,5 @@ public class PropertyNames {
 	public static final String ACTIVE_FILTER_CHANGED_EVENT = "ACTIVE_FILTER_CHANGED_EVENT";
 	public static final String UPLOAD_ACTIVE_IMAGE = "UPLOAD_ACTIVE_IMAGE";
 	public static final String APPLY_ACTIVE_FILTER = "APPLY_ACTIVE_FILTER";
+	public static final String MAIN_FRAME_RESIZE = "MAIN_FRAME_RESIZE";
 }
