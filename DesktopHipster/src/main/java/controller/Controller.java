@@ -40,22 +40,22 @@ public class Controller implements PropertyChangeListener {
 		String name = evt.getPropertyName();
 
 		switch (name) {
-		case PropertyNames.CONTROLL_REQUEST_CARD_CHANGE:
+		case PropertyNames.VIEW_REQUEST_CARD_CHANGE:
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
-		case PropertyNames.CONTROLL_OPEN_FILE_CLICKED:
+		case PropertyNames.VIEW_OPEN_FILE_CLICKED:
 			File file = (File) evt.getNewValue();
 			model.setActiveImage(new ExtendedImage(new ImageIcon(file
 					.getAbsolutePath())));
 			break;
-		case PropertyNames.CONTROLL_ACTIVE_FILTER_CHANGE:
+		case PropertyNames.VIEW_ACTIVE_FILTER_CHANGE:
 			ExtendedImage tempImg = model.getActiveImage();
 			tempImg.setPreview(((FiltersEnum) evt.getNewValue()).getFilter()
 					.applyFilter(tempImg.getPreview()));
 			model.setActiveImage(tempImg);
 			model.setActiveFilter((FiltersEnum) evt.getNewValue());
 			break;
-		case PropertyNames.CONTROLL_APPLY_FILTER:
+		case PropertyNames.VIEW_APPLY_FILTER:
 			FiltersEnum activeFilterName = model.getActiveFilter();
 			if (activeFilterName != null) {
 				model.getActiveImage().addVersion(
@@ -65,7 +65,7 @@ public class Controller implements PropertyChangeListener {
 				model.changeCardView(View.SubView.UPLOAD);
 			}
 			break;
-		case PropertyNames.CONTROLL_UPLOAD_ACTIVE_IMAGE:
+		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
 			try {
 				BufferedImage imageToUpload;

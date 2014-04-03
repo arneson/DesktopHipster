@@ -70,7 +70,7 @@ public class View extends JFrame implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		pcs.firePropertyChange(evt);
 		String name = evt.getPropertyName();
-		if(name.equals(PropertyNames.VIEW_CARD_CHANGE)) {
+		if(name.equals(PropertyNames.MODEL_CARD_CHANGE)) {
 			updateVisibleCard(((SubView)evt.getNewValue()).toString());
 		}
 	}

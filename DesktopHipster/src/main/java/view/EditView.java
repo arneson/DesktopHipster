@@ -33,7 +33,7 @@ public class EditView extends JPanel implements PropertyChangeListener {
 	private Canvas canvas;
 	private ActionListener filterButtonClick = new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
-			pcs.firePropertyChange(PropertyNames.CONTROLL_ACTIVE_FILTER_CHANGE, null, 
+			pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_FILTER_CHANGE, null, 
 					((FilterButton)e.getSource()).getFilter());
 			/*pcs.firePropertyChange(PropertyNames.REQUEST_CHANGE_CARD_VIEW, null, 
 					((FilterButton)e.getSource()).getFilter());*/
@@ -66,7 +66,7 @@ public class EditView extends JPanel implements PropertyChangeListener {
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.CONTROLL_APPLY_FILTER, null, null);
+				pcs.firePropertyChange(PropertyNames.VIEW_APPLY_FILTER, null, null);
 			}
 		});
 		blackWhiteFilterButton.addActionListener(filterButtonClick);
@@ -81,7 +81,7 @@ public class EditView extends JPanel implements PropertyChangeListener {
 		String name = evt.getPropertyName();
 
 		switch(name){
-		case PropertyNames.VIEW_ACTIVE_IMAGE_CHANGE:
+		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
 			canvas.setFilterImage(((ExtendedImage)evt.getNewValue()).getPreview());
 			revalidate();
 			repaint();

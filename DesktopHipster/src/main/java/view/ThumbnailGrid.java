@@ -62,7 +62,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals(PropertyNames.VIEW_MAIN_FRAME_RESIZE)) {
+		if(evt.getPropertyName().equals(PropertyNames.MODEL_MAIN_FRAME_RESIZE)) {
 			updateGrid();
 		}
 	}

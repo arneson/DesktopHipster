@@ -70,7 +70,7 @@ public class GridTest extends JFrame {
 		addComponentListener(new ComponentListener(){
 			@Override
 			public void componentResized(ComponentEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_MAIN_FRAME_RESIZE, null, null);
+				pcs.firePropertyChange(PropertyNames.MODEL_MAIN_FRAME_RESIZE, null, null);
 			}
 			@Override
 			public void componentMoved(ComponentEvent e) {}
