@@ -25,9 +25,14 @@ import model.NoSuchVersionException;
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;
+	private View view;
 
-	public Controller(Model model) {
-		this.model = model;
+	public Controller() {
+		view = new View();
+		model = new Model();
+		
+		view.addPropertyChangeListener(this);
+		model.addPropertyChangeListener(view);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
