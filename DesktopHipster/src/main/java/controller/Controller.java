@@ -36,35 +36,36 @@ public class Controller implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
+		System.out.println("Controller recieved: " + evt.getPropertyName());
 		String name = evt.getPropertyName();
 
 		switch (name) {
-		case PropertyNames.CHANGE_CARD_VIEW:
+		case PropertyNames.CONTROLL_REQUEST_CARD_CHANGE:
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
-		case PropertyNames.OPEN_FILE_EVENT:
+		case PropertyNames.CONTROLL_OPEN_FILE_CLICKED:
 			File file = (File) evt.getNewValue();
 			model.setActiveImage(new ExtendedImage(new ImageIcon(file
 					.getAbsolutePath())));
 			break;
-		case PropertyNames.ACTIVE_FILTER_CHANGED_EVENT:
+		case PropertyNames.CONTROLL_ACTIVE_FILTER_CHANGE:
 			ExtendedImage tempImg = model.getActiveImage();
 			tempImg.setPreview(((FiltersEnum) evt.getNewValue()).getFilter()
 					.applyFilter(tempImg.getPreview()));
 			model.setActiveImage(tempImg);
 			model.setActiveFilter((FiltersEnum) evt.getNewValue());
-			// System.out.println("APPLY FILTER TO PREVIEW");
 			break;
-		case PropertyNames.APPLY_ACTIVE_FILTER:
+		case PropertyNames.CONTROLL_APPLY_FILTER:
 			FiltersEnum activeFilterName = model.getActiveFilter();
 			if (activeFilterName != null) {
 				model.getActiveImage().addVersion(
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
 								model.getActiveImage()));
+				model.changeCardView(View.SubView.UPLOAD);
 			}
 			break;
-		case PropertyNames.UPLOAD_ACTIVE_IMAGE:
+		case PropertyNames.CONTROLL_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
 			try {
 				BufferedImage imageToUpload;

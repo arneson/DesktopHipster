@@ -3,11 +3,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.File;
 
 import javax.swing.*;
 
@@ -35,8 +33,10 @@ public class EditView extends JPanel implements PropertyChangeListener {
 	private Canvas canvas;
 	private ActionListener filterButtonClick = new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
-			pcs.firePropertyChange(PropertyNames.ACTIVE_FILTER_CHANGED_EVENT, null, 
+			pcs.firePropertyChange(PropertyNames.CONTROLL_ACTIVE_FILTER_CHANGE, null, 
 					((FilterButton)e.getSource()).getFilter());
+			/*pcs.firePropertyChange(PropertyNames.REQUEST_CHANGE_CARD_VIEW, null, 
+					((FilterButton)e.getSource()).getFilter());*/
 		}
 	};
 	
@@ -66,8 +66,7 @@ public class EditView extends JPanel implements PropertyChangeListener {
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.APPLY_ACTIVE_FILTER, null, null);
-				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.UPLOAD);
+				pcs.firePropertyChange(PropertyNames.CONTROLL_APPLY_FILTER, null, null);
 			}
 		});
 		blackWhiteFilterButton.addActionListener(filterButtonClick);
@@ -82,7 +81,7 @@ public class EditView extends JPanel implements PropertyChangeListener {
 		String name = evt.getPropertyName();
 
 		switch(name){
-		case PropertyNames.ACTIVE_IMAGE_CHANGED_EVENT:
+		case PropertyNames.VIEW_ACTIVE_IMAGE_CHANGE:
 			canvas.setFilterImage(((ExtendedImage)evt.getNewValue()).getPreview());
 			revalidate();
 			repaint();

@@ -7,7 +7,6 @@ import java.util.TreeMap;
 
 import filter.FiltersEnum;
 import view.View;
-import view.View.SubView;
 import General.PropertyNames;
 
 /**
@@ -41,11 +40,11 @@ public class Model {
 	}
 	
 	public void changeCardView(View.SubView sv) {
-		pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, sv);
+		pcs.firePropertyChange(PropertyNames.VIEW_CARD_CHANGE, null, sv);
 	}
 	public void setActiveImage(ExtendedImage newImage){
 		activeImage=newImage;
-		pcs.firePropertyChange(PropertyNames.ACTIVE_IMAGE_CHANGED_EVENT, null, activeImage);
+		pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_IMAGE_CHANGE, null, activeImage);
 	}
 	public ExtendedImage getActiveImage(){
 		return activeImage;

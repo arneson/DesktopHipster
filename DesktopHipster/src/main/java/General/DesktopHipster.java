@@ -1,8 +1,6 @@
 package General;
 
 import controller.Controller;
-import view.View;
-import model.Model;
 
 /**
  * This class contains the main method that will run the
@@ -15,6 +13,7 @@ import model.Model;
  */
 public class DesktopHipster {
 	public DesktopHipster() {
+		@SuppressWarnings("unused")
 		Controller c = new Controller();
 	}
 	public static void main(String[] args) {

@@ -8,11 +8,13 @@ package General;
  *	
  */
 public class PropertyNames {
-	public static final String CHANGE_CARD_VIEW = "CHANGE_CARD_VIEW";
-	public static final String OPEN_FILE_EVENT = "OPEN_FILE_EVENT";
-	public static final String ACTIVE_IMAGE_CHANGED_EVENT = "ACTIVE_FILE_CHANGED_EVENT";
-	public static final String ACTIVE_FILTER_CHANGED_EVENT = "ACTIVE_FILTER_CHANGED_EVENT";
-	public static final String UPLOAD_ACTIVE_IMAGE = "UPLOAD_ACTIVE_IMAGE";
-	public static final String APPLY_ACTIVE_FILTER = "APPLY_ACTIVE_FILTER";
-	public static final String MAIN_FRAME_RESIZE = "MAIN_FRAME_RESIZE";
+	public static final String CONTROLL_REQUEST_CARD_CHANGE = "CONTROLL_REQUEST_CARD_CHANGE";
+	public static final String CONTROLL_OPEN_FILE_CLICKED = "CONTROLL_OPEN_FILE_CLICKED";
+	public static final String CONTROLL_ACTIVE_FILTER_CHANGE = "CONTROLL_ACTIVE_FILTER_CHANGE";
+	public static final String CONTROLL_APPLY_FILTER = "CONTROLL_APPLY_FILTER";
+	public static final String CONTROLL_UPLOAD_ACTIVE_IMAGE = "CONTROLL_UPLOAD_ACTIVE_IMAGE";
+	
+	public static final String VIEW_CARD_CHANGE = "VIEW_CARD_CHANGE";
+	public static final String VIEW_ACTIVE_IMAGE_CHANGE = "VIEW_ACTIVE_IMAGE_CHANGE";
+	public static final String VIEW_MAIN_FRAME_RESIZE = "VIEW_MAIN_FRAME_RESIZE";
 }

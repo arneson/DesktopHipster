@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -52,7 +51,7 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.EDIT);
+				pcs.firePropertyChange(PropertyNames.CONTROLL_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);
 			}
 		});
 		chooseImageButton.addActionListener(new ActionListener(){
@@ -60,7 +59,7 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 				//TODO needs parent later
 				int returnVal = jfc.showOpenDialog(null);
 				if(returnVal==JFileChooser.APPROVE_OPTION){
-					pcs.firePropertyChange(PropertyNames.OPEN_FILE_EVENT,null,jfc.getSelectedFile());
+					pcs.firePropertyChange(PropertyNames.CONTROLL_OPEN_FILE_CLICKED,null,jfc.getSelectedFile());
 				}
 			}
 		});
@@ -70,7 +69,7 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch(evt.getPropertyName()){
-		case PropertyNames.ACTIVE_IMAGE_CHANGED_EVENT:
+		case PropertyNames.VIEW_ACTIVE_IMAGE_CHANGE:
 			proceedButton.setEnabled(true);
 			break;
 		}

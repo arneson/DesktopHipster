@@ -44,12 +44,12 @@ public class UploadView extends JPanel implements PropertyChangeListener {
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.BROWSE);
+				pcs.firePropertyChange(PropertyNames.CONTROLL_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
 			}
 		});
 		tumblrButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.UPLOAD_ACTIVE_IMAGE, null, new Tumblr());
+				pcs.firePropertyChange(PropertyNames.CONTROLL_UPLOAD_ACTIVE_IMAGE, null, new Tumblr());
 			}
 		});
 		
