@@ -36,7 +36,6 @@ public class Controller implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		System.out.println("Controller recieved: " + evt.getPropertyName());
 		String name = evt.getPropertyName();
 
 		switch (name) {

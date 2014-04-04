@@ -23,14 +23,14 @@ import filter.ImageTools;
 public class FilterTestClass extends JFrame {
 	private JPanel actionPanel;
 	private JButton orig, grayscale, sepia, invertedGrayscale, external;
-	private Canvas canvas;
+	private FilterTestCanvas canvas;
 	
 	public FilterTestClass() throws IOException {
 		initialize();	
 	}
 	
 	private void initialize() {
-		canvas = new Canvas();
+		canvas = new FilterTestCanvas();
 		actionPanel = new JPanel();
 		
 		actionPanel.setPreferredSize(new Dimension(0, 50));

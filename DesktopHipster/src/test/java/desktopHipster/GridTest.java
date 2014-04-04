@@ -45,32 +45,10 @@ public class GridTest extends JFrame {
 		g.setColor(Color.yellow);
 		g.fillRect(0, 0, 1000, 1000);
 		
-		List<BufferedImage> list = new ArrayList<BufferedImage>() {{
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-		}};
+		List<BufferedImage> list = new ArrayList<BufferedImage>();
+		for(int i = 0; i < 20; i++) {
+			list.add(image);
+		}
 		grid.setThumbnails(list);
 		
 		pcs = new PropertyChangeSupport(this);

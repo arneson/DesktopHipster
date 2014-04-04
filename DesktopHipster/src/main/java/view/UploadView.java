@@ -20,7 +20,7 @@ import General.PropertyNames;
  */
 
 @SuppressWarnings("serial")
-public class UploadView extends JPanel implements PropertyChangeListener {
+public class UploadView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 	
 	private JButton proceedButton;
@@ -38,9 +38,9 @@ public class UploadView extends JPanel implements PropertyChangeListener {
 		desc = new JLabel("UploadView");
 		tumblrButton = new JButton("Tumblr");
 		
-		add(tumblrButton);
-		add(proceedButton);
-		add(desc);
+		addCenter(new JPanel(){{add(tumblrButton);
+			add(proceedButton);
+			add(desc);}});
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {

@@ -22,13 +22,13 @@ import General.PropertyNames;
  *
  */
 @SuppressWarnings("serial")
-public class BrowseView extends JPanel implements PropertyChangeListener {
+public class BrowseView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 	
 	private JButton proceedButton;
 	private JLabel desc;
 	private JButton chooseImageButton;
-	private final JFileChooser jfc = new JFileChooser();
+	private JFileChooser jfc;
 	
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
@@ -41,13 +41,14 @@ public class BrowseView extends JPanel implements PropertyChangeListener {
 		proceedButton.setEnabled(false);
 		desc = new JLabel("BrowseView");
 		chooseImageButton = new JButton("Choose image");
+		jfc = new JFileChooser();
 		jfc.setAcceptAllFileFilterUsed(false);
 		jfc.addChoosableFileFilter(new FileNameExtensionFilter(
 				"Image files", ImageIO.getReaderFileSuffixes()));
 		
-		add(chooseImageButton);
-		add(proceedButton);
-		add(desc);
+		addCenter(new JPanel(){{add(chooseImageButton);
+			add(proceedButton);
+			add(desc);}});
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
