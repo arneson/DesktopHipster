@@ -1,4 +1,4 @@
-package filter;
+package desktopHipster;
 import javax.swing.*;
 
 import java.awt.*;

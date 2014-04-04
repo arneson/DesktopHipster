@@ -9,7 +9,7 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
 
-import filter.Canvas;
+import desktopHipster.Canvas;
 import filter.FiltersEnum;
 import model.ExtendedImage;
 import General.PropertyNames;

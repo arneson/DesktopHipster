@@ -1,4 +1,4 @@
-package filter;
+package desktopHipster;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import filter.ImageTools;
 
 /**
  * This class is written only to test the different filters.

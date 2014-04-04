@@ -61,6 +61,15 @@ public class GridTest extends JFrame {
 			add(image);
 			add(image);
 			add(image);
+			add(image);
+			add(image);
+			add(image);
+			add(image);
+			add(image);
+			add(image);
+			add(image);
+			add(image);
+			add(image);
 		}};
 		grid.setThumbnails(list);
 		
@@ -83,6 +92,8 @@ public class GridTest extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+		
+		pcs.firePropertyChange(PropertyNames.MODEL_MAIN_FRAME_RESIZE, null, null);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {

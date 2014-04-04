@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
@@ -18,9 +19,8 @@ import General.PropertyNames;
  *
  */
 @SuppressWarnings("serial")
-public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener {
-	
-	private JPanel content;
+public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener {	
+	private JPanel content, wrapper;
 	private List<BufferedImage> images;
 	
 	public ThumbnailGrid() {
@@ -30,6 +30,10 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	
 	public void initialize() {
 		content = new JPanel();
+		wrapper = new JPanel();
+		
+		content.setLayout(new BorderLayout());
+		content.add(wrapper, BorderLayout.NORTH);
 		
 		setBorder(null);
 		setViewportView(content);
@@ -37,22 +41,19 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	
 	private void updateGrid() {
 		int size = images.size();
-		final int numberOfColumns = 10;
-		int width = (getWidth()-2) / numberOfColumns;
+		final int numberOfColumns = 3;
+		int side = (getWidth()-2) / numberOfColumns;
+		final int numberOfRows = (int)Math.ceil((double)size/(double)numberOfColumns);
 		
-		if(width > 500) {
-			System.out.println("");
-		}
-		
-		content.removeAll();
-		content.setLayout(new GridLayout(
-				(int)Math.ceil(size/numberOfColumns), 
+		wrapper.removeAll();
+		wrapper.setLayout(new GridLayout(
+				numberOfRows, 
 				numberOfColumns));
 		for(int i = 0; i < size; i++) {
-			content.add(new ThumbnailPanel(images.get(i), width));
+			wrapper.add(new ThumbnailPanel(images.get(i), side));
 		}
-		content.revalidate();
-		content.repaint();
+		wrapper.revalidate();
+		wrapper.repaint();
 	}
 	
 	public void setThumbnails(List<BufferedImage> images) {
