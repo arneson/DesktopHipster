@@ -1,4 +1,4 @@
-package filter;
+package desktopHipster;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import filter.ImageTools;
 
 /**
  * This class is written only to test the different filters.
@@ -21,14 +23,14 @@ import javax.swing.*;
 public class FilterTestClass extends JFrame {
 	private JPanel actionPanel;
 	private JButton orig, grayscale, sepia, invertedGrayscale, external;
-	private Canvas canvas;
+	private FilterTestCanvas canvas;
 	
 	public FilterTestClass() throws IOException {
 		initialize();	
 	}
 	
 	private void initialize() {
-		canvas = new Canvas();
+		canvas = new FilterTestCanvas();
 		actionPanel = new JPanel();
 		
 		actionPanel.setPreferredSize(new Dimension(0, 50));

@@ -45,23 +45,10 @@ public class GridTest extends JFrame {
 		g.setColor(Color.yellow);
 		g.fillRect(0, 0, 1000, 1000);
 		
-		List<BufferedImage> list = new ArrayList<BufferedImage>() {{
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-			add(image);
-		}};
+		List<BufferedImage> list = new ArrayList<BufferedImage>();
+		for(int i = 0; i < 20; i++) {
+			list.add(image);
+		}
 		grid.setThumbnails(list);
 		
 		pcs = new PropertyChangeSupport(this);
@@ -70,7 +57,7 @@ public class GridTest extends JFrame {
 		addComponentListener(new ComponentListener(){
 			@Override
 			public void componentResized(ComponentEvent e) {
-				pcs.firePropertyChange(PropertyNames.MAIN_FRAME_RESIZE, null, null);
+				pcs.firePropertyChange(PropertyNames.MODEL_MAIN_FRAME_RESIZE, null, null);
 			}
 			@Override
 			public void componentMoved(ComponentEvent e) {}
@@ -83,6 +70,8 @@ public class GridTest extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+		
+		pcs.firePropertyChange(PropertyNames.MODEL_MAIN_FRAME_RESIZE, null, null);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {

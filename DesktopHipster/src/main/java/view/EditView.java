@@ -1,17 +1,13 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.File;
 
 import javax.swing.*;
 
-import filter.Canvas;
 import filter.FiltersEnum;
 import model.ExtendedImage;
 import General.PropertyNames;
@@ -24,19 +20,20 @@ import General.PropertyNames;
  *	
  */
 @SuppressWarnings("serial")
-public class EditView extends JPanel implements PropertyChangeListener {
+public class EditView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 	
 	private JButton proceedButton;
 	private JPanel filterPanel;
 	private FilterButton blackWhiteFilterButton;
 	private FilterButton sepiaFilterButton;
-	private JLabel desc;
-	private Canvas canvas;
+	private JLabel desc, canvas;
 	private ActionListener filterButtonClick = new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
-			pcs.firePropertyChange(PropertyNames.ACTIVE_FILTER_CHANGED_EVENT, null, 
+			pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_FILTER_CHANGE, null, 
 					((FilterButton)e.getSource()).getFilter());
+			/*pcs.firePropertyChange(PropertyNames.REQUEST_CHANGE_CARD_VIEW, null, 
+					((FilterButton)e.getSource()).getFilter());*/
 		}
 	};
 	
@@ -47,27 +44,25 @@ public class EditView extends JPanel implements PropertyChangeListener {
 	}
 	
 	public void initialize() {
-		setLayout(new BorderLayout());
 		filterPanel = new JPanel();
 		proceedButton = new JButton("proceed");
 		
 		blackWhiteFilterButton = new FilterButton(FiltersEnum.BWFILTER);
 		sepiaFilterButton = new FilterButton(FiltersEnum.SEPIAFILTER);
 		desc = new JLabel("EditView");
-		canvas = new Canvas();
+		canvas = new JLabel();
 		
 		filterPanel.add(blackWhiteFilterButton);
 		filterPanel.add(sepiaFilterButton);
 		
-		add(BorderLayout.CENTER,canvas);
-		add(BorderLayout.EAST,proceedButton);
-		add(BorderLayout.NORTH,desc);
-		add(BorderLayout.SOUTH,filterPanel);
+		addNorth(new JPanel(){{add(desc);}});
+		addEast(new JPanel(){{add(proceedButton);}});
+		addCenter(new JPanel(){{add(canvas);}});
+		addSouth(filterPanel);
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.APPLY_ACTIVE_FILTER, null, null);
-				pcs.firePropertyChange(PropertyNames.CHANGE_CARD_VIEW, null, View.SubView.UPLOAD);
+				pcs.firePropertyChange(PropertyNames.VIEW_APPLY_FILTER, null, null);
 			}
 		});
 		blackWhiteFilterButton.addActionListener(filterButtonClick);
@@ -82,8 +77,8 @@ public class EditView extends JPanel implements PropertyChangeListener {
 		String name = evt.getPropertyName();
 
 		switch(name){
-		case PropertyNames.ACTIVE_IMAGE_CHANGED_EVENT:
-			canvas.setFilterImage(((ExtendedImage)evt.getNewValue()).getPreview());
+		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
+			canvas.setIcon(new ImageIcon(((ExtendedImage)evt.getNewValue()).getPreview()));
 			revalidate();
 			repaint();
 			break;

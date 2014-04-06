@@ -1,9 +1,13 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -18,10 +22,12 @@ import General.PropertyNames;
  *
  */
 @SuppressWarnings("serial")
-public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener {
-	
-	private JPanel content;
+public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener {	
+	private JPanel content, wrapper;
 	private List<BufferedImage> images;
+	private MouseAdapter ma;
+	
+	private List<ThumbnailPanel> tpList;
 	
 	public ThumbnailGrid() {
 		super(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -30,29 +36,43 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	
 	public void initialize() {
 		content = new JPanel();
+		wrapper = new JPanel();
+		
+		content.setLayout(new BorderLayout());
+		content.add(wrapper, BorderLayout.NORTH);
 		
 		setBorder(null);
 		setViewportView(content);
+		
+		ma = new MouseAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				updateVisibleLayer(e);
+			}
+		};
+		content.addMouseMotionListener(ma);
+		wrapper.addMouseMotionListener(ma);
 	}
 	
 	private void updateGrid() {
 		int size = images.size();
-		final int numberOfColumns = 10;
-		int width = (getWidth()-2) / numberOfColumns;
+		final int numberOfColumns = 3;
+		int side = (getWidth()-2) / numberOfColumns;
+		final int numberOfRows = (int)Math.ceil((double)size/(double)numberOfColumns);
 		
-		if(width > 500) {
-			System.out.println("");
-		}
-		
-		content.removeAll();
-		content.setLayout(new GridLayout(
-				(int)Math.ceil(size/numberOfColumns), 
+		tpList = new ArrayList<ThumbnailPanel>();
+		wrapper.removeAll();
+		wrapper.setLayout(new GridLayout(
+				numberOfRows, 
 				numberOfColumns));
 		for(int i = 0; i < size; i++) {
-			content.add(new ThumbnailPanel(images.get(i), width));
+			ThumbnailPanel tp = new ThumbnailPanel(images.get(i), side);
+			tp.addMouseMotionL(ma);
+			wrapper.add(tp);
+			tpList.add(tp);
 		}
-		content.revalidate();
-		content.repaint();
+		wrapper.revalidate();
+		wrapper.repaint();
 	}
 	
 	public void setThumbnails(List<BufferedImage> images) {
@@ -62,8 +82,18 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals(PropertyNames.MAIN_FRAME_RESIZE)) {
+		if(evt.getPropertyName().equals(PropertyNames.MODEL_MAIN_FRAME_RESIZE)) {
 			updateGrid();
+		}
+	}
+	
+	public void updateVisibleLayer(MouseEvent e) {
+		for(ThumbnailPanel tp : tpList) {
+			if(tp.isChild(e.getSource())) {
+				tp.showLayer();
+			} else {
+				tp.hideLayer();
+			}
 		}
 	}
 }

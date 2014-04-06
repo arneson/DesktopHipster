@@ -1,4 +1,4 @@
-package filter;
+package desktopHipster;
 import javax.swing.*;
 
 import java.awt.*;
@@ -13,12 +13,12 @@ import java.awt.image.BufferedImage;
  *
  */
 @SuppressWarnings("serial")
-public class Canvas extends JPanel{
+public class FilterTestCanvas extends JPanel{
 	private BufferedImage filter;
 	private BufferedImage original;
 	private boolean originalVisible = true;
 
-	public Canvas() {
+	public FilterTestCanvas() {
 		setPreferredSize(new Dimension(400,400));
 	}
 	

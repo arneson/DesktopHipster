@@ -8,7 +8,6 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
 
-import view.*;
 import General.PropertyNames;
 
 /**
@@ -38,6 +37,9 @@ public class View extends JFrame implements PropertyChangeListener {
 		super();
 		pcs = new PropertyChangeSupport(this);
 		initialize();
+		pcs.addPropertyChangeListener(browseView);
+		pcs.addPropertyChangeListener(editView);
+		pcs.addPropertyChangeListener(uploadView);
 	}
 	
 	public void initialize() {
@@ -66,12 +68,9 @@ public class View extends JFrame implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		browseView.propertyChange(evt);
-		editView.propertyChange(evt);
-		uploadView.propertyChange(evt);
-		
+		pcs.firePropertyChange(evt);
 		String name = evt.getPropertyName();
-		if(name.equals(PropertyNames.CHANGE_CARD_VIEW)) {
+		if(name.equals(PropertyNames.MODEL_CARD_CHANGE)) {
 			updateVisibleCard(((SubView)evt.getNewValue()).toString());
 		}
 	}
