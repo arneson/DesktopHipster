@@ -18,7 +18,8 @@ import General.PropertyNames;
  */
 public class Model {
 	private PropertyChangeSupport pcs;
-	//private Library library = new Library();
+	private Library library = new Library();
+	
 	//private DdBox ddBox = new DdBox();
 	private ExtendedImage activeImage;
 	private FiltersEnum activeFilter;
@@ -57,4 +58,9 @@ public class Model {
 	public void setActiveFilter(FiltersEnum activeFilter) {
 		this.activeFilter = activeFilter;
 	}
+	
+	public Library getLibrary() {
+		return library;
+	}
+
 }

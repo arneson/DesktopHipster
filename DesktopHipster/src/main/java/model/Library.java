@@ -36,10 +36,8 @@ public class Library {
 
 		boolean success = (new File(System.getProperty("user.home") + "/Pictures/DesktopHipster")).mkdirs();
 
-		if (!success) {
-			path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
-			System.out.println("Directory already excists");
-		}
+		path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
+
 	}
 
 	/**
@@ -47,7 +45,7 @@ public class Library {
 	 * Takes an ExtendedImage and  a String (the new filename) as parameters.
 	 */
 
-	public void save(ExtendedImage saveImage, String name) throws FileNotFoundException, IOException{			    
+	public void save(BufferedImage saveImage, String name) throws FileNotFoundException, IOException{			    
 		try{
 			File outputfile = new File(path + "/" + name);
 			ImageIO.write(saveImage, "png", outputfile);

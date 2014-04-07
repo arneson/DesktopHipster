@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
@@ -81,6 +83,21 @@ public class Controller implements PropertyChangeListener {
 				// Should be impossible
 				System.out
 						.println("Good job, send us an email on how you managed!");
+			}
+			break;
+		case PropertyNames.VIEW_SAVE_IMAGE_TO_DISC:
+			try {
+				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
+				model.getLibrary().save(imageToSave, "name.png");
+			} catch (NoSuchVersionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
