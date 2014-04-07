@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.*;
 
@@ -20,7 +21,7 @@ import javax.imageio.*;
 public class Library {
 
 	//Array of extended images
-	private ArrayList<BufferedImage> imageArray = new ArrayList();
+	private List<BufferedImage> imageArray = new ArrayList();
 
 	//Path to the directory where you save the images
 	private Path path;
@@ -39,15 +40,14 @@ public class Library {
 			path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
 			System.out.println("Directory already excists");
 		}
-
-
 	}
 
-	/*
-	 * Saves image to disc in the application folder
+	/**
+	 * Saves image to disc in the folder created for this desktop application. 
+	 * Takes an ExtendedImage and  a String (the new filename) as parameters.
 	 */
 
-	public void save(BufferedImage saveImage, String name) throws FileNotFoundException, IOException{			    
+	public void save(ExtendedImage saveImage, String name) throws FileNotFoundException, IOException{			    
 		try{
 			File outputfile = new File(path + "/" + name);
 			ImageIO.write(saveImage, "png", outputfile);
@@ -59,7 +59,7 @@ public class Library {
 		}
 	}
 
-	/*
+	/**
 	 * When you import an image to the application by choosing from 
 	 * file system or drops it in drop down panel this method will 
 	 * put it into the arraylist of images it will show in the library
@@ -68,6 +68,11 @@ public class Library {
 	public void load(BufferedImage image){
 		addToImageArray(image);
 	}
+	
+	/**
+	 * Adds image to the array of images.
+	 * @param image
+	 */
 	
 	public void addToImageArray(BufferedImage image){
 		imageArray.add(image);
