@@ -34,12 +34,9 @@ public class Library {
 		 * If this directory is already created then it sets the directory where to save to the created directory.
 		 */
 
-		boolean success = (new File(System.getProperty("user.home") + "/Pictures/DesktopHipster")).mkdirs();
+		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster").mkdirs();
 
-		if (!success) {
-			path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
-			System.out.println("Directory already excists");
-		}
+		path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
 	}
 
 	/**
