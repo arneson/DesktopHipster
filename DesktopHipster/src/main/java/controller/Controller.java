@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
+import dragNdrop.DragNDropTray;
 import filter.FiltersEnum;
 import General.PropertyNames;
 import view.View;
@@ -28,13 +29,16 @@ import model.NoSuchVersionException;
 public class Controller implements PropertyChangeListener {
 	private Model model;
 	private View view;
+	private DragNDropTray dndTray;
 
 	public Controller() {
 		view = new View();
 		model = new Model();
+		dndTray = new DragNDropTray();
 		
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
+		dndTray.addPropertyChangeListener(this);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -99,6 +103,9 @@ public class Controller implements PropertyChangeListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			break;
+		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
+	    	System.out.println(evt.getNewValue());
 		}
 	}
 }

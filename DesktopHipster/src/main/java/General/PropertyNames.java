@@ -18,4 +18,6 @@ public class PropertyNames {
 	public static final String MODEL_CARD_CHANGE = "MODEL_CARD_CHANGE";
 	public static final String MODEL_ACTIVE_IMAGE_CHANGE = "MODEL_ACTIVE_IMAGE_CHANGE";
 	public static final String MODEL_MAIN_FRAME_RESIZE = "MODEL_MAIN_FRAME_RESIZE";
+	
+	public static final String ADD_NEW_IMAGE_TO_LIBRARY = "ADD_NEW_IMAGE_TO_LIBRARY";
 }
