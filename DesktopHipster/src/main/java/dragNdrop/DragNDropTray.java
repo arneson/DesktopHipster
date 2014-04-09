@@ -33,11 +33,7 @@ public class DragNDropTray {
              SystemTray tray = SystemTray.getSystemTray();
              // load an image
              Image image = null;
-			try {
-				image = Toolkit.getDefaultToolkit().getImage(new URL("http://cdn1.iconfinder.com/data/icons/Hypic_Icon_Pack_by_shlyapnikova/16/forum_16.png"));
-			} catch (MalformedURLException e1) {
-				System.exit(0);
-			}
+			image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/desktop_hipster.png"));
             trayIcon = new TrayIcon(image, "Tray Demo", null);         
             try {
                 tray.add(trayIcon);
