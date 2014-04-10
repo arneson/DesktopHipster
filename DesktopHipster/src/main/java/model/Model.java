@@ -3,6 +3,8 @@ package model;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.TreeMap;
 
 import filter.FiltersEnum;
@@ -67,5 +69,9 @@ public class Model {
 	
 	public void frameResize() {
 		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
+	}
+
+	public void addFileToLibrary(File imageFile) throws MalformedURLException {
+		getLibrary().load(imageFile);		
 	}
 }

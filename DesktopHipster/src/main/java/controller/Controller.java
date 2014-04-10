@@ -126,7 +126,7 @@ public class Controller implements PropertyChangeListener {
 	    	System.out.println(evt.getNewValue());
 	    	File imageFile = (File) evt.getNewValue();
 	    	try {
-				model.getLibrary().load(imageFile);
+	    		model.addFileToLibrary(imageFile);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
