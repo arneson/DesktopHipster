@@ -37,7 +37,6 @@ public class BrowseView extends Card implements PropertyChangeListener {
 	private JButton proceedButton;
 	private JLabel desc;
 	private JButton chooseImageButton;
-	private JFileChooser jfc;
 	private ThumbnailGrid grid;
 	
 	public BrowseView(PropertyChangeSupport pcs) {
@@ -52,14 +51,9 @@ public class BrowseView extends Card implements PropertyChangeListener {
 		desc = new JLabel("BrowseView");
 		chooseImageButton = new JButton("Choose image");
 		grid = new ThumbnailGrid();
-		jfc = new JFileChooser();
 		
 		proceedButton.setEnabled(false);
-		jfc.setAcceptAllFileFilterUsed(false);
-		jfc.addChoosableFileFilter(new FileNameExtensionFilter(
-				"Image files", ImageIO.getReaderFileSuffixes()));
-		
-		addNorth(new JPanel(){{add(chooseImageButton);
+		addNorth(new JPanel(){{
 			add(proceedButton);
 			add(desc);}});
 		addCenter(new JPanel(){{setLayout(new java.awt.GridLayout(1,1));add(grid);}});
@@ -81,15 +75,7 @@ public class BrowseView extends Card implements PropertyChangeListener {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);
 			}
 		});
-		chooseImageButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				//TODO needs parent later
-				int returnVal = jfc.showOpenDialog(null);
-				if(returnVal==JFileChooser.APPROVE_OPTION){
-					pcs.firePropertyChange(PropertyNames.VIEW_OPEN_FILE_CLICKED,null,jfc.getSelectedFile());
-				}
-			}
-		});
+
 		
 		addMouseMotionListener(new MouseAdapter() {
 			@Override
