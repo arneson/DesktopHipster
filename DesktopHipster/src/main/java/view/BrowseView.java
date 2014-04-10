@@ -2,8 +2,14 @@ package view;
 
 import general.PropertyNames;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,6 +19,7 @@ import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
 import javax.swing.*;
 
 
@@ -22,15 +29,16 @@ import javax.swing.*;
  * images.
  * 
  * @author Robin Sveningson
- *
+ * @revised Simon Arneson
  */
 @SuppressWarnings("serial")
-public class BrowseView extends Card implements PropertyChangeListener {
+public class BrowseView extends Card implements PropertyChangeListener,DropTargetListener {
 	private final PropertyChangeSupport pcs;
 	
 	private JButton proceedButton;
 	private JLabel desc;
 	private ThumbnailGrid grid;
+	private DropTarget dt;
 	
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
@@ -43,6 +51,7 @@ public class BrowseView extends Card implements PropertyChangeListener {
 		proceedButton = new JButton("proceed");
 		desc = new JLabel("BrowseView");
 		grid = new ThumbnailGrid(pcs);	
+		dt = new DropTarget(grid,this);
 		proceedButton.setEnabled(false);
 		addNorth(new JPanel(){{
 			add(proceedButton);
@@ -81,5 +90,62 @@ public class BrowseView extends Card implements PropertyChangeListener {
 	
 	public void calculateGridWidth() {
 		grid.frameRezise();
+	}
+
+	@Override
+	public void dragEnter(DropTargetDragEvent dtde) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragOver(DropTargetDragEvent dtde) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dropActionChanged(DropTargetDragEvent dtde) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragExit(DropTargetEvent dte) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drop(DropTargetDropEvent dtde) {
+		 try {
+		      // Ok, get the dropped object and try to figure out what it is
+		      Transferable tr = dtde.getTransferable();
+		      DataFlavor[] flavors = tr.getTransferDataFlavors();
+		      for (int i = 0; i < flavors.length; i++) {
+				  System.out.println("Possible flavor: " + flavors[i].getMimeType());
+				  // Check for file lists specifically
+				  if (flavors[i].isFlavorJavaFileListType()) {
+				    // Great!  Accept copy drops...
+				    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+				    
+				    // And add the list of file names to our text area
+				    java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
+				    for (int j = 0; j < list.size(); j++) {
+				      //ta.append(list.get(j) + "\n");
+				    	pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+				    }
+				
+				    dtde.dropComplete(true);
+				    return;
+				  }
+		      }
+		      // Not a file-list dropped
+		      dtde.rejectDrop();
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		      dtde.rejectDrop();
+		    }
+		
 	}
 }

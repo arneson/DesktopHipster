@@ -14,7 +14,7 @@ public class DDFrame extends JFrame implements DropTargetListener {
   JTextArea ta;
 
   public DDFrame() {
-    super("Drop Test");
+    super("DesktopHipster");
     setSize(300,300);
     addWindowListener(null);
     setUndecorated(true);
