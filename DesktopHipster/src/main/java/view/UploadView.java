@@ -4,6 +4,8 @@ import general.PropertyNames;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -41,7 +43,9 @@ public class UploadView extends Card implements PropertyChangeListener {
 		saveToDiscButton = new JButton("Save to disc");
 		desc = new JLabel("UploadView");
 		tumblrButton = new JButton("Tumblr");
-		imageName = new JTextField("Add name..");
+		imageName = new JTextField("Add name..",50);
+		
+		imageName.addMouseListener(myMouseListener);
 		
 		addCenter(new JPanel(){{add(tumblrButton);
 			add(proceedButton);
@@ -69,6 +73,41 @@ public class UploadView extends Card implements PropertyChangeListener {
 		
 		setBackground(java.awt.Color.red);
 	}
+	
+	private MouseListener myMouseListener = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getSource().equals(imageName)){
+				imageName.setText("");
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		
