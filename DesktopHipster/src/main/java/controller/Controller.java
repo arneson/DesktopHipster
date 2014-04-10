@@ -99,7 +99,7 @@ public class Controller implements PropertyChangeListener {
 			
 			try {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
-				model.getLibrary().save(imageToSave, "name.png");
+				model.getLibrary().save(imageToSave, evt.getNewValue() + ".png");
 			} catch (NoSuchVersionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,8 +136,8 @@ public class Controller implements PropertyChangeListener {
 			model.setActiveImage(new ExtendedImage(new ImageIcon(imageFile
 					.getAbsolutePath())));
 			break;
-		case PropertyNames.VIEW_MAIN_FRAME_RESIZE:
-			model.frameResize();
+		case PropertyNames.VIEW_GRID_WIDTH_CHANGED:
+			model.gridWidthChanged((Integer)evt.getNewValue());
 			break;
 		}
 	}

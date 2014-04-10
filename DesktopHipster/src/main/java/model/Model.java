@@ -67,7 +67,8 @@ public class Model {
 		return library;
 	}
 	
-	public void frameResize() {
+	public void gridWidthChanged(int width) {
+		library.updateThumbnailSizes(width);
 		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
 	}
 

@@ -28,6 +28,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 	private JButton saveToDiscButton;
 	private JLabel desc;
 	private JButton tumblrButton;
+	private JTextField imageName;
 	
 	public UploadView(PropertyChangeSupport pcs) {
 		super();
@@ -40,11 +41,14 @@ public class UploadView extends Card implements PropertyChangeListener {
 		saveToDiscButton = new JButton("Save to disc");
 		desc = new JLabel("UploadView");
 		tumblrButton = new JButton("Tumblr");
+		imageName = new JTextField("Add name..");
 		
 		addCenter(new JPanel(){{add(tumblrButton);
 			add(proceedButton);
 			add(desc);
 			add(saveToDiscButton);}});
+		
+		addSouth(new JPanel(){{add(imageName);}});
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -59,7 +63,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 		//TODO 
 		saveToDiscButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				pcs.firePropertyChange(PropertyNames.VIEW_SAVE_IMAGE_TO_DISC, null, null);
+				pcs.firePropertyChange(PropertyNames.VIEW_SAVE_IMAGE_TO_DISC, null, imageName.getText());
 			}
 		});
 		

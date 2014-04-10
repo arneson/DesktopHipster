@@ -3,6 +3,7 @@ package model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -86,9 +87,10 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 		return thumbnail;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<BufferedImage> getVersions() {
-		return (List<BufferedImage>)versions.values();
+		return new ArrayList(versions.values());
 	}
 
 	@Override
@@ -100,5 +102,11 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 	@Override
 	public BufferedImage getSelectedVersion() {
 		return thumbnail;
+	}
+
+	public void setThumbnailSize(int width) {
+		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(width, -1, Image.SCALE_FAST));
+
+		
 	}
 }
