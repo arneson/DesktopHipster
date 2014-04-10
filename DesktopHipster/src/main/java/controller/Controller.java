@@ -7,9 +7,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import dragNdrop.DragNDropTray;
 import filter.FiltersEnum;
 import general.PropertyNames;
 import view.View;
@@ -29,13 +33,17 @@ import model.NoSuchVersionException;
 public class Controller implements PropertyChangeListener {
 	private Model model;
 	private View view;
+	private DragNDropTray dndTray;
 
 	public Controller() {
 		view = new View();
 		model = new Model();
 
+		dndTray = new DragNDropTray();
+
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
+		dndTray.addPropertyChangeListener(this);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -64,8 +72,8 @@ public class Controller implements PropertyChangeListener {
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
 								model.getActiveImage()));
-				model.changeCardView(View.SubView.UPLOAD);
 			}
+			model.changeCardView(View.SubView.UPLOAD);
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
@@ -103,6 +111,7 @@ public class Controller implements PropertyChangeListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			break;
 		case PropertyNames.VIEW_SAVE_LIST_TO_DISC:
 			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
 			for (ExtendedImage image : listToSave){
@@ -113,6 +122,25 @@ public class Controller implements PropertyChangeListener {
 					ex.printStackTrace();
 				} 
 			} 
+			break;
+		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
+	    	System.out.println(evt.getNewValue());
+	    	File imageFile = (File) evt.getNewValue();
+	    	try {
+				model.getLibrary().load((BufferedImage)ImageIO.read(new URL(imageFile
+						.getAbsolutePath())));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	//TODO TEMP SOLUTION FOR TESTING
+			model.setActiveImage(new ExtendedImage(new ImageIcon(imageFile
+					.getAbsolutePath())));
+			break;
+		case PropertyNames.VIEW_MAIN_FRAME_RESIZE:
+			model.frameResize();
+			break;
 		}
 	}
 }

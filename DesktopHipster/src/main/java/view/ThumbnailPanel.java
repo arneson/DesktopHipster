@@ -24,7 +24,7 @@ public class ThumbnailPanel extends JPanel {
 	
 	private JLayeredPane layeredPane;
 	private JLabel canvas;
-	private GridPanelLayer topLayer;
+	private ThumbnailPanelLayer topLayer;
 	
 	
 	public ThumbnailPanel(BufferedImage image, int side) {
@@ -40,7 +40,7 @@ public class ThumbnailPanel extends JPanel {
 		setBackground(java.awt.Color.gray);
 		
 		canvas = new JLabel(new ImageIcon(image));
-		topLayer = new GridPanelLayer(side);
+		topLayer = new ThumbnailPanelLayer(side);
 		layeredPane = new JLayeredPane();
 		
 		canvas.setBounds(new Rectangle(0,0,side,side));

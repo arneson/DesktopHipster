@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.*;
 
@@ -93,5 +95,25 @@ public abstract class Card extends JPanel {
 		if(subEast != null) {
 			subEast.setBackground(c);
 		}
+	}
+	
+	@Override
+	public void addMouseMotionListener(MouseMotionListener l) {
+		super.addMouseMotionListener(l);
+		north.addMouseMotionListener(l);
+		south.addMouseMotionListener(l);
+		west.addMouseMotionListener(l);
+		east.addMouseMotionListener(l);
+		center.addMouseMotionListener(l);
+	}
+	
+	@Override
+	public void addMouseWheelListener(MouseWheelListener l) {
+		super.addMouseWheelListener(l);
+		north.addMouseWheelListener(l);
+		south.addMouseWheelListener(l);
+		west.addMouseWheelListener(l);
+		east.addMouseWheelListener(l);
+		center.addMouseWheelListener(l);
 	}
 }

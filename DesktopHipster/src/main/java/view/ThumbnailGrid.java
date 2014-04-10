@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -52,7 +54,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		};
 		content.addMouseMotionListener(ma);
 		wrapper.addMouseMotionListener(ma);
-		}
+	}
 	
 	private void updateGrid() {
 		int size = images.size();
@@ -83,7 +85,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals(PropertyNames.MODEL_MAIN_FRAME_RESIZE)) {
+		if(evt.getPropertyName().equals(PropertyNames.MODEL_GRID_UPDATE)) {
 			updateGrid();
 		}
 	}
@@ -95,6 +97,13 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 			} else {
 				tp.hideLayer();
 			}
+		}
+	}
+	
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		MouseWheelListener[] listeners = getMouseWheelListeners();
+		for(MouseWheelListener listener : listeners) {
+			listener.mouseWheelMoved(e);
 		}
 	}
 }
