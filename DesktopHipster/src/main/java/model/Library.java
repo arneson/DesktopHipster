@@ -81,4 +81,8 @@ public class Library {
 	public List<ExtendedImage> getImageArray() {
 		return imageArray;
 	}
+	
+	public void saveToHiddenDirectory(){
+		
+	}
 }
