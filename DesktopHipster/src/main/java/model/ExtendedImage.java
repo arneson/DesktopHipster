@@ -17,6 +17,7 @@ import filter.*;
  * @author Edvard Hubinette
  * @revised by Simon Arneson
  */
+
 public class ExtendedImage extends BufferedImage implements ThumbnailData {
 
 	private BufferedImage preview;
@@ -93,6 +94,12 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 
 	@Override
 	public List<String> getTags() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BufferedImage getSelectedVersion() {
 		// TODO Auto-generated method stub
 		return null;
 	}

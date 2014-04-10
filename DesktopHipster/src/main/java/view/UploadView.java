@@ -17,7 +17,7 @@ import model.Tumblr;
  * purpose is to select which site to upload the image to.
  * 
  * @author Robin Sveningson
- *	
+ * @revised Lovisa Jäberg
  */
 
 @SuppressWarnings("serial")
