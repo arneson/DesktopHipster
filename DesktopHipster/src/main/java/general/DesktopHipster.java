@@ -17,6 +17,10 @@ public class DesktopHipster {
 		Controller c = new Controller();
 	}
 	public static void main(String[] args) {
+		if(System.getProperty("os.name").contains("Mac")) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+		}
+		
 		@SuppressWarnings("unused")
 		DesktopHipster dh = new DesktopHipster();
 		Runtime.getRuntime().addShutdownHook(new Thread() {

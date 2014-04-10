@@ -6,8 +6,6 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -81,6 +79,7 @@ public class View extends JFrame implements PropertyChangeListener {
 		});
 		
 		pcs.firePropertyChange(PropertyNames.VIEW_MAIN_FRAME_RESIZE, null, null);
+		MenuBarFactory.createMenuBar(this);
 	}
 	
 	public void updateVisibleCard(String name) {

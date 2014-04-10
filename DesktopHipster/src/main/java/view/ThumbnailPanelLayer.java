@@ -16,7 +16,7 @@ public class ThumbnailPanelLayer extends JPanel {
 	private final int iconSide = 35;
 	
 	private JScrollPane scroll;
-	private JPanel content, contentWrapper, iconWrapper, tagIcon, deleteIcon;
+	private JPanel content, contentWrapper, iconWrapper, tagIcon, deleteIcon, saveIcon;
 	
 	public ThumbnailPanelLayer(int side) {
 		super();
@@ -33,6 +33,7 @@ public class ThumbnailPanelLayer extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		tagIcon = new JPanel();
 		deleteIcon = new JPanel();
+		saveIcon = new JPanel();
 		iconWrapper = new JPanel();
 		
 		scroll.setBorder(null);
@@ -47,6 +48,8 @@ public class ThumbnailPanelLayer extends JPanel {
 		
 		tagIcon.setPreferredSize(new Dimension(iconSide,iconSide));
 		deleteIcon.setPreferredSize(new Dimension(iconSide,iconSide));
+		saveIcon.setPreferredSize(new Dimension(iconSide,iconSide));
+		saveIcon.setBackground(Color.green);
 		tagIcon.setBackground(Color.red);
 		deleteIcon.setBackground(Color.blue);
 		
@@ -55,6 +58,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		iconWrapper.setLayout(new FlowLayout(FlowLayout.RIGHT,10,10));
 		iconWrapper.add(deleteIcon);
 		iconWrapper.add(tagIcon);
+		iconWrapper.add(saveIcon);
 		
 		contentWrapper.setLayout(new BorderLayout());
 		contentWrapper.add(content, BorderLayout.WEST);
