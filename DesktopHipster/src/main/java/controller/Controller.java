@@ -99,7 +99,7 @@ public class Controller implements PropertyChangeListener {
 			
 			try {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
-				model.getLibrary().save(imageToSave, "name.png");
+				model.getLibrary().save(imageToSave, evt.getNewValue() + ".png");
 			} catch (NoSuchVersionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
