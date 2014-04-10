@@ -6,7 +6,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import javax.swing.*;
@@ -17,13 +19,15 @@ public class ThumbnailPanelLayer extends JPanel {
 	
 	private JScrollPane scroll;
 	private JPanel content, contentWrapper, iconWrapper, tagIcon, deleteIcon, saveIcon;
+	private PropertyChangeSupport pcs;
 	
-	public ThumbnailPanelLayer(int side) {
+	public ThumbnailPanelLayer(PropertyChangeSupport pcs, ThumbnailData data, int side) {
 		super();
-		initialize(side);
+		this.pcs = pcs;
+		initialize(data, side);
 	}
 	
-	public void initialize(int side) {
+	public void initialize(final ThumbnailData data, int side) {
 		hideLayer();
 		setOpaque(false);
 		
@@ -62,6 +66,13 @@ public class ThumbnailPanelLayer extends JPanel {
 		
 		contentWrapper.setLayout(new BorderLayout());
 		contentWrapper.add(content, BorderLayout.WEST);
+		
+		addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN, null, data);
+			}
+		});
 		
 		setLayout(new BorderLayout());
 		add(scroll, BorderLayout.SOUTH);

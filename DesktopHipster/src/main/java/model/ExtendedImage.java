@@ -96,4 +96,10 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public BufferedImage getSelectedVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

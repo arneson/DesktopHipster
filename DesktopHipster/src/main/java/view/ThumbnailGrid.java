@@ -8,9 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +26,12 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener {	
 	private JPanel content, wrapper;
-	private List<BufferedImage> images;
+	private List<ThumbnailData> data;
+	private List<ThumbnailPanel> panelList;
 	private MouseAdapter ma;
+	private PropertyChangeSupport pcs;
 	
-	private List<ThumbnailPanel> tpList;
-	
-	public ThumbnailGrid() {
+	public ThumbnailGrid(PropertyChangeSupport pcs) {
 		super(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		initialize();
 	}
@@ -57,41 +57,41 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	}
 	
 	private void updateGrid() {
-		int size = images.size();
+		int size = data.size();
 		final int numberOfColumns = 3;
 		int side = (getWidth()-2) / numberOfColumns;
 		final int numberOfRows = (int)Math.ceil((double)size/(double)numberOfColumns);
 		
-		tpList = new ArrayList<ThumbnailPanel>();
+		panelList = new ArrayList<ThumbnailPanel>();
 		wrapper.removeAll();
 		wrapper.setLayout(new GridLayout(
 				numberOfRows, 
 				numberOfColumns));
 				
 		for(int i = 0; i < size; i++) {
-			ThumbnailPanel tp = new ThumbnailPanel(images.get(i), side);
+			ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i), side);
 			tp.addMouseMotionL(ma);
 			wrapper.add(tp);
-			tpList.add(tp);
+			panelList.add(tp);
 		}
 		wrapper.revalidate();
 		wrapper.repaint();
 	}
-	
-	public void setThumbnails(List<BufferedImage> images) {
-		this.images = images;
-		updateGrid();
-	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals(PropertyNames.MODEL_GRID_UPDATE)) {
+		String name = evt.getPropertyName();
+		switch(name) {
+		case PropertyNames.MODEL_GRID_UPDATE:
+			this.data = (List<ThumbnailData>)evt.getNewValue();
 			updateGrid();
+			break;
 		}
 	}
 	
 	public void updateVisibleLayer(MouseEvent e) {
-		for(ThumbnailPanel tp : tpList) {
+		for(ThumbnailPanel tp : panelList) {
 			if(tp.isChild(e.getSource())) {
 				tp.showLayer();
 			} else {
