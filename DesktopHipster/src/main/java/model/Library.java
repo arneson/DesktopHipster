@@ -87,4 +87,15 @@ public class Library {
 	public void saveToHiddenDirectory(){
 		
 	}
+	
+	public void updateThumbnailSizes(int width){
+		for (ExtendedImage image : imageArray){
+			try{
+				image.setThumbnailSize(width);
+
+			}catch(Exception ex){
+				ex.printStackTrace();
+			} 
+		} 
+	}
 }

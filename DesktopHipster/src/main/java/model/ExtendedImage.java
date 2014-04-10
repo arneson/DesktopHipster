@@ -101,4 +101,10 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 	public BufferedImage getSelectedVersion() {
 		return thumbnail;
 	}
+
+	public void setThumbnailSize(int width) {
+		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(width, -1, Image.SCALE_FAST));
+
+		
+	}
 }
