@@ -8,7 +8,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 
 import filter.FiltersEnum;
-import General.PropertyNames;
+import general.PropertyNames;
 import view.View;
 import model.ExtendedImage;
 import model.IHost;

@@ -1,4 +1,4 @@
-package General;
+package general;
 
 import controller.Controller;
 
@@ -9,7 +9,8 @@ import controller.Controller;
  * events.
  * 
  * @author Robin Sveningson
- *	
+ * @revised Edvard Hübinette
+ *
  */
 public class DesktopHipster {
 	public DesktopHipster() {
