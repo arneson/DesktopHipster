@@ -52,7 +52,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		};
 		content.addMouseMotionListener(ma);
 		wrapper.addMouseMotionListener(ma);
-	}
+		}
 	
 	private void updateGrid() {
 		int size = images.size();
@@ -65,6 +65,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		wrapper.setLayout(new GridLayout(
 				numberOfRows, 
 				numberOfColumns));
+				
 		for(int i = 0; i < size; i++) {
 			ThumbnailPanel tp = new ThumbnailPanel(images.get(i), side);
 			tp.addMouseMotionL(ma);
