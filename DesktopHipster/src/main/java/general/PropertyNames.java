@@ -1,4 +1,4 @@
-package General;
+package general;
 
 /**
  * This class contains property names that will be used by

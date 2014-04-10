@@ -1,5 +1,7 @@
 package view;
 
+import general.PropertyNames;
+
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
@@ -7,8 +9,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
-
-import General.PropertyNames;
 
 /**
  * The View is part of the MVC. It is the main frame
