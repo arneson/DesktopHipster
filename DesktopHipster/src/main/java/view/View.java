@@ -17,7 +17,7 @@ import javax.swing.*;
  * cards that are the different states of the program. 
  * 
  * @author Robin Sveningson
- * @revised Lovisa Jäberg
+ * @revised Lovisa Jaberg
  */
 @SuppressWarnings("serial")
 public class View extends JFrame implements PropertyChangeListener {
@@ -75,7 +75,8 @@ public class View extends JFrame implements PropertyChangeListener {
 		addComponentListener(new ComponentListener(){
 			@Override
 			public void componentResized(ComponentEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_MAIN_FRAME_RESIZE, null, null);
+				browseView.calculateGridWidth();
+				//pcs.firePropertyChange(PropertyNames.VIEW_MAIN_FRAME_RESIZE, null, null);
 			}
 			@Override
 			public void componentMoved(ComponentEvent e) {}
@@ -85,7 +86,6 @@ public class View extends JFrame implements PropertyChangeListener {
 			public void componentHidden(ComponentEvent e) {}
 		});
 		
-		pcs.firePropertyChange(PropertyNames.VIEW_MAIN_FRAME_RESIZE, null, null);
 		MenuBarFactory.createMenuBar(this);
 	}
 	
