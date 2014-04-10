@@ -66,6 +66,6 @@ public class Model {
 	}
 	
 	public void frameResize() {
-		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, null);
+		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
 	}
 }

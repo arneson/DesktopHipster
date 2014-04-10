@@ -2,6 +2,8 @@ package model;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +65,17 @@ public class Library {
 	 */
 	
 	
-	public void load(BufferedImage image){
-		ExtendedImage extImage = (ExtendedImage)image;
-		addToImageArray(extImage);
+	public void load(File imageFile) throws MalformedURLException{
+		
+		BufferedImage bi;
+		try {
+			bi = ImageIO.read(imageFile.toURI().toURL());
+			ExtendedImage exImage = (ExtendedImage)bi;
+			addToImageArray(exImage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -80,5 +90,9 @@ public class Library {
 
 	public List<ExtendedImage> getImageArray() {
 		return imageArray;
+	}
+	
+	public void saveToHiddenDirectory(){
+		
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeSupport;
 
 /**
@@ -37,7 +38,10 @@ public class ThumbnailPanel extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize, borderSize, borderSize));
 		setBackground(java.awt.Color.gray);
 		
-		canvas = new JLabel(new ImageIcon(data.getSelectedVersion()));
+		BufferedImage image = data.getSelectedVersion();
+		if(image != null) {
+			canvas = new JLabel(new ImageIcon(image));
+		}
 		topLayer = new ThumbnailPanelLayer(pcs, data, side);
 		layeredPane = new JLayeredPane();
 		

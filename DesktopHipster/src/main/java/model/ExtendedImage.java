@@ -88,8 +88,7 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 
 	@Override
 	public List<BufferedImage> getVersions() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<BufferedImage>)versions.values();
 	}
 
 	@Override
@@ -100,7 +99,6 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 
 	@Override
 	public BufferedImage getSelectedVersion() {
-		// TODO Auto-generated method stub
-		return null;
+		return thumbnail;
 	}
 }
