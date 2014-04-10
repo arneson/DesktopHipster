@@ -12,23 +12,27 @@ public class DDFrame extends JFrame implements DropTargetListener {
 
   DropTarget dt;
   JTextArea ta;
+  JLabel dropArea;
 
   public DDFrame() {
     super("DesktopHipster");
-    setSize(300,300);
+    setSize(200,140);
     addWindowListener(null);
     setUndecorated(true);
 
-    getContentPane().add(
-        new JLabel("Drop a list from your file chooser here:"),
-  BorderLayout.NORTH);
+//    getContentPane().add(
+//        new JLabel("Drop a list from your file chooser here:"),
+//  BorderLayout.NORTH);
     ta = new JTextArea();
+    
+    dropArea = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
+    
     ta.setBackground(Color.white);
-    add(ta, BorderLayout.CENTER);
+    add(dropArea, BorderLayout.CENTER);
 
     // Set up our text area to recieve drops...
     // This class will handle drop events
-    dt = new DropTarget(ta, this);
+    dt = new DropTarget(dropArea, this);
     setVisible(true);
   }
 
