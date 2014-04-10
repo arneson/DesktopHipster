@@ -17,7 +17,7 @@ import general.PropertyNames;
  * contains the application's data.
  * 
  * @author Robin Sveningson
- * @revised Edvard Hübinette
+ * @revised Edvard H��binette
  *	
  */
 public class Model {
@@ -33,11 +33,6 @@ public class Model {
 	
 	public Model() {
 		pcs = new PropertyChangeSupport(this);
-<<<<<<< HEAD
-=======
-		
-		
->>>>>>> 1c664ba144cf4a77622621c0c702aed475617a51
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
