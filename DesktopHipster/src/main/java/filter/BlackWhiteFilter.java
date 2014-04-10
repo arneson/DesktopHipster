@@ -1,5 +1,10 @@
 package filter;
 
+/**
+ * Simple grayscale filter
+ * 
+ * @author Edvard Hübinette
+ */
 import java.awt.image.BufferedImage;
 
 public class BlackWhiteFilter implements IFilter {
