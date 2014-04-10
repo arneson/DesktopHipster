@@ -1,5 +1,7 @@
 package desktopHipster;
 
+import general.PropertyNames;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -13,7 +15,6 @@ import java.util.List;
 
 import javax.swing.*;
 
-import General.PropertyNames;
 import view.ThumbnailGrid;
 
 /**

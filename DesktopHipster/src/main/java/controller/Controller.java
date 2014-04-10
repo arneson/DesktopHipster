@@ -6,11 +6,12 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
 import filter.FiltersEnum;
-import General.PropertyNames;
+import general.PropertyNames;
 import view.View;
 import model.ExtendedImage;
 import model.IHost;
@@ -23,7 +24,7 @@ import model.NoSuchVersionException;
  * to react.
  * 
  * @author Robin Sveningson
- *
+ * @revised Lovisa Jäberg
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;
@@ -32,7 +33,7 @@ public class Controller implements PropertyChangeListener {
 	public Controller() {
 		view = new View();
 		model = new Model();
-		
+
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
 	}
@@ -82,10 +83,13 @@ public class Controller implements PropertyChangeListener {
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
 				System.out
-						.println("Good job, send us an email on how you managed!");
+				.println("Good job, send us an email on how you managed!");
 			}
 			break;
 		case PropertyNames.VIEW_SAVE_IMAGE_TO_DISC:
+			
+			//TODO Give user a save dialog to add name
+			
 			try {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
 				model.getLibrary().save(imageToSave, "name.png");
@@ -99,6 +103,17 @@ public class Controller implements PropertyChangeListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		case PropertyNames.VIEW_SAVE_LIST_TO_DISC:
+			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
+			for (ExtendedImage image : listToSave){
+				try{
+					//TODO save list to disc in hidden folder
+
+				}catch(Exception ex){
+					ex.printStackTrace();
+				} 
+			} 
 		}
 	}
 }
+

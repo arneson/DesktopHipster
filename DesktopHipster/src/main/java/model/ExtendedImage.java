@@ -3,6 +3,7 @@ package model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
@@ -15,7 +16,7 @@ import filter.*;
  * @author Edvard Hubinette
  * @revised by Simon Arneson
  */
-public class ExtendedImage extends BufferedImage {
+public class ExtendedImage extends BufferedImage implements Serializable {
 
 	private BufferedImage preview;
 	private BufferedImage thumbnail;

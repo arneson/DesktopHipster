@@ -1,14 +1,16 @@
 package view;
 
+import general.PropertyNames;
+
 import java.awt.CardLayout;
 import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
-
-import General.PropertyNames;
 
 /**
  * The View is part of the MVC. It is the main frame
@@ -16,7 +18,7 @@ import General.PropertyNames;
  * cards that are the different states of the program. 
  * 
  * @author Robin Sveningson
- *	
+ * @revised Lovisa Jäberg
  */
 @SuppressWarnings("serial")
 public class View extends JFrame implements PropertyChangeListener {
@@ -58,7 +60,15 @@ public class View extends JFrame implements PropertyChangeListener {
 		setLayout(new GridLayout(1,1));
 		add(cardPanel);
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addComponentListener(new ComponentAdapter(){
+			@Override
+            public void componentHidden(ComponentEvent e) {
+                //TODO save pictures when quitting program
+				pcs.firePropertyChange(PropertyNames.VIEW_SAVE_LIST_TO_DISC, null, null);
+                ((JFrame)(e.getComponent())).dispose();
+            }
+		});
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 	}

@@ -1,5 +1,7 @@
 package view;
 
+import general.PropertyNames;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -11,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-
-import General.PropertyNames;
 
 /**
  * This class displays all the images in the library

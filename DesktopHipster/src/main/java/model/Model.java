@@ -6,8 +6,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.TreeMap;
 
 import filter.FiltersEnum;
+import general.PropertyNames;
 import view.View;
-import General.PropertyNames;
 
 /**
  * The model class is a part of the MVC. The model

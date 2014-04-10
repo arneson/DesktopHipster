@@ -1,5 +1,7 @@
 package view;
 
+import general.PropertyNames;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -9,14 +11,13 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.*;
 
 import model.Tumblr;
-import General.PropertyNames;
 
 /**
  * The upload view is a card that is used by View.java. It's main
  * purpose is to select which site to upload the image to.
  * 
  * @author Robin Sveningson
- *	
+ * @revised Lovisa Jäberg
  */
 
 @SuppressWarnings("serial")
