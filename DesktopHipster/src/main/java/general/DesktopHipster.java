@@ -12,10 +12,11 @@ import controller.Controller;
  *	
  */
 public class DesktopHipster {
+	private Controller myController;
 	public DesktopHipster() {
 		@SuppressWarnings("unused")
 		Controller c = new Controller();
-		
+		myController = c;
 	}
 	public static void main(String[] args) {
 		if(System.getProperty("os.name").contains("Mac")) {
@@ -23,11 +24,14 @@ public class DesktopHipster {
 		}
 		
 		@SuppressWarnings("unused")
-		DesktopHipster dh = new DesktopHipster();
+		final DesktopHipster dh = new DesktopHipster();
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 		    public void run() { 
-		    	System.out.println("Shutdown hook!");
+		    	dh.getController().shutDownEverything();
 		    }
 		});
+	}
+	public Controller getController() {
+		return myController;
 	}
 }

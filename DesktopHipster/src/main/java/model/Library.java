@@ -85,7 +85,7 @@ public class Library {
 	}
 	
 	public void saveToHiddenDirectory(){
-		
+		System.out.println("Saving list to hidden directory");
 	}
 	
 	public void updateThumbnailSizes(int width){
