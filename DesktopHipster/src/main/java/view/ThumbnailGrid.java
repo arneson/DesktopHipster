@@ -30,6 +30,8 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	private List<ThumbnailPanel> panelList;
 	private MouseAdapter ma;
 	private PropertyChangeSupport pcs;
+	private final int numberOfColumns = 3;
+	private int side;
 	
 	public ThumbnailGrid(PropertyChangeSupport pcs) {
 		super(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -58,8 +60,6 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	
 	private void updateGrid() {
 		int size = data.size();
-		final int numberOfColumns = 3;
-		int side = (getWidth()-2) / numberOfColumns;
 		final int numberOfRows = (int)Math.ceil((double)size/(double)numberOfColumns);
 		
 		panelList = new ArrayList<ThumbnailPanel>();
@@ -105,5 +105,10 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		for(MouseWheelListener listener : listeners) {
 			listener.mouseWheelMoved(e);
 		}
+	}
+	
+	public void calculateGridWidth() {
+		side = (getWidth()-2) / numberOfColumns;
+		pcs.firePropertyChange(PropertyNames.VIEW_GRID_WIDTH_CHANGED, null, (Integer)side);
 	}
 }

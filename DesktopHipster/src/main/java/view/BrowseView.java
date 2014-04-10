@@ -85,4 +85,8 @@ public class BrowseView extends Card implements PropertyChangeListener {
 			break;
 		}
 	}
+	
+	public void calculateGridWidth() {
+		grid.calculateGridWidth();
+	}
 }
