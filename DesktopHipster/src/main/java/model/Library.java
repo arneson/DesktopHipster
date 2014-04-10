@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.*;
+import javax.swing.ImageIcon;
 
 /**
  * The Library will keep track of the imported images.
@@ -66,16 +67,7 @@ public class Library {
 	
 	
 	public void load(File imageFile) throws MalformedURLException{
-		
-		BufferedImage bi;
-		try {
-			bi = ImageIO.read(imageFile.toURI().toURL());
-			ExtendedImage exImage = (ExtendedImage)bi;
-			addToImageArray(exImage);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		addToImageArray(new ExtendedImage(new ImageIcon(imageFile.getAbsolutePath())));
 	}
 	
 	/**
