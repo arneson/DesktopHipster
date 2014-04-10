@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.List;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -28,7 +27,7 @@ import model.NoSuchVersionException;
  * to react.
  * 
  * @author Robin Sveningson
- * @revised Lovisa Jäberg
+ * @revised Lovisa Jaberg
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;
@@ -53,7 +52,7 @@ public class Controller implements PropertyChangeListener {
 		case PropertyNames.VIEW_REQUEST_CARD_CHANGE:
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
-		case PropertyNames.VIEW_OPEN_FILE_CLICKED:
+		case PropertyNames.VIEW_NEW_IMAGE_CHOSEN:
 			File file = (File) evt.getNewValue();
 			model.setActiveImage(new ExtendedImage(new ImageIcon(file
 					.getAbsolutePath())));
@@ -127,8 +126,8 @@ public class Controller implements PropertyChangeListener {
 	    	System.out.println(evt.getNewValue());
 	    	File imageFile = (File) evt.getNewValue();
 	    	try {
-				model.getLibrary().load((BufferedImage)ImageIO.read(new URL(imageFile
-						.getAbsolutePath())));
+	    		BufferedImage bi = ImageIO.read(imageFile.toURI().toURL());
+				model.getLibrary().load(bi);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

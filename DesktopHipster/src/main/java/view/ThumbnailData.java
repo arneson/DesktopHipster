@@ -6,4 +6,5 @@ import java.awt.image.BufferedImage;
 public interface ThumbnailData {
 	public List<BufferedImage> getVersions();
 	public List<String> getTags();
+	public BufferedImage getSelectedVersion();
 }
