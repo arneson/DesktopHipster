@@ -111,7 +111,7 @@ public class Controller implements PropertyChangeListener {
 				e.printStackTrace();
 			}
 			break;
-		case PropertyNames.VIEW_SAVE_LIST_TO_DISC:
+		case PropertyNames.SAVE_LIST_TO_DISC:
 			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
 			for (ExtendedImage image : listToSave){
 				try{
@@ -126,9 +126,8 @@ public class Controller implements PropertyChangeListener {
 	    	System.out.println(evt.getNewValue());
 	    	File imageFile = (File) evt.getNewValue();
 	    	try {
-	    		BufferedImage bi = ImageIO.read(imageFile.toURI().toURL());
-				model.getLibrary().load(bi);
-			} catch (IOException e) {
+				model.getLibrary().load(imageFile);
+			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
