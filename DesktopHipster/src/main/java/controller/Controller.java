@@ -136,7 +136,11 @@ public class Controller implements PropertyChangeListener {
 			model.setActiveImage(new ExtendedImage(new ImageIcon(imageFile
 					.getAbsolutePath())));
 			break;
-		case PropertyNames.VIEW_GRID_WIDTH_CHANGED:
+		case PropertyNames.VIEW_GRID_RESIZE:
+			model.gridWidthChanged((Integer)evt.getNewValue());
+			model.updateGrid();
+			break;
+		case PropertyNames.VIEW_WIDTH_UPDATE:
 			model.gridWidthChanged((Integer)evt.getNewValue());
 			break;
 		}

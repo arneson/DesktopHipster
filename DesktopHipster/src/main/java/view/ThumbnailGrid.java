@@ -31,10 +31,11 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	private MouseAdapter ma;
 	private PropertyChangeSupport pcs;
 	private final int numberOfColumns = 3;
-	private int side;
+	private int side = 0;
 	
 	public ThumbnailGrid(PropertyChangeSupport pcs) {
 		super(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.pcs = pcs;
 		initialize();
 	}
 	
@@ -68,11 +69,16 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 				numberOfRows, 
 				numberOfColumns));
 				
-		for(int i = 0; i < size; i++) {
-			ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i), side);
-			tp.addMouseMotionL(ma);
-			wrapper.add(tp);
-			panelList.add(tp);
+		for(int i = 0; i < numberOfRows * numberOfColumns; i++) {
+			if(i < size) {
+				ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i), side);
+				tp.addMouseMotionL(ma);
+				wrapper.add(tp);
+				panelList.add(tp);
+			} else {
+				JPanel placeHolder = new JPanel();
+				wrapper.add(placeHolder);
+			}
 		}
 		wrapper.revalidate();
 		wrapper.repaint();
@@ -84,6 +90,9 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		String name = evt.getPropertyName();
 		switch(name) {
 		case PropertyNames.MODEL_GRID_UPDATE:
+			calculateGridWidth();
+			pcs.firePropertyChange(PropertyNames.VIEW_WIDTH_UPDATE, null, (Integer)side);
+			
 			this.data = (List<ThumbnailData>)evt.getNewValue();
 			updateGrid();
 			break;
@@ -107,8 +116,12 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		}
 	}
 	
-	public void calculateGridWidth() {
+	public void frameRezise() {
+		calculateGridWidth();
+		pcs.firePropertyChange(PropertyNames.VIEW_GRID_RESIZE, null, (Integer)side);
+	}
+	
+	private void calculateGridWidth() {
 		side = (getWidth()-2) / numberOfColumns;
-		pcs.firePropertyChange(PropertyNames.VIEW_GRID_WIDTH_CHANGED, null, (Integer)side);
 	}
 }

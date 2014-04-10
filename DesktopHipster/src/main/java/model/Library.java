@@ -92,7 +92,6 @@ public class Library {
 		for (ExtendedImage image : imageArray){
 			try{
 				image.setThumbnailSize(width);
-
 			}catch(Exception ex){
 				ex.printStackTrace();
 			} 

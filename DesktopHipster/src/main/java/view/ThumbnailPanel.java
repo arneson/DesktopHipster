@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
@@ -36,7 +37,6 @@ public class ThumbnailPanel extends JPanel {
 		
 		setPreferredSize(new Dimension(side, side));
 		setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize, borderSize, borderSize));
-		setBackground(java.awt.Color.gray);
 		
 		BufferedImage image = data.getSelectedVersion();
 		if(image != null) {

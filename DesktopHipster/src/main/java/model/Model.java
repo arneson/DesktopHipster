@@ -67,12 +67,16 @@ public class Model {
 		return library;
 	}
 	
+	public void updateGrid() {
+		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
+	}
+	
 	public void gridWidthChanged(int width) {
 		library.updateThumbnailSizes(width);
-		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
 	}
 
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
-		getLibrary().load(imageFile);		
+		getLibrary().load(imageFile);
+		updateGrid();
 	}
 }
