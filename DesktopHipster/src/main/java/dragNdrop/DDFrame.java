@@ -5,8 +5,9 @@ import java.awt.datatransfer.*;
 
 import javax.swing.*;
 
-import General.PropertyNames;
+import general.PropertyNames;
 
+@SuppressWarnings("serial")
 public class DDFrame extends JFrame implements DropTargetListener {
 
   DropTarget dt;

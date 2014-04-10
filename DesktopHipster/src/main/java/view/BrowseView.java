@@ -1,12 +1,7 @@
 package view;
 
-<<<<<<< HEAD
 import general.PropertyNames;
 
-=======
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
->>>>>>> 2b2a73df8b49b4d9395d6d10bcbb844430657a69
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
