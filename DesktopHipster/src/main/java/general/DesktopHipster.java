@@ -15,6 +15,7 @@ public class DesktopHipster {
 	public DesktopHipster() {
 		@SuppressWarnings("unused")
 		Controller c = new Controller();
+		
 	}
 	public static void main(String[] args) {
 		if(System.getProperty("os.name").contains("Mac")) {
