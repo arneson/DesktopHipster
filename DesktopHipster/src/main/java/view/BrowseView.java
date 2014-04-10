@@ -8,17 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.*;
-import java.awt.image.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -35,7 +28,6 @@ public class BrowseView extends Card implements PropertyChangeListener {
 	
 	private JButton proceedButton;
 	private JLabel desc;
-	private JButton chooseImageButton;
 	private ThumbnailGrid grid;
 	
 	public BrowseView(PropertyChangeSupport pcs) {
@@ -48,7 +40,6 @@ public class BrowseView extends Card implements PropertyChangeListener {
 	public void initialize() {
 		proceedButton = new JButton("proceed");
 		desc = new JLabel("BrowseView");
-		chooseImageButton = new JButton("Choose image");
 		grid = new ThumbnailGrid(pcs);	
 		proceedButton.setEnabled(false);
 		addNorth(new JPanel(){{

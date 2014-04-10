@@ -96,6 +96,17 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 			this.data = (List<ThumbnailData>)evt.getNewValue();
 			updateGrid();
 			break;
+		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
+			ThumbnailData selected = (ThumbnailData)evt.getNewValue();
+			updatePanelBorders(selected);
+			break;
+		}
+	}
+	
+	private void updatePanelBorders(ThumbnailData selected) {
+		for(ThumbnailPanel tp : panelList) {
+			tp.setSelected(tp.getData() == selected);
+			tp.updateBorderColor();
 		}
 	}
 	
