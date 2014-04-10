@@ -84,8 +84,9 @@ public class Model {
 	 */
 	public boolean removeTag(String tag){
 		return tags.remove(tag);
-
-		public Library getLibrary() {
+	}
+		
+	public Library getLibrary() {
 		return library;
 	}
 	
