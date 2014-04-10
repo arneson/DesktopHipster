@@ -21,19 +21,18 @@ import javax.imageio.*;
 public class Library {
 
 	//Array of extended images
-	private List<BufferedImage> imageArray = new ArrayList();
+	private List<ExtendedImage> imageArray = new ArrayList<ExtendedImage>();
 
 	//Path to the directory where you save the images
 	private Path path;
 
-
+	/**
+	 * Create a directory where you save your images. 
+	 * If this directory is already created then it sets the directory where to save to the created directory.
+	 */
+	
 	public Library(){
-
-		/*
-		 * Create a directory where you save your images. 
-		 * If this directory is already created then it sets the directory where to save to the created directory.
-		 */
-
+		
 		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster").mkdirs();
 		path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
 	
@@ -46,6 +45,7 @@ public class Library {
 
 	public void save(BufferedImage saveImage, String name) throws FileNotFoundException, IOException{			    
 		try{
+			
 			File outputfile = new File(path + "/" + name);
 			ImageIO.write(saveImage, "png", outputfile);
 		} catch(FileNotFoundException fileNotFound){
@@ -61,9 +61,11 @@ public class Library {
 	 * file system or drops it in drop down panel this method will 
 	 * put it into the arraylist of images it will show in the library
 	 */
-
+	
+	
 	public void load(BufferedImage image){
-		addToImageArray(image);
+		ExtendedImage extImage = (ExtendedImage)image;
+		addToImageArray(extImage);
 	}
 	
 	/**
@@ -71,7 +73,12 @@ public class Library {
 	 * @param image
 	 */
 	
-	public void addToImageArray(BufferedImage image){
+	public void addToImageArray(ExtendedImage image){
 		imageArray.add(image);
+	}
+	
+
+	public List<ExtendedImage> getImageArray() {
+		return imageArray;
 	}
 }
