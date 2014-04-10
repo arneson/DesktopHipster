@@ -141,5 +141,10 @@ public class Controller implements PropertyChangeListener {
 			break;
 		}
 	}
+
+	public void shutDownEverything() {
+		model.getLibrary().saveToHiddenDirectory();
+		
+	}
 }
 
