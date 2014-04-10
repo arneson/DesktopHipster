@@ -6,7 +6,10 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import dragNdrop.DragNDropTray;
@@ -106,8 +109,16 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
 	    	System.out.println(evt.getNewValue());
-	    	//TODO TEMP SOLUTION FOR TESTING
 	    	File imageFile = (File) evt.getNewValue();
+	    	try {
+				model.getLibrary().load((BufferedImage)ImageIO.read(new URL(imageFile
+						.getAbsolutePath())));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	//TODO TEMP SOLUTION FOR TESTING
 			model.setActiveImage(new ExtendedImage(new ImageIcon(imageFile
 					.getAbsolutePath())));
 			break;
