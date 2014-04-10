@@ -8,9 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.net.MalformedURLException;
-import java.net.URL;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 import dragNdrop.DragNDropTray;
 import filter.FiltersEnum;
@@ -53,9 +50,7 @@ public class Controller implements PropertyChangeListener {
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_NEW_IMAGE_CHOSEN:
-			File file = (File) evt.getNewValue();
-			model.setActiveImage(new ExtendedImage(new ImageIcon(file
-					.getAbsolutePath())));
+			model.setActiveImage((ExtendedImage)evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_ACTIVE_FILTER_CHANGE:
 			ExtendedImage tempImg = model.getActiveImage();
@@ -101,13 +96,10 @@ public class Controller implements PropertyChangeListener {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
 				model.getLibrary().save(imageToSave, evt.getNewValue() + ".png");
 			} catch (NoSuchVersionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
@@ -116,7 +108,6 @@ public class Controller implements PropertyChangeListener {
 			for (ExtendedImage image : listToSave){
 				try{
 					//TODO save list to disc in hidden folder
-
 				}catch(Exception ex){
 					ex.printStackTrace();
 				} 
@@ -128,13 +119,8 @@ public class Controller implements PropertyChangeListener {
 	    	try {
 	    		model.addFileToLibrary(imageFile);
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	
-	    	//TODO TEMP SOLUTION FOR TESTING
-			model.setActiveImage(new ExtendedImage(new ImageIcon(imageFile
-					.getAbsolutePath())));
 			break;
 		case PropertyNames.VIEW_GRID_RESIZE:
 			model.gridWidthChanged((Integer)evt.getNewValue());
