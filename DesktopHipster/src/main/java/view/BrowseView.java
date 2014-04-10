@@ -1,5 +1,7 @@
 package view;
 
+import general.PropertyNames;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,6 @@ import java.beans.PropertyChangeSupport;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import General.PropertyNames;
 
 
 /**

@@ -9,8 +9,8 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.*;
 
 import filter.FiltersEnum;
+import general.PropertyNames;
 import model.ExtendedImage;
-import General.PropertyNames;
 
 /**
  * The edit view is a card that is used by the View.java. The edit
