@@ -67,8 +67,8 @@ public class Controller implements PropertyChangeListener {
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
 								model.getActiveImage()));
-				model.changeCardView(View.SubView.UPLOAD);
 			}
+			model.changeCardView(View.SubView.UPLOAD);
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
@@ -106,6 +106,11 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
 	    	System.out.println(evt.getNewValue());
+	    	//TODO TEMP SOLUTION FOR TESTING
+	    	File imageFile = (File) evt.getNewValue();
+			model.setActiveImage(new ExtendedImage(new ImageIcon(imageFile
+					.getAbsolutePath())));
+			break;
 		}
 	}
 }
