@@ -12,13 +12,13 @@ import java.util.List;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class GridPanelLayer extends JPanel {
+public class ThumbnailPanelLayer extends JPanel {
 	private final int iconSide = 35;
 	
 	private JScrollPane scroll;
 	private JPanel content, contentWrapper, iconWrapper, tagIcon, deleteIcon;
 	
-	public GridPanelLayer(int side) {
+	public ThumbnailPanelLayer(int side) {
 		super();
 		initialize(side);
 	}

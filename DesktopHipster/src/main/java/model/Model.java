@@ -43,10 +43,12 @@ public class Model {
 	public void changeCardView(View.SubView sv) {
 		pcs.firePropertyChange(PropertyNames.MODEL_CARD_CHANGE, null, sv);
 	}
+	
 	public void setActiveImage(ExtendedImage newImage){
 		activeImage=newImage;
 		pcs.firePropertyChange(PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE, null, activeImage);
 	}
+	
 	public ExtendedImage getActiveImage(){
 		return activeImage;
 	}
@@ -62,5 +64,8 @@ public class Model {
 	public Library getLibrary() {
 		return library;
 	}
-
+	
+	public void frameResize() {
+		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, null);
+	}
 }

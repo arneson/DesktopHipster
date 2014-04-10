@@ -2,11 +2,20 @@ package view;
 
 import general.PropertyNames;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -29,26 +38,43 @@ public class BrowseView extends Card implements PropertyChangeListener {
 	private JLabel desc;
 	private JButton chooseImageButton;
 	private JFileChooser jfc;
+	private ThumbnailGrid grid;
 	
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
-		initialize();
 		this.pcs = pcs;
+		initialize();
+		pcs.addPropertyChangeListener(grid);
 	}
 	
 	public void initialize() {
 		proceedButton = new JButton("proceed");
-		proceedButton.setEnabled(false);
 		desc = new JLabel("BrowseView");
 		chooseImageButton = new JButton("Choose image");
+		grid = new ThumbnailGrid();
 		jfc = new JFileChooser();
+		
+		proceedButton.setEnabled(false);
 		jfc.setAcceptAllFileFilterUsed(false);
 		jfc.addChoosableFileFilter(new FileNameExtensionFilter(
 				"Image files", ImageIO.getReaderFileSuffixes()));
 		
-		addCenter(new JPanel(){{add(chooseImageButton);
+		addNorth(new JPanel(){{add(chooseImageButton);
 			add(proceedButton);
 			add(desc);}});
+		addCenter(new JPanel(){{setLayout(new java.awt.GridLayout(1,1));add(grid);}});
+		
+		//START OF GRID TEST THUMBNAILS
+		final BufferedImage image = new BufferedImage(1000,1000,BufferedImage.TYPE_INT_ARGB);
+		Graphics g = image.getGraphics();
+		g.setColor(Color.yellow);
+		g.fillRect(0, 0, 1000, 1000);
+		List<BufferedImage> list = new ArrayList<BufferedImage>();
+		for(int i = 0; i < 20; i++) {
+			list.add(image);
+		}
+		grid.setThumbnails(list);
+		//END OF GRID TEST THUMBNAILS
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -65,7 +91,19 @@ public class BrowseView extends Card implements PropertyChangeListener {
 			}
 		});
 		
-		setBackground(java.awt.Color.blue);
+		addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				grid.updateVisibleLayer(e);
+			}
+		});
+		
+		addMouseWheelListener(new MouseWheelListener(){
+			@Override
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				grid.mouseWheelMoved(e);
+			}
+		});
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {

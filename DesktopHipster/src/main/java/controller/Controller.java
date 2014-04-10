@@ -111,6 +111,8 @@ public class Controller implements PropertyChangeListener {
 			model.setActiveImage(new ExtendedImage(new ImageIcon(imageFile
 					.getAbsolutePath())));
 			break;
+		case PropertyNames.VIEW_MAIN_FRAME_RESIZE:
+			model.frameResize();
 		}
 	}
 }

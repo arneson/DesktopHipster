@@ -3,10 +3,12 @@ package model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
 
+import view.ThumbnailData;
 import filter.*;
 
 /**
@@ -15,7 +17,7 @@ import filter.*;
  * @author Edvard Hubinette
  * @revised by Simon Arneson
  */
-public class ExtendedImage extends BufferedImage {
+public class ExtendedImage extends BufferedImage implements ThumbnailData {
 
 	private BufferedImage preview;
 	private BufferedImage thumbnail;
@@ -81,5 +83,17 @@ public class ExtendedImage extends BufferedImage {
 	 */
 	public BufferedImage getThumbnail(){
 		return thumbnail;
+	}
+
+	@Override
+	public List<BufferedImage> getVersions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getTags() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
