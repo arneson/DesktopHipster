@@ -6,9 +6,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +26,16 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener {	
 	private JPanel content, wrapper;
-	private List<BufferedImage> images;
+	private List<ThumbnailData> data;
+	private List<ThumbnailPanel> panelList;
 	private MouseAdapter ma;
+	private PropertyChangeSupport pcs;
+	private final int numberOfColumns = 3;
+	private int side = 0;
 	
-	private List<ThumbnailPanel> tpList;
-	
-	public ThumbnailGrid() {
+	public ThumbnailGrid(PropertyChangeSupport pcs) {
 		super(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.pcs = pcs;
 		initialize();
 	}
 	
@@ -52,49 +57,71 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		};
 		content.addMouseMotionListener(ma);
 		wrapper.addMouseMotionListener(ma);
-		}
+	}
 	
 	private void updateGrid() {
-		int size = images.size();
-		final int numberOfColumns = 3;
-		int side = (getWidth()-2) / numberOfColumns;
+		int size = data.size();
 		final int numberOfRows = (int)Math.ceil((double)size/(double)numberOfColumns);
 		
-		tpList = new ArrayList<ThumbnailPanel>();
+		panelList = new ArrayList<ThumbnailPanel>();
 		wrapper.removeAll();
 		wrapper.setLayout(new GridLayout(
 				numberOfRows, 
 				numberOfColumns));
 				
-		for(int i = 0; i < size; i++) {
-			ThumbnailPanel tp = new ThumbnailPanel(images.get(i), side);
-			tp.addMouseMotionL(ma);
-			wrapper.add(tp);
-			tpList.add(tp);
+		for(int i = 0; i < numberOfRows * numberOfColumns; i++) {
+			if(i < size) {
+				ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i), side);
+				tp.addMouseMotionL(ma);
+				wrapper.add(tp);
+				panelList.add(tp);
+			} else {
+				JPanel placeHolder = new JPanel();
+				wrapper.add(placeHolder);
+			}
 		}
 		wrapper.revalidate();
 		wrapper.repaint();
 	}
-	
-	public void setThumbnails(List<BufferedImage> images) {
-		this.images = images;
-		updateGrid();
-	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals(PropertyNames.MODEL_MAIN_FRAME_RESIZE)) {
+		String name = evt.getPropertyName();
+		switch(name) {
+		case PropertyNames.MODEL_GRID_UPDATE:
+			calculateGridWidth();
+			pcs.firePropertyChange(PropertyNames.VIEW_WIDTH_UPDATE, null, (Integer)side);
+			
+			this.data = (List<ThumbnailData>)evt.getNewValue();
 			updateGrid();
+			break;
 		}
 	}
 	
 	public void updateVisibleLayer(MouseEvent e) {
-		for(ThumbnailPanel tp : tpList) {
+		for(ThumbnailPanel tp : panelList) {
 			if(tp.isChild(e.getSource())) {
 				tp.showLayer();
 			} else {
 				tp.hideLayer();
 			}
 		}
+	}
+	
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		MouseWheelListener[] listeners = getMouseWheelListeners();
+		for(MouseWheelListener listener : listeners) {
+			listener.mouseWheelMoved(e);
+		}
+	}
+	
+	public void frameRezise() {
+		calculateGridWidth();
+		pcs.firePropertyChange(PropertyNames.VIEW_GRID_RESIZE, null, (Integer)side);
+	}
+	
+	private void calculateGridWidth() {
+		side = (getWidth()-2) / numberOfColumns;
 	}
 }

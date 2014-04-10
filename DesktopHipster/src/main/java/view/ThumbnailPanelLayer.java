@@ -1,29 +1,35 @@
 package view;
 
+import general.PropertyNames;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class GridPanelLayer extends JPanel {
+public class ThumbnailPanelLayer extends JPanel {
 	private final int iconSide = 35;
 	
 	private JScrollPane scroll;
-	private JPanel content, contentWrapper, iconWrapper, tagIcon, deleteIcon;
+	private JPanel content, contentWrapper, iconWrapper, tagIcon, deleteIcon, saveIcon;
+	private PropertyChangeSupport pcs;
 	
-	public GridPanelLayer(int side) {
+	public ThumbnailPanelLayer(PropertyChangeSupport pcs, ThumbnailData data, int side) {
 		super();
-		initialize(side);
+		this.pcs = pcs;
+		initialize(data, side);
 	}
 	
-	public void initialize(int side) {
+	public void initialize(final ThumbnailData data, int side) {
 		hideLayer();
 		setOpaque(false);
 		
@@ -33,6 +39,7 @@ public class GridPanelLayer extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		tagIcon = new JPanel();
 		deleteIcon = new JPanel();
+		saveIcon = new JPanel();
 		iconWrapper = new JPanel();
 		
 		scroll.setBorder(null);
@@ -47,6 +54,8 @@ public class GridPanelLayer extends JPanel {
 		
 		tagIcon.setPreferredSize(new Dimension(iconSide,iconSide));
 		deleteIcon.setPreferredSize(new Dimension(iconSide,iconSide));
+		saveIcon.setPreferredSize(new Dimension(iconSide,iconSide));
+		saveIcon.setBackground(Color.green);
 		tagIcon.setBackground(Color.red);
 		deleteIcon.setBackground(Color.blue);
 		
@@ -55,9 +64,17 @@ public class GridPanelLayer extends JPanel {
 		iconWrapper.setLayout(new FlowLayout(FlowLayout.RIGHT,10,10));
 		iconWrapper.add(deleteIcon);
 		iconWrapper.add(tagIcon);
+		iconWrapper.add(saveIcon);
 		
 		contentWrapper.setLayout(new BorderLayout());
 		contentWrapper.add(content, BorderLayout.WEST);
+		
+		addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN, null, data);
+			}
+		});
 		
 		setLayout(new BorderLayout());
 		add(scroll, BorderLayout.SOUTH);

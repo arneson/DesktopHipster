@@ -6,6 +6,14 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -30,44 +38,46 @@ public class BrowseView extends Card implements PropertyChangeListener {
 	private JButton proceedButton;
 	private JLabel desc;
 	private JButton chooseImageButton;
-	private JFileChooser jfc;
+	private ThumbnailGrid grid;
 	
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
-		initialize();
 		this.pcs = pcs;
+		initialize();
+		pcs.addPropertyChangeListener(grid);
 	}
 	
 	public void initialize() {
 		proceedButton = new JButton("proceed");
-		proceedButton.setEnabled(false);
 		desc = new JLabel("BrowseView");
 		chooseImageButton = new JButton("Choose image");
-		jfc = new JFileChooser();
-		jfc.setAcceptAllFileFilterUsed(false);
-		jfc.addChoosableFileFilter(new FileNameExtensionFilter(
-				"Image files", ImageIO.getReaderFileSuffixes()));
-		
-		addCenter(new JPanel(){{add(chooseImageButton);
+		grid = new ThumbnailGrid(pcs);	
+		proceedButton.setEnabled(false);
+		addNorth(new JPanel(){{
 			add(proceedButton);
 			add(desc);}});
+		addCenter(new JPanel(){{setLayout(new java.awt.GridLayout(1,1));add(grid);}});
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);
 			}
 		});
-		chooseImageButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				//TODO needs parent later
-				int returnVal = jfc.showOpenDialog(null);
-				if(returnVal==JFileChooser.APPROVE_OPTION){
-					pcs.firePropertyChange(PropertyNames.VIEW_OPEN_FILE_CLICKED,null,jfc.getSelectedFile());
-				}
+
+		
+		addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				grid.updateVisibleLayer(e);
 			}
 		});
 		
-		setBackground(java.awt.Color.blue);
+		addMouseWheelListener(new MouseWheelListener(){
+			@Override
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				grid.mouseWheelMoved(e);
+			}
+		});
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -76,5 +86,9 @@ public class BrowseView extends Card implements PropertyChangeListener {
 			proceedButton.setEnabled(true);
 			break;
 		}
+	}
+	
+	public void calculateGridWidth() {
+		grid.frameRezise();
 	}
 }

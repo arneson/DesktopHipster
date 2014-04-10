@@ -4,6 +4,7 @@ import general.PropertyNames;
 
 import java.awt.CardLayout;
 import java.awt.GridLayout;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -16,7 +17,7 @@ import javax.swing.*;
  * cards that are the different states of the program. 
  * 
  * @author Robin Sveningson
- *	
+ * @revised Lovisa Jaberg
  */
 @SuppressWarnings("serial")
 public class View extends JFrame implements PropertyChangeListener {
@@ -58,9 +59,34 @@ public class View extends JFrame implements PropertyChangeListener {
 		setLayout(new GridLayout(1,1));
 		add(cardPanel);
 		
+		/*addComponentListener(new ComponentAdapter(){
+			@Override
+            public void componentHidden(ComponentEvent e) {
+                //TODO save pictures when quitting program
+				pcs.firePropertyChange(PropertyNames.VIEW_SAVE_LIST_TO_DISC, null, null);
+                ((JFrame)(e.getComponent())).dispose();
+            }
+		});*/
+		requestFocus();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+		
+		addComponentListener(new ComponentListener(){
+			@Override
+			public void componentResized(ComponentEvent e) {
+				browseView.calculateGridWidth();
+				//pcs.firePropertyChange(PropertyNames.VIEW_MAIN_FRAME_RESIZE, null, null);
+			}
+			@Override
+			public void componentMoved(ComponentEvent e) {}
+			@Override
+			public void componentShown(ComponentEvent e) {}
+			@Override
+			public void componentHidden(ComponentEvent e) {}
+		});
+		
+		MenuBarFactory.createMenuBar(this);
 	}
 	
 	public void updateVisibleCard(String name) {

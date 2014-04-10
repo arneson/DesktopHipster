@@ -3,10 +3,13 @@ package model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
 
+import view.ThumbnailData;
 import filter.*;
 
 /**
@@ -16,7 +19,8 @@ import filter.*;
  * @revised by Simon Arneson
  * @revised Edvard Hübinette
  */
-public class ExtendedImage extends BufferedImage {
+
+public class ExtendedImage extends BufferedImage implements ThumbnailData {
 
 	private static int id;
 	private final int imageID;
@@ -83,5 +87,26 @@ public class ExtendedImage extends BufferedImage {
 	 */
 	public BufferedImage getThumbnail(){
 		return thumbnail;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<BufferedImage> getVersions() {
+		return new ArrayList(versions.values());
+	}
+
+	@Override
+	public List<String> getTags() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BufferedImage getSelectedVersion() {
+		return thumbnail;
+	}
+
+	public void setThumbnailSize(int width) {
+		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(width, width, Image.SCALE_FAST));
 	}
 }

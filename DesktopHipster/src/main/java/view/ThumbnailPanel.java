@@ -2,15 +2,13 @@ package view;
 
 import javax.swing.*;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
+import java.beans.PropertyChangeSupport;
 
 /**
  * Class to display an image on a JPanel.
@@ -24,23 +22,27 @@ public class ThumbnailPanel extends JPanel {
 	
 	private JLayeredPane layeredPane;
 	private JLabel canvas;
-	private GridPanelLayer topLayer;
+	private ThumbnailPanelLayer topLayer;
+	private PropertyChangeSupport pcs;
 	
 	
-	public ThumbnailPanel(BufferedImage image, int side) {
+	public ThumbnailPanel(PropertyChangeSupport pcs, ThumbnailData data, int side) {
 		super();
-		initialize(image, side);
+		this.pcs = pcs;
+		initialize(data, side);
 	}
 	
-	private void initialize(final BufferedImage image, int side) {
+	private void initialize(final ThumbnailData data, int side) {
 		side -= borderSize * 2;
 		
 		setPreferredSize(new Dimension(side, side));
 		setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize, borderSize, borderSize));
-		setBackground(java.awt.Color.gray);
 		
-		canvas = new JLabel(new ImageIcon(image));
-		topLayer = new GridPanelLayer(side);
+		BufferedImage image = data.getSelectedVersion();
+		if(image != null) {
+			canvas = new JLabel(new ImageIcon(image));
+		}
+		topLayer = new ThumbnailPanelLayer(pcs, data, side);
 		layeredPane = new JLayeredPane();
 		
 		canvas.setBounds(new Rectangle(0,0,side,side));
@@ -54,15 +56,7 @@ public class ThumbnailPanel extends JPanel {
 		setLayout(new GridLayout(1,1));
 		add(layeredPane);
 		
-		List<BufferedImage> versions = new ArrayList<BufferedImage>();
-		final BufferedImage version = new BufferedImage(1000,1000,BufferedImage.TYPE_INT_ARGB);
-		Graphics g = version.getGraphics();
-		g.setColor(Color.green);
-		g.fillRect(0, 0, 1000, 1000);
-		for(int i = 0; i < 6; i++) {
-			versions.add(version);
-		}
-		topLayer.addVersionList(versions, side);
+		topLayer.addVersionList(data.getVersions(), side);
 	}
 	
 	public void addMouseMotionL(MouseAdapter ma) {
