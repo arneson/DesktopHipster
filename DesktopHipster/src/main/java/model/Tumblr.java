@@ -15,6 +15,12 @@ import com.tumblr.jumblr.types.Photo;
 import com.tumblr.jumblr.types.PhotoPost;
 import com.tumblr.jumblr.types.User;
 
+/**
+ * Implementation for uploading images to Tumblr web archive
+ * 
+ * @author Edvard
+ *
+ */
 public class Tumblr implements IHost {
 
 	User user;

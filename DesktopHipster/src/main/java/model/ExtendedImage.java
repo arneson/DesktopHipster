@@ -17,17 +17,19 @@ import filter.*;
  * 
  * @author Edvard Hubinette
  * @revised by Simon Arneson
+ * @revised Edvard Hübinette
  */
 
 public class ExtendedImage extends BufferedImage implements ThumbnailData {
 
+	private static int id;
+	private final int imageID;
 	private BufferedImage preview;
 	private BufferedImage thumbnail;
 	
 	// Map for managing image edit versions
 	private TreeMap<FiltersEnum, BufferedImage> versions = new TreeMap<FiltersEnum, BufferedImage>();
-	// Needed?
-	// private Path pathToFile;
+
 	
 	public ExtendedImage(ImageIcon image){
 		super(image.getIconWidth(), image.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -38,9 +40,9 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData {
 		preview =  filter.ImageTools.toBufferedImage(getScaledInstance(600, -1, Image.SCALE_SMOOTH));
 		
 		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(100, -1, Image.SCALE_FAST));
-		
+		imageID = id += 1;	
 	}
-	
+
 	/**
 	 * Adds an edited version of this image to a list of versions
 	 * 

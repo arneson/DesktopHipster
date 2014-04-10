@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
  * on an image. 
  * 
  * @author Robin Sveningson
+ * @revised Edvard Hübinette
+ * @revised Edvard Hübinette
  *
  */
 public class ImageTools {

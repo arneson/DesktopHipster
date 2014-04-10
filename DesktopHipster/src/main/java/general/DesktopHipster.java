@@ -9,7 +9,8 @@ import controller.Controller;
  * events.
  * 
  * @author Robin Sveningson
- *	
+ * @revised Edvard Hübinette
+ *
  */
 public class DesktopHipster {
 	private Controller myController;
