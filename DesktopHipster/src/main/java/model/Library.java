@@ -44,9 +44,7 @@ public class Library {
 	public Library(){
 
 		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster").mkdirs();
-		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster/.saveImageArray").mkdirs();
 		path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
-		hiddenPath = Paths.get(System.getProperty("user.home") + "/Pictures/DekstopHipster/.saveImageArray");
 
 	}
 
@@ -73,7 +71,6 @@ public class Library {
 	 * put it into the arraylist of images it will show in the library
 	 */
 
-
 	public void load(File imageFile){
 
 		addToImageArray(new ExtendedImage(new ImageIcon(imageFile.getAbsolutePath())));
@@ -94,15 +91,23 @@ public class Library {
 	}
 
 	public void saveToHiddenDirectory(){
-		System.out.println("Saving list to hidden directory");
-		File backup = new File(hiddenPath.toString()+"/backup");
+		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster/.saveImageArray").mkdirs();
+		hiddenPath = Paths.get(System.getProperty("user.home") + "/Pictures/DekstopHipster/.saveImageArray");
+
+		File backup = new File(hiddenPath + "/backup");
 		/*
 		try {
-				OutputStream file = new FileOutputStream(backup.getAbsolutePath());
+			System.out.println("Saving list to hidden directory");
+
+
+
+			for(ExtendedImage image : imageArray){
+				OutputStream file = new FileOutputStream(hiddenPath + "/" + image.getID());
 				OutputStream buffer = new BufferedOutputStream(file);
 				ObjectOutput output = new ObjectOutputStream(buffer);
-				
-		    output.writeObject(imageArray);
+				output.writeObject(image);
+			}
+			output.close();
 			System.out.println("Done");
 
 		} catch (IOException e) {
@@ -110,6 +115,12 @@ public class Library {
 			e.printStackTrace();
 		}*/
 
+	}
+
+	//Method to run when program starts
+
+	public void loadFromHiddenDirectory(){
+		//TODO Implement
 	}
 
 	public void updateThumbnailSizes(int width){
