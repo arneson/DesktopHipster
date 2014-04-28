@@ -1,5 +1,6 @@
 package filter;
 
+
 /**
  * Enum of all filters. Add new filters here.
  * 

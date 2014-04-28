@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 /**
  * This class contains all the different tools that can be used
  * on an image. 
@@ -145,4 +147,6 @@ public class ImageTools {
 	    // Return the buffered image
 	    return bimage;
 	}
+
+
 }

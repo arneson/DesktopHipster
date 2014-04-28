@@ -3,13 +3,14 @@ package model;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
 import view.View;
 import filter.FiltersEnum;
+import filter.IFilter;
 import general.PropertyNames;
 
 /**
@@ -20,19 +21,29 @@ import general.PropertyNames;
  * @revised Edvard Hübinette
  *	
  */
+
 public class Model {
 	private PropertyChangeSupport pcs;
 	private Library library = new Library();
-
 	//private DdBox ddBox = new DdBox();
 	private ExtendedImage activeImage;
 	private FiltersEnum activeFilter;
-	private ArrayList<IHost> hosts = new ArrayList<IHost>();
+	private TreeSet<IFilter> allFilters = new TreeSet<IFilter>();
+	private TreeSet<IHost> allHosts = new TreeSet<IHost>();
 	private TreeMap<String, BufferedImage> filterExamples = new TreeMap<String, BufferedImage>();
 	private TreeSet<String> tags = new TreeSet<String>();
 	
 	public Model() {
 		pcs = new PropertyChangeSupport(this);
+		
+		for(int i = 0; i < FiltersEnum.values().length; i++){
+			allFilters.add(FiltersEnum.values()[i].getFilter());
+		}
+		
+		for(int i = 0; i < HostsEnum.values().length; i++){
+			allHosts.add(HostsEnum.values()[i].getHost());
+		}
+		
 		
 		
 	}
@@ -88,6 +99,22 @@ public class Model {
 		
 	public Library getLibrary() {
 		return library;
+	}
+	
+	/**
+	 * Returns all filters
+	 * @return A sorted set of all filters
+	 */
+	public TreeSet<IFilter> getAllFilters(){
+		return allFilters;
+	}
+	
+	/**
+	 * Returns all hosts
+	 * @return A sorted set of all hosts
+	 */
+	public TreeSet<IHost> getAllHosts(){
+		return allHosts;
 	}
 	
 	public void updateGrid() {

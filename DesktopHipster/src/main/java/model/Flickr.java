@@ -2,10 +2,12 @@ package model;
 
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import org.scribe.builder.ServiceBuilder;
@@ -16,6 +18,8 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
+
+import com.flickr4java.flickr.photos.Photo;
 
 public class Flickr implements IHost {
 
@@ -56,17 +60,26 @@ public class Flickr implements IHost {
 	    service.signRequest(accessToken, request);
 	    Response response = request.send();
 	    System.out.println(response.getBody());
-	    
-	   
-		
-		
+	
 	}
+	
 	@Override
 	public boolean uploadImage(BufferedImage image) {
 		OAuthRequest uploadRequest = new OAuthRequest(Verb.POST, "https://up.flickr.com/services/upload/");
 		uploadRequest.addQuerystringParameter("title", "DesktopHipster");
 		service.signRequest(accessToken, uploadRequest);
-		//uploadRequest.addQuerystringParameter("photo", );
-		return false;
+		
+		File file = new File(TMPFILE_PATH);
+
+		try {
+			ImageIO.write(image, "png", file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+		uploadRequest.addQuerystringParameter("photo", file.getAbsolutePath() );
+		Response response = uploadRequest.send();
+		System.out.println(response.getBody());
+		return true;
 	}
 }

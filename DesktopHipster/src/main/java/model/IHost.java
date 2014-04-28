@@ -9,5 +9,6 @@ import java.awt.image.BufferedImage;
  *
  */
 public interface IHost {
+	public static final String TMPFILE_PATH = "/tmp/DHtmp";
 	public boolean uploadImage(BufferedImage image);
 }
