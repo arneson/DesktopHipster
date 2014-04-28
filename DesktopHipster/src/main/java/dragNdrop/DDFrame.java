@@ -2,7 +2,11 @@ package dragNdrop;
 import java.awt.*;
 import java.awt.dnd.*;
 import java.awt.datatransfer.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import general.PropertyNames;
@@ -12,23 +16,27 @@ public class DDFrame extends JFrame implements DropTargetListener {
 
   DropTarget dt;
   JTextArea ta;
+  JLabel dropArea;
 
   public DDFrame() {
-    super("Drop Test");
-    setSize(300,300);
+    super("DesktopHipster");
+    setSize(200,140);
     addWindowListener(null);
     setUndecorated(true);
 
-    getContentPane().add(
-        new JLabel("Drop a list from your file chooser here:"),
-  BorderLayout.NORTH);
+//    getContentPane().add(
+//        new JLabel("Drop a list from your file chooser here:"),
+//  BorderLayout.NORTH);
     ta = new JTextArea();
+    
+    dropArea = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
+    
     ta.setBackground(Color.white);
-    add(ta, BorderLayout.CENTER);
+    add(dropArea, BorderLayout.CENTER);
 
     // Set up our text area to recieve drops...
     // This class will handle drop events
-    dt = new DropTarget(ta, this);
+    dt = new DropTarget(dropArea, this);
     setVisible(true);
   }
 
@@ -47,9 +55,25 @@ public class DDFrame extends JFrame implements DropTargetListener {
 		    
 		    // And add the list of file names to our text area
 		    java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
+		    boolean valid = true;
 		    for (int j = 0; j < list.size(); j++) {
-		      //ta.append(list.get(j) + "\n");
-		    	firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+		    	try {
+		    	    Image img =ImageIO.read((File)list.get(j));
+		    	    if (img == null) {
+		    	        valid = false;
+		    	    }
+		    	    else{
+		    	    	firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+		    	    }
+		    	} catch(IOException ex) {
+		    	    valid=false;
+		    	}
+		    }
+		    if(valid){
+		    	setDropOKLogo();
+		    }
+		    else{
+		    	setDropNotOKLogo();
 		    }
 		
 		    dtde.dropComplete(true);
@@ -66,8 +90,7 @@ public class DDFrame extends JFrame implements DropTargetListener {
 
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
-		// TODO Auto-generated method stub
-		
+	    dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanelOK.png")));
 	}
 	
 	@Override
@@ -84,7 +107,12 @@ public class DDFrame extends JFrame implements DropTargetListener {
 	
 	@Override
 	public void dragExit(DropTargetEvent dte) {
-		// TODO Auto-generated method stub
-		
+		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));		
+	}
+	public void setDropOKLogo(){
+		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
+	}
+	public void setDropNotOKLogo(){
+	    dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanelNOK.png")));	
 	}
 } 

@@ -3,6 +3,7 @@ package model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -20,7 +21,7 @@ import filter.*;
  * @revised Edvard Hübinette
  */
 
-public class ExtendedImage extends BufferedImage implements ThumbnailData {
+public class ExtendedImage extends BufferedImage implements ThumbnailData, Serializable {
 
 	private static int id;
 	private final int imageID;

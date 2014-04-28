@@ -2,6 +2,9 @@ package view;
 
 import general.PropertyNames;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -30,6 +33,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 	private JButton saveToDiscButton;
 	private JLabel desc;
 	private JButton tumblrButton;
+	private JButton flickrButton;
 	private JTextField imageName;
 	
 	public UploadView(PropertyChangeSupport pcs) {
@@ -42,15 +46,23 @@ public class UploadView extends Card implements PropertyChangeListener {
 		proceedButton = new JButton("proceed");
 		saveToDiscButton = new JButton("Save to disc");
 		desc = new JLabel("UploadView");
-		tumblrButton = new JButton("Tumblr");
+		tumblrButton = new JButton();
+		tumblrButton.setIcon(new ImageIcon(getClass().getResource("/tumblr_icon.png")));
+		flickrButton = new JButton();
+		flickrButton.setIcon(new ImageIcon(getClass().getResource("/flickr_icon.png")));
 		imageName = new JTextField("Add name..",50);
 		
 		imageName.addMouseListener(myMouseListener);
 		
-		addCenter(new JPanel(){{add(tumblrButton);
+		addNorth(new JPanel(){{add(desc);
 			add(proceedButton);
-			add(desc);
-			add(saveToDiscButton);}});
+			add(saveToDiscButton);
+		}});
+		JPanel centerPanel = new JPanel(new GridLayout(2,1)){{add(tumblrButton);
+			add(flickrButton);}};
+			//TODO Change size 
+			//centerPanel.setPreferredSize(new Dimension(500,500));
+		addCenter(centerPanel);
 		
 		addSouth(new JPanel(){{add(imageName);}});
 		
@@ -71,7 +83,6 @@ public class UploadView extends Card implements PropertyChangeListener {
 			}
 		});
 		
-		setBackground(java.awt.Color.red);
 	}
 	
 	private MouseListener myMouseListener = new MouseListener() {

@@ -59,14 +59,6 @@ public class View extends JFrame implements PropertyChangeListener {
 		setLayout(new GridLayout(1,1));
 		add(cardPanel);
 		
-		/*addComponentListener(new ComponentAdapter(){
-			@Override
-            public void componentHidden(ComponentEvent e) {
-                //TODO save pictures when quitting program
-				pcs.firePropertyChange(PropertyNames.VIEW_SAVE_LIST_TO_DISC, null, null);
-                ((JFrame)(e.getComponent())).dispose();
-            }
-		});*/
 		requestFocus();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -18,7 +18,7 @@ import general.PropertyNames;
  * contains the application's data.
  * 
  * @author Robin Sveningson
- * @revised Edvard Hübinette
+ * @revised Edvard H��binette
  *	
  */
 
@@ -43,9 +43,6 @@ public class Model {
 		for(int i = 0; i < HostsEnum.values().length; i++){
 			allHosts.add(HostsEnum.values()[i].getHost());
 		}
-		
-		
-		
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
