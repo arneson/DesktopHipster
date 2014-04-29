@@ -25,7 +25,6 @@ import general.PropertyNames;
 public class Model {
 	private PropertyChangeSupport pcs;
 	private Library library = new Library();
-	//private DdBox ddBox = new DdBox();
 	private ExtendedImage activeImage;
 	private FiltersEnum activeFilter;
 	private TreeSet<IFilter> allFilters = new TreeSet<IFilter>();
