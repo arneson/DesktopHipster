@@ -2,7 +2,10 @@ package model;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,6 +48,8 @@ public class Library {
 
 		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster").mkdirs();
 		path = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster");
+		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster/.backUp").mkdirs();
+		hiddenPath = Paths.get(System.getProperty("user.home") + "/Pictures/DesktopHipster/.backUp");
 
 	}
 
@@ -91,36 +96,43 @@ public class Library {
 	}
 
 	public void saveToHiddenDirectory(){
-		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster/.saveImageArray").mkdirs();
-		hiddenPath = Paths.get(System.getProperty("user.home") + "/Pictures/DekstopHipster/.saveImageArray");
 
-		File backup = new File(hiddenPath + "/backup");
-		/*
-		try {
-			System.out.println("Saving list to hidden directory");
+		for(ExtendedImage image : imageArray){
 
-
-
-			for(ExtendedImage image : imageArray){
-				OutputStream file = new FileOutputStream(hiddenPath + "/" + image.getID());
-				OutputStream buffer = new BufferedOutputStream(file);
-				ObjectOutput output = new ObjectOutputStream(buffer);
-				output.writeObject(image);
+			try {
+				
+				FileOutputStream output = new FileOutputStream(hiddenPath.toString());
+				DataOutputStream dataoutput = new DataOutputStream(output);
+				dataoutput.writeInt(image.getID());
+				dataoutput.flush();
+				dataoutput.close();
+				
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			output.close();
-			System.out.println("Done");
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
+		}
 	}
 
 	//Method to run when program starts
 
 	public void loadFromHiddenDirectory(){
-		//TODO Implement
+		
+		try {
+			FileInputStream input = new FileInputStream(hiddenPath.toString());
+			DataInputStream datainput = new DataInputStream(input);
+			int derp = datainput.readInt();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void updateThumbnailSizes(int width){

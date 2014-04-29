@@ -110,4 +110,8 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	public void setThumbnailSize(int width) {
 		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(width, width, Image.SCALE_FAST));
 	}
+	
+	public int getID(){
+		return imageID;
+	}
 }
