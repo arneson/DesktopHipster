@@ -109,7 +109,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 			tp.updateBorderColor();
 		}
 	}
-	
+
 	public void updateVisibleLayer(MouseEvent e) {
 		for(ThumbnailPanel tp : panelList) {
 			if(tp.isChild(e.getSource())) {
@@ -119,7 +119,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 			}
 		}
 	}
-	
+
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		MouseWheelListener[] listeners = getMouseWheelListeners();
 		for(MouseWheelListener listener : listeners) {

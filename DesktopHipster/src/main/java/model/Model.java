@@ -5,7 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import view.View;
@@ -27,9 +28,9 @@ public class Model {
 	private Library library = new Library();
 	private ExtendedImage activeImage;
 	private FiltersEnum activeFilter;
-	private TreeSet<IFilter> allFilters = new TreeSet<IFilter>();
-	private TreeSet<IHost> allHosts = new TreeSet<IHost>();
-	private TreeMap<String, BufferedImage> filterExamples = new TreeMap<String, BufferedImage>();
+	private HashSet<IFilter> allFilters = new HashSet<IFilter>();
+	private HashSet<IHost> allHosts = new HashSet<IHost>();
+	private HashMap<String, BufferedImage> filterExamples = new HashMap<String, BufferedImage>();
 	private TreeSet<String> tags = new TreeSet<String>();
 	
 	public Model() {
@@ -39,9 +40,9 @@ public class Model {
 			allFilters.add(FiltersEnum.values()[i].getFilter());
 		}
 		
-		for(int i = 0; i < HostsEnum.values().length; i++){
-			allHosts.add(HostsEnum.values()[i].getHost());
-		}
+		//for(int i = 0; i < HostsEnum.values().length; i++){
+		//	allHosts.add(HostsEnum.values()[i].getHost());
+		//}
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -101,7 +102,7 @@ public class Model {
 	 * Returns all filters
 	 * @return A sorted set of all filters
 	 */
-	public TreeSet<IFilter> getAllFilters(){
+	public HashSet<IFilter> getAllFilters(){
 		return allFilters;
 	}
 	
@@ -109,7 +110,7 @@ public class Model {
 	 * Returns all hosts
 	 * @return A sorted set of all hosts
 	 */
-	public TreeSet<IHost> getAllHosts(){
+	public HashSet<IHost> getAllHosts(){
 		return allHosts;
 	}
 	
