@@ -28,20 +28,20 @@ import model.Tumblr;
 @SuppressWarnings("serial")
 public class UploadView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
-	
+
 	private JButton proceedButton;
 	private JButton saveToDiscButton;
 	private JLabel desc;
 	private JButton tumblrButton;
 	private JButton flickrButton;
 	private JTextField imageName;
-	
+
 	public UploadView(PropertyChangeSupport pcs) {
 		super();
 		initialize();
 		this.pcs = pcs;
 	}
-	
+
 	public void initialize() {
 		proceedButton = new JButton("proceed");
 		saveToDiscButton = new JButton("Save to disc");
@@ -51,21 +51,21 @@ public class UploadView extends Card implements PropertyChangeListener {
 		flickrButton = new JButton();
 		flickrButton.setIcon(new ImageIcon(getClass().getResource("/flickr_icon.png")));
 		imageName = new JTextField("Add name..",50);
-		
+
 		imageName.addMouseListener(myMouseListener);
-		
+
 		addNorth(new JPanel(){{add(desc);
-			add(proceedButton);
-			add(saveToDiscButton);
+		add(proceedButton);
+		add(saveToDiscButton);
 		}});
 		JPanel centerPanel = new JPanel(new GridLayout(2,1)){{add(tumblrButton);
-			add(flickrButton);}};
-			//TODO Change size 
-			//centerPanel.setPreferredSize(new Dimension(500,500));
+		add(flickrButton);}};
+		//TODO Change size 
+		//centerPanel.setPreferredSize(new Dimension(500,500));
 		addCenter(centerPanel);
-		
+
 		addSouth(new JPanel(){{add(imageName);}});
-		
+
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
@@ -79,12 +79,16 @@ public class UploadView extends Card implements PropertyChangeListener {
 		//TODO 
 		saveToDiscButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				pcs.firePropertyChange(PropertyNames.VIEW_SAVE_IMAGE_TO_DISC, null, imageName.getText());
+				if(imageName.getText().equals("") || imageName.getText().equals("Add name..")){
+					pcs.firePropertyChange(PropertyNames.VIEW_SAVE_IMAGE_TO_DISC, null, e.getID());
+				} else {
+					pcs.firePropertyChange(PropertyNames.VIEW_SAVE_IMAGE_TO_DISC, null, imageName.getText());
+				}
 			}
 		});
-		
+
 	}
-	
+
 	private MouseListener myMouseListener = new MouseListener() {
 
 		@Override
@@ -97,31 +101,31 @@ public class UploadView extends Card implements PropertyChangeListener {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	};
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		
+
 	}
-	
+
 }

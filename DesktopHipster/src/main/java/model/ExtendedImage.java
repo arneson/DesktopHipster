@@ -3,11 +3,17 @@ package model;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import view.ThumbnailData;
@@ -19,6 +25,7 @@ import filter.*;
  * @author Edvard Hubinette
  * @revised by Simon Arneson
  * @revised Edvard Hübinette
+ * @revised Lovisa Jäberg
  */
 
 public class ExtendedImage extends BufferedImage implements ThumbnailData, Serializable {
@@ -29,7 +36,7 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	private BufferedImage thumbnail;
 	
 	// Map for managing image edit versions
-	private TreeMap<FiltersEnum, BufferedImage> versions = new TreeMap<FiltersEnum, BufferedImage>();
+	private HashMap<FiltersEnum, BufferedImage> versions = new HashMap<FiltersEnum, BufferedImage>();
 
 	
 	public ExtendedImage(ImageIcon image){
@@ -113,5 +120,37 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	
 	public int getID(){
 		return imageID;
+	}
+	
+	public void writeObject(ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		try {
+			ImageIO.write(this, "png", out);
+			ImageIO.write(preview, "png", out);
+			ImageIO.write(thumbnail, "png", out);
+		
+			final int length = versions.size();
+			
+			out.writeInt(length);
+			Set<FiltersEnum> keys = versions.keySet();
+			for(FiltersEnum key : keys){
+				out.writeInt(key.getName().length());
+				out.writeChars(key.getName());
+				ImageIO.write(versions.get(key), "png", out);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void readObject(ObjectInputStream in){
+		try {
+			ImageIO.read(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -8,10 +8,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -91,16 +94,14 @@ public class Library {
 	}
 
 	public void saveToHiddenDirectory(){
+		
+		/*ObjectOutputStream output = new ObjectOutputStream();
 
 		for(ExtendedImage image : imageArray){
 
 			try {
 				
-				FileOutputStream output = new FileOutputStream(hiddenPath.toString());
-				DataOutputStream dataoutput = new DataOutputStream(output);
-				dataoutput.writeInt(image.getID());
-				dataoutput.flush();
-				dataoutput.close();
+				image.writeObject(output);
 				
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -109,17 +110,17 @@ public class Library {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 
 	//Method to run when program starts
 
 	public void loadFromHiddenDirectory(){
 		
+		/*ObjectInputStream input = new ObjectInputStream();
+		
 		try {
-			FileInputStream input = new FileInputStream(hiddenPath.toString());
-			DataInputStream datainput = new DataInputStream(input);
-			int derp = datainput.readInt();
+			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -127,7 +128,7 @@ public class Library {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public void updateThumbnailSizes(int width){

@@ -9,5 +9,11 @@ public class OldStyleFilter implements IFilter {
 			image = ImageTools.applyEnhancedColors(image,20,5);
 			return ImageTools.applySepia(image);
 	}
+	
+	@Override
+	public String getName() {
+		return "OldStyleFilter";
+	}
+
 
 }

@@ -4,8 +4,8 @@ package filter;
 /**
  * Enum of all filters. Add new filters here.
  * 
- * @author Edvard
- *
+ * @author Edvard Hübinette
+ * @revised Lovisa Jäberg
  */
 public enum FiltersEnum {
 
@@ -20,5 +20,9 @@ public enum FiltersEnum {
 	
 	public IFilter getFilter(){
 		return filter;
+	}
+	
+	public String getName(){
+		return name();
 	}
 }

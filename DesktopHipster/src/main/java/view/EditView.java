@@ -70,7 +70,6 @@ public class EditView extends Card implements PropertyChangeListener {
 		sepiaFilterButton.addActionListener(filterButtonClick);
 		sepiaFilterButton.setText("Sepia");
 		
-		setBackground(java.awt.Color.green);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
