@@ -20,12 +20,20 @@ public abstract class Card extends JPanel {
 	}
 	
 	public void cardInitialize() {
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
 		north = new JPanel();
 		south = new JPanel();
 		center = new JPanel();
 		west = new JPanel();
 		east = new JPanel();
 		
+		north.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		south.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		center.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		west.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		east.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+
 		north.setLayout(new GridLayout(1,1));
 		south.setLayout(new GridLayout(1,1));
 		center.setLayout(new GridLayout(1,1));

@@ -14,7 +14,7 @@ public class FilterActionBar extends JPanel {
 	public FilterActionBar(List<FilterButton> filterButtons){
 		setSize(new Dimension(WIDTH, HEIGHT));
 		setLayout(new FlowLayout());
-		//setBackground();
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		
 		for(FilterButton button : filterButtons){
 			add(button);

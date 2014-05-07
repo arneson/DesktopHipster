@@ -43,6 +43,8 @@ public class UploadView extends Card implements PropertyChangeListener {
 	}
 
 	public void initialize() {
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
 		proceedButton = new JButton("proceed");
 		saveToDiscButton = new JButton("Save to disc");
 		desc = new JLabel("UploadView");

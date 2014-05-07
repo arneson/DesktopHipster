@@ -24,6 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
+import java.awt.Color;
 
 
 /**
@@ -33,13 +34,14 @@ import javax.swing.*;
  * 
  * @author Robin Sveningson
  * @revised Simon Arneson
+ * @revised Lovisa Jäberg
  */
 @SuppressWarnings("serial")
 public class BrowseView extends Card implements PropertyChangeListener,DropTargetListener {
 	private final PropertyChangeSupport pcs;
 
 	private JButton proceedButton;
-	private JLabel desc;
+	//private JLabel desc;
 	private ThumbnailGrid grid;
 	private DropTarget dt;
 	private JLabel logo;
@@ -52,21 +54,35 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	}
 
 	public void initialize() {
-		proceedButton = new JButton("proceed");
-		desc = new JLabel("BrowseView");
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
+		ImageIcon proceedImage = new ImageIcon(getClass().getResource("/proceedButton.jpg"));
+		proceedButton = new JButton(proceedImage);
+		proceedButton.setBorderPainted(false);
+		proceedButton.setBorder(null);
+		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		proceedButton.setEnabled(false);
+		proceedButton.setSize(500, 200);
+		
+		//desc = new JLabel("BrowseView");
 		grid = new ThumbnailGrid(pcs);	
 		dt = new DropTarget(grid,this);
-		logo = new JLabel(new ImageIcon(getClass().getResource("/desktophipster_5.jpg")));
-		logo.setSize(new Dimension (1250,200));
-
-		proceedButton.setEnabled(false);
+		
+		ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_5.jpg"));
+		logo = new JLabel(logoImage);
+		logo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		logo.setSize(1250,200);
 		JPanel northPanel = new JPanel(new BorderLayout());{{
 			add(logo,BorderLayout.NORTH);
 			add(proceedButton,BorderLayout.SOUTH);
-			setSize(new Dimension(1300, 200));
+			setSize(1300, 200);
 		}};
+		northPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		JPanel centerPanel = new JPanel(new GridLayout(1,1));{{
+			add(grid);}}
+		centerPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		addNorth(northPanel);
-		addCenter(new JPanel(){{setLayout(new GridLayout(1,1));add(grid);}});
+		addCenter(centerPanel);
 
 		logo.setOpaque(true);
 

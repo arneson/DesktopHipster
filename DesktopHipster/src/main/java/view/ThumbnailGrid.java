@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+import java.awt.Color;
 
 /**
  * This class displays all the images in the library
@@ -41,7 +42,9 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	
 	public void initialize() {
 		content = new JPanel();
+		content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		wrapper = new JPanel();
+		wrapper.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		
 		content.setLayout(new BorderLayout());
 		content.add(wrapper, BorderLayout.NORTH);
@@ -72,11 +75,13 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 		for(int i = 0; i < numberOfRows * numberOfColumns; i++) {
 			if(i < size) {
 				ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i), side);
+				tp.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 				tp.addMouseMotionL(ma);
 				wrapper.add(tp);
 				panelList.add(tp);
 			} else {
 				JPanel placeHolder = new JPanel();
+				placeHolder.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 				wrapper.add(placeHolder);
 			}
 		}

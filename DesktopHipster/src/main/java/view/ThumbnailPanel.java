@@ -39,6 +39,7 @@ public class ThumbnailPanel extends JPanel {
 		
 		setPreferredSize(new Dimension(side, side));
 		setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize, borderSize, borderSize));
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		
 		BufferedImage image = data.getSelectedVersion();
 		if(image != null) {
@@ -47,7 +48,7 @@ public class ThumbnailPanel extends JPanel {
 		topLayer = new ThumbnailPanelLayer(pcs, data, side);
 		layeredPane = new JLayeredPane();
 		layeredPane.setOpaque(true);
-		layeredPane.setBackground(UIManager.getColor("Panel.background"));
+		layeredPane.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		
 		canvas.setBounds(new Rectangle(0,0,side,side));
 		topLayer.setBounds(new Rectangle(0,0,side,side));
@@ -88,7 +89,7 @@ public class ThumbnailPanel extends JPanel {
 		if(selected) {
 			setBackground(new Color(255,100,100));
 		} else {
-			setBackground(UIManager.getColor("Panel.background"));
+			setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		}
 	}
 	

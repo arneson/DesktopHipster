@@ -3,6 +3,7 @@ package view;
 import general.PropertyNames;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -44,12 +45,19 @@ public class View extends JFrame implements PropertyChangeListener {
 	}
 	
 	public void initialize() {
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
 		browseView = new BrowseView(pcs);
 		editView = new EditView(pcs);
 		uploadView = new UploadView(pcs);
 		cardPanel = new JPanel();
 		
+		browseView.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		editView.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		uploadView.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
 		cardPanel.setLayout(new CardLayout());
+		cardPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		cardPanel.add(browseView, SubView.BROWSE.toString());
 		cardPanel.add(editView, SubView.EDIT.toString());
 		cardPanel.add(uploadView, SubView.UPLOAD.toString());

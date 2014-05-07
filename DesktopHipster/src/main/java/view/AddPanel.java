@@ -31,7 +31,7 @@ public class AddPanel extends JPanel {
 	 */
 	public AddPanel() {
 		setLayout(new BorderLayout());
-		setBackground(Color.WHITE);
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		setToolTipText("Add image to library");
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		label = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));

@@ -11,6 +11,7 @@ import javax.swing.*;
 import filter.FiltersEnum;
 import general.PropertyNames;
 import model.ExtendedImage;
+import java.awt.Color;
 
 /**
  * The edit view is a card that is used by the View.java. The edit
@@ -45,6 +46,7 @@ public class EditView extends Card implements PropertyChangeListener {
 	
 	public void initialize() {
 		filterPanel = new JPanel();
+		filterPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		proceedButton = new JButton("proceed");
 		
 		blackWhiteFilterButton = new FilterButton(FiltersEnum.BWFILTER);
