@@ -2,6 +2,9 @@ package view;
 
 import general.PropertyNames;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
@@ -34,44 +37,53 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class BrowseView extends Card implements PropertyChangeListener,DropTargetListener {
 	private final PropertyChangeSupport pcs;
-	
+
 	private JButton proceedButton;
 	private JLabel desc;
 	private ThumbnailGrid grid;
 	private DropTarget dt;
-	
+	private JLabel logo;
+
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
 		this.pcs = pcs;
 		initialize();
 		pcs.addPropertyChangeListener(grid);
 	}
-	
+
 	public void initialize() {
 		proceedButton = new JButton("proceed");
 		desc = new JLabel("BrowseView");
 		grid = new ThumbnailGrid(pcs);	
 		dt = new DropTarget(grid,this);
+		logo = new JLabel(new ImageIcon(getClass().getResource("/desktophipster_5.jpg")));
+		logo.setSize(new Dimension (1250,200));
+
 		proceedButton.setEnabled(false);
-		addNorth(new JPanel(){{
-			add(proceedButton);
-			add(desc);}});
-		addCenter(new JPanel(){{setLayout(new java.awt.GridLayout(1,1));add(grid);}});
-		
+		JPanel northPanel = new JPanel(new BorderLayout());{{
+			add(logo,BorderLayout.NORTH);
+			add(proceedButton,BorderLayout.SOUTH);
+			setSize(new Dimension(1300, 200));
+		}};
+		addNorth(northPanel);
+		addCenter(new JPanel(){{setLayout(new GridLayout(1,1));add(grid);}});
+
+		logo.setOpaque(true);
+
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);
 			}
 		});
 
-		
+
 		addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				grid.updateVisibleLayer(e);
 			}
 		});
-		
+
 		addMouseWheelListener(new MouseWheelListener(){
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
@@ -87,7 +99,7 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 			break;
 		}
 	}
-	
+
 	public void calculateGridWidth() {
 		grid.frameRezise();
 	}
@@ -95,57 +107,57 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dragOver(DropTargetDragEvent dtde) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dropActionChanged(DropTargetDragEvent dtde) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dragExit(DropTargetEvent dte) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void drop(DropTargetDropEvent dtde) {
-		 try {
-		      // Ok, get the dropped object and try to figure out what it is
-		      Transferable tr = dtde.getTransferable();
-		      DataFlavor[] flavors = tr.getTransferDataFlavors();
-		      for (int i = 0; i < flavors.length; i++) {
-				  System.out.println("Possible flavor: " + flavors[i].getMimeType());
-				  // Check for file lists specifically
-				  if (flavors[i].isFlavorJavaFileListType()) {
-				    // Great!  Accept copy drops...
-				    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-				    
-				    // And add the list of file names to our text area
-				    java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
-				    for (int j = 0; j < list.size(); j++) {
-				      //ta.append(list.get(j) + "\n");
-				    	pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
-				    }
-				
-				    dtde.dropComplete(true);
-				    return;
-				  }
-		      }
-		      // Not a file-list dropped
-		      dtde.rejectDrop();
-		    } catch (Exception e) {
-		      e.printStackTrace();
-		      dtde.rejectDrop();
-		    }
-		
+		try {
+			// Ok, get the dropped object and try to figure out what it is
+			Transferable tr = dtde.getTransferable();
+			DataFlavor[] flavors = tr.getTransferDataFlavors();
+			for (int i = 0; i < flavors.length; i++) {
+				System.out.println("Possible flavor: " + flavors[i].getMimeType());
+				// Check for file lists specifically
+				if (flavors[i].isFlavorJavaFileListType()) {
+					// Great!  Accept copy drops...
+					dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+
+					// And add the list of file names to our text area
+					java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
+					for (int j = 0; j < list.size(); j++) {
+						//ta.append(list.get(j) + "\n");
+						pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+					}
+
+					dtde.dropComplete(true);
+					return;
+				}
+			}
+			// Not a file-list dropped
+			dtde.rejectDrop();
+		} catch (Exception e) {
+			e.printStackTrace();
+			dtde.rejectDrop();
+		}
+
 	}
 }
