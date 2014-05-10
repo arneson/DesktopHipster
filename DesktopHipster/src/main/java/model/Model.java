@@ -19,7 +19,7 @@ import general.PropertyNames;
  * contains the application's data.
  * 
  * @author Robin Sveningson
- * @revised Edvard H��binette
+ * @revised Edvard H������binette
  *	
  */
 
@@ -83,7 +83,12 @@ public class Model {
 	 * @return true if the tag did not already exist
 	 */
 	public boolean addTag(String tag){
-		return tags.add(tag);
+		if(tags.add(tag)){
+			pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null, tags);
+			return true;
+		}
+		else 
+			return false;
 	}
 	
 	/**
@@ -91,7 +96,12 @@ public class Model {
 	 * @return true if the tag existed in the tag list
 	 */
 	public boolean removeTag(String tag){
-		return tags.remove(tag);
+		if(tags.remove(tag)){
+			pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null, tags);
+			return true;
+		}
+		else 
+			return false;
 	}
 		
 	public Library getLibrary() {
@@ -125,5 +135,10 @@ public class Model {
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
 		getLibrary().load(imageFile);
 		updateGrid();
+	}
+	public boolean addTagToActiveImage(String tag){
+		//TODO
+		System.out.println("Add tag to image");
+		return true;
 	}
 }

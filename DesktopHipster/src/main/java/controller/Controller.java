@@ -105,6 +105,12 @@ public class Controller implements PropertyChangeListener {
 				e.printStackTrace();
 			}
 			break;
+		case PropertyNames.VIEW_ADD_NEW_TAG:
+			model.addTag(evt.getNewValue().toString());
+			break;
+		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
+			model.addTagToActiveImage(evt.getNewValue().toString());
+			break;
 		case PropertyNames.SAVE_LIST_TO_DISC:
 			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
 			for (ExtendedImage image : listToSave){

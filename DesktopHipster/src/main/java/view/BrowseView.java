@@ -34,7 +34,7 @@ import java.awt.Color;
  * 
  * @author Robin Sveningson
  * @revised Simon Arneson
- * @revised Lovisa Jäberg
+ * @revised Lovisa J��berg
  */
 @SuppressWarnings("serial")
 public class BrowseView extends Card implements PropertyChangeListener,DropTargetListener {
@@ -43,6 +43,7 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	private JButton proceedButton;
 	//private JLabel desc;
 	private ThumbnailGrid grid;
+	private TagsPanel tags;
 	private DropTarget dt;
 	private JLabel logo;
 
@@ -67,6 +68,8 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 		//desc = new JLabel("BrowseView");
 		grid = new ThumbnailGrid(pcs);	
 		dt = new DropTarget(grid,this);
+		tags = new TagsPanel(pcs);
+		pcs.addPropertyChangeListener(tags);
 		
 		ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_5.jpg"));
 		logo = new JLabel(logoImage);
@@ -83,6 +86,7 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 		centerPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		addNorth(northPanel);
 		addCenter(centerPanel);
+		addWest(tags);
 
 		logo.setOpaque(true);
 
