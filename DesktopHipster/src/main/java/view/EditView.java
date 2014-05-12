@@ -18,6 +18,7 @@ import java.awt.Color;
  * view is the stage where the user edits his/hers image.
  * 
  * @author Robin Sveningson
+ * @revised Edvard Hübinette
  *	
  */
 @SuppressWarnings("serial")
@@ -25,9 +26,7 @@ public class EditView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 	
 	private JButton proceedButton;
-	private JPanel filterPanel;
-	private FilterButton blackWhiteFilterButton;
-	private FilterButton sepiaFilterButton;
+	private FilterActionBar filterActionBar = new FilterActionBar();
 	private JLabel desc, canvas;
 	private ActionListener filterButtonClick = new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
@@ -45,32 +44,28 @@ public class EditView extends Card implements PropertyChangeListener {
 	}
 	
 	public void initialize() {
-		filterPanel = new JPanel();
+		JPanel filterPanel = new JPanel();
 		filterPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+
 		proceedButton = new JButton("proceed");
-		
-		blackWhiteFilterButton = new FilterButton(FiltersEnum.BWFILTER);
-		sepiaFilterButton = new FilterButton(FiltersEnum.SEPIAFILTER);
 		desc = new JLabel("EditView");
 		canvas = new JLabel();
-		
-		filterPanel.add(blackWhiteFilterButton);
-		filterPanel.add(sepiaFilterButton);
 		
 		addNorth(new JPanel(){{add(desc);}});
 		addEast(new JPanel(){{add(proceedButton);}});
 		addCenter(new JPanel(){{add(canvas);}});
-		addSouth(filterPanel);
+		addSouth(filterActionBar);
 		
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_APPLY_FILTER, null, null);
 			}
 		});
-		blackWhiteFilterButton.addActionListener(filterButtonClick);
-		blackWhiteFilterButton.setText("Black/White");
-		sepiaFilterButton.addActionListener(filterButtonClick);
-		sepiaFilterButton.setText("Sepia");
+		
+		
+		for(FilterButton button : filterActionBar.getFilterButtons()){
+			button.addActionListener(filterButtonClick);
+		}
 		
 	}
 

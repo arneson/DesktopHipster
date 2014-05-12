@@ -2,8 +2,6 @@ package view;
 
 import general.PropertyNames;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,9 +10,17 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+import model.Flickr;
+import model.HostsEnum;
 import model.Tumblr;
 
 /**
@@ -48,10 +54,6 @@ public class UploadView extends Card implements PropertyChangeListener {
 		proceedButton = new JButton("proceed");
 		saveToDiscButton = new JButton("Save to disc");
 		desc = new JLabel("UploadView");
-		tumblrButton = new JButton();
-		tumblrButton.setIcon(new ImageIcon(getClass().getResource("/tumblr_icon.png")));
-		flickrButton = new JButton();
-		flickrButton.setIcon(new ImageIcon(getClass().getResource("/flickr_icon.png")));
 		imageName = new JTextField("Add name..",50);
 
 		imageName.addMouseListener(myMouseListener);
@@ -60,10 +62,15 @@ public class UploadView extends Card implements PropertyChangeListener {
 		add(proceedButton);
 		add(saveToDiscButton);
 		}});
-		JPanel centerPanel = new JPanel(new GridLayout(2,1)){{add(tumblrButton);
-		add(flickrButton);}};
-		//TODO Change size 
-		//centerPanel.setPreferredSize(new Dimension(500,500));
+
+		JPanel centerPanel = new JPanel(new GridLayout(2,2));
+			//TODO Change size 
+			//centerPanel.setPreferredSize(new Dimension(500,500));
+		
+		for (JButton btn : createHostButtons()){
+			centerPanel.add(btn);
+		}
+		
 		addCenter(centerPanel);
 
 		addSouth(new JPanel(){{add(imageName);}});
@@ -73,11 +80,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
 			}
 		});
-		tumblrButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE, null, new Tumblr());
-			}
-		});
+		
 		//TODO 
 		saveToDiscButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -125,7 +128,26 @@ public class UploadView extends Card implements PropertyChangeListener {
 		}
 
 	};
-
+	
+	/**
+	 * Returns a list of buttons for all existing hosts.
+	 * @return List of all host buttons
+	 */
+	private List<JButton> createHostButtons(){
+		ArrayList<JButton> list = new ArrayList<JButton>();
+		for(final HostsEnum host : HostsEnum.values()){
+			JButton btn = new JButton();
+			btn.setIcon(host.getIcon());
+			btn.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					pcs.firePropertyChange(PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE, null, host.getHost());
+				}
+			});
+			list.add(btn);
+		}
+		return list;
+	}
+	
 	public void propertyChange(PropertyChangeEvent evt) {
 
 	}
