@@ -1,0 +1,535 @@
+Found a 11 line (80 tokens) duplication in the following files: 
+Starting at line 120 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+Starting at line 43 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+	public void drop(DropTargetDropEvent dtde) {
+		 try {
+		      // Ok, get the dropped object and try to figure out what it is
+		      Transferable tr = dtde.getTransferable();
+		      DataFlavor[] flavors = tr.getTransferDataFlavors();
+		      for (int i = 0; i < flavors.length; i++) {
+				  System.out.println("Possible flavor: " + flavors[i].getMimeType());
+				  // Check for file lists specifically
+				  if (flavors[i].isFlavorJavaFileListType()) {
+				    // Great!  Accept copy drops...
+				    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+=====================================================================
+Found a 12 line (66 tokens) duplication in the following files: 
+Starting at line 47 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 66 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+				newR = (newR > 255) ? 255 : newR;
+				newG = (newG > 255) ? 255 : newG;
+				newB = (newB > 255) ? 255 : newB;
+				
+				int rgb = new Color(newR, newG, newB).getRGB();
+				return rgb;
+			}
+		};
+		return ImageProcessor.modifyPixels(b, ef);
+	}
+	
+	public static BufferedImage applySepia(BufferedImage b) {
+=====================================================================
+Found a 7 line (62 tokens) duplication in the following files: 
+Starting at line 21 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 77 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+	public static BufferedImage applyGrayscale(BufferedImage b) {
+		IModify ef = new IModify() {
+			public int modify(int red, int green, int blue, int alpha,
+					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
+				int total = red + green + blue;
+				int midvalue = total / 3;
+				int rgb = new Color(midvalue, midvalue, midvalue).getRGB();
+=====================================================================
+Found a 4 line (51 tokens) duplication in the following files: 
+Starting at line 31 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FlickrTest.java
+Starting at line 41 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+
+		ImageIcon icon = new ImageIcon(flickr.getClass().getResource("/robin.jpg"));
+		BufferedImage img = new BufferedImage(icon.getIconWidth(),icon.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+		Graphics g = img.createGraphics();
+		icon.paintIcon(null, g, 0, 0);
+=====================================================================
+Found a 7 line (47 tokens) duplication in the following files: 
+Starting at line 61 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 72 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 85 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+
+				canvas.setFilterImage(ImageTools.applyGrayscale(canvas.getOriginalImage()));
+			}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
+=====================================================================
+Found a 5 line (43 tokens) duplication in the following files: 
+Starting at line 21 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 58 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 77 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+	public static BufferedImage applyGrayscale(BufferedImage b) {
+		IModify ef = new IModify() {
+			public int modify(int red, int green, int blue, int alpha,
+					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
+				int total = red + green + blue;
+=====================================================================
+Found a 6 line (42 tokens) duplication in the following files: 
+Starting at line 34 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 58 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+	public static BufferedImage applyEnhancedColors(BufferedImage b, final int dark, final int bright) {
+		IModify ef = new IModify() {
+			public int modify(int red, int green, int blue, int alpha,
+					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
+
+				int newR = (red > 125) ? red + bright : red - dark;
+=====================================================================
+Found a 7 line (40 tokens) duplication in the following files: 
+Starting at line 50 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 61 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 72 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 85 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+
+				canvas.setOriginalVisible(true);
+			}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
+=====================================================================
+Found a 5 line (40 tokens) duplication in the following files: 
+Starting at line 21 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 34 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 77 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+	public static BufferedImage applyGrayscale(BufferedImage b) {
+		IModify ef = new IModify() {
+			public int modify(int red, int green, int blue, int alpha,
+					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
+				int total = red + green + blue;
+=====================================================================
+Found a 6 line (39 tokens) duplication in the following files: 
+Starting at line 51 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 62 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 73 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 86 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 108 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+
+			}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
+=====================================================================
+Found a 4 line (39 tokens) duplication in the following files: 
+Starting at line 21 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 34 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 58 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 77 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 90 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+	public static BufferedImage applyGrayscale(BufferedImage b) {
+		IModify ef = new IModify() {
+			public int modify(int red, int green, int blue, int alpha,
+					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
+=====================================================================
+Found a 11 line (35 tokens) duplication in the following files: 
+Starting at line 92 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/View.java
+Starting at line 40 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Model.java
+
+			updateVisibleCard(((SubView)evt.getNewValue()).toString());
+		}
+	}
+	
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
+	}
+	
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		pcs.removePropertyChangeListener(listener);
+	}
+=====================================================================
+Found a 5 line (35 tokens) duplication in the following files: 
+Starting at line 73 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 59 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+
+		addSouth(new JPanel(){{add(imageName);}});
+		
+		proceedButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
+=====================================================================
+Found a 15 line (35 tokens) duplication in the following files: 
+Starting at line 136 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+Starting at line 76 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+				    	pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+				    }
+				
+				    dtde.dropComplete(true);
+				    return;
+				  }
+		      }
+		      // Not a file-list dropped
+		      dtde.rejectDrop();
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		      dtde.rejectDrop();
+		    }
+		
+	}
+=====================================================================
+Found a 16 line (33 tokens) duplication in the following files: 
+Starting at line 99 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+Starting at line 94 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+	}
+
+	@Override
+	public void dragOver(DropTargetDragEvent dtde) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dropActionChanged(DropTargetDragEvent dtde) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragExit(DropTargetEvent dte) {
+=====================================================================
+Found a 6 line (33 tokens) duplication in the following files: 
+Starting at line 44 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Tumblr.java
+Starting at line 79 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Flickr.java
+
+		File file = new File(TMPFILE_PATH);
+		try {
+			ImageIO.write(image, "png", file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+=====================================================================
+Found a 8 line (30 tokens) duplication in the following files: 
+Starting at line 45 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 39 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+
+	public UploadView(PropertyChangeSupport pcs) {
+		super();
+		initialize();
+		this.pcs = pcs;
+	}
+	
+	public void initialize() {
+		proceedButton = new JButton("proceed");
+=====================================================================
+Found a 3 line (29 tokens) duplication in the following files: 
+Starting at line 22 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 35 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 59 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 78 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 91 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 11 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/IModify.java
+
+		IModify ef = new IModify() {
+			public int modify(int red, int green, int blue, int alpha,
+					int layerRed, int layerGreen, int layerBlue, int layerAlpha){
+=====================================================================
+Found a 9 line (27 tokens) duplication in the following files: 
+Starting at line 122 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Library.java
+Starting at line 101 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/controller/Controller.java
+
+			int derp = datainput.readInt();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+=====================================================================
+Found a 8 line (26 tokens) duplication in the following files: 
+Starting at line 66 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+Starting at line 44 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/controller/Controller.java
+
+		setBackground(java.awt.Color.green);
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		String name = evt.getPropertyName();
+
+		switch(name){
+		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
+=====================================================================
+Found a 5 line (24 tokens) duplication in the following files: 
+Starting at line 73 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 53 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+Starting at line 59 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+
+		addSouth(new JPanel(){{add(imageName);}});
+		
+		proceedButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
+=====================================================================
+Found a 4 line (24 tokens) duplication in the following files: 
+Starting at line 89 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailGrid.java
+Starting at line 69 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+Starting at line 47 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/controller/Controller.java
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		String name = evt.getPropertyName();
+		switch(name) {
+		case PropertyNames.MODEL_GRID_UPDATE:
+=====================================================================
+Found a 4 line (24 tokens) duplication in the following files: 
+Starting at line 130 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+Starting at line 54 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+				    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+				    
+				    // And add the list of file names to our text area
+				    java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
+=====================================================================
+Found a 8 line (23 tokens) duplication in the following files: 
+Starting at line 27 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 83 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+				int rgb = new Color(midvalue, midvalue, midvalue).getRGB();
+				return rgb;
+			}
+		};
+		return ImageProcessor.modifyPixels(b, ef);
+	}
+	
+	public static BufferedImage applyEnhancedColors(BufferedImage b, final int dark, final int bright) {
+=====================================================================
+Found a 3 line (22 tokens) duplication in the following files: 
+Starting at line 59 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 70 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 81 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+
+		grayscale.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				canvas.setFilterImage(ImageTools.applyGrayscale(canvas.getOriginalImage()));
+=====================================================================
+Found a 3 line (22 tokens) duplication in the following files: 
+Starting at line 75 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 82 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 134 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 55 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+Starting at line 61 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+
+		proceedButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
+=====================================================================
+Found a 8 line (22 tokens) duplication in the following files: 
+Starting at line 27 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 51 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 70 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+Starting at line 83 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/filter/ImageTools.java
+
+				int rgb = new Color(midvalue, midvalue, midvalue).getRGB();
+				return rgb;
+			}
+		};
+		return ImageProcessor.modifyPixels(b, ef);
+	}
+	
+	public static BufferedImage applyEnhancedColors(BufferedImage b, final int dark, final int bright) {
+=====================================================================
+Found a 4 line (22 tokens) duplication in the following files: 
+Starting at line 109 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+Starting at line 112 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+	public void dragExit(DropTargetEvent dte) {
+		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));		
+	}
+	public void setDropOKLogo(){
+=====================================================================
+Found a 4 line (20 tokens) duplication in the following files: 
+Starting at line 31 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/FilterActionBar.java
+Starting at line 37 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Model.java
+
+		container.setLayout(new FlowLayout());
+		//setBackground();
+		
+		for(int i = 0; i < FiltersEnum.values().length; i++){
+=====================================================================
+Found a 1 line (19 tokens) duplication in the following files: 
+Starting at line 15 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/TumblrTest.java
+Starting at line 20 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/TestLibrary.java
+
+		ExtendedImage image = new ExtendedImage(new ImageIcon(getClass().getResource("/robin.jpg")));
+=====================================================================
+Found a 3 line (19 tokens) duplication in the following files: 
+Starting at line 75 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 82 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 134 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/UploadView.java
+Starting at line 30 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+Starting at line 55 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+Starting at line 61 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+
+		proceedButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
+=====================================================================
+Found a 3 line (19 tokens) duplication in the following files: 
+Starting at line 26 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanelLayer.java
+Starting at line 30 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanel.java
+
+	public ThumbnailPanelLayer(PropertyChangeSupport pcs, ThumbnailData data, int side) {
+		super();
+		this.pcs = pcs;
+=====================================================================
+Found a 3 line (19 tokens) duplication in the following files: 
+Starting at line 109 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanelLayer.java
+Starting at line 112 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanelLayer.java
+
+			contentWrapper.setPreferredSize(new Dimension(versions.size() * side, 
+					side + scroll.getHorizontalScrollBar().getPreferredSize().height));
+		} else {
+=====================================================================
+Found a 5 line (19 tokens) duplication in the following files: 
+Starting at line 43 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/EditView.java
+Starting at line 48 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+
+	}
+	
+	public void initialize() {
+		proceedButton = new JButton("proceed");
+		desc = new JLabel("EditView");
+=====================================================================
+Found a 3 line (18 tokens) duplication in the following files: 
+Starting at line 48 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 59 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 70 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 81 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+
+		orig.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				canvas.setOriginalVisible(true);
+=====================================================================
+Found a 6 line (18 tokens) duplication in the following files: 
+Starting at line 107 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Library.java
+Starting at line 126 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Library.java
+
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+=====================================================================
+Found a 1 line (17 tokens) duplication in the following files: 
+Starting at line 134 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+Starting at line 59 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+				    for (int j = 0; j < list.size(); j++) {
+=====================================================================
+Found a 1 line (17 tokens) duplication in the following files: 
+Starting at line 37 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/AddPanel.java
+Starting at line 32 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+		label = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
+=====================================================================
+Found a 5 line (17 tokens) duplication in the following files: 
+Starting at line 107 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Library.java
+Starting at line 103 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/controller/Controller.java
+
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+=====================================================================
+Found a 2 line (16 tokens) duplication in the following files: 
+Starting at line 48 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 59 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 70 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 81 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+Starting at line 95 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/test/java/desktopHipster/FilterTestClass.java
+
+		orig.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+=====================================================================
+Found a 2 line (16 tokens) duplication in the following files: 
+Starting at line 136 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+Starting at line 66 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+				    	pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+				    }
+=====================================================================
+Found a 2 line (16 tokens) duplication in the following files: 
+Starting at line 68 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Flickr.java
+Starting at line 134 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Flickr.java
+
+	    Response response = request.send();
+	    System.out.println(response.getBody());
+=====================================================================
+Found a 2 line (16 tokens) duplication in the following files: 
+Starting at line 112 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+Starting at line 115 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+	public void setDropOKLogo(){
+		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
+=====================================================================
+Found a 5 line (15 tokens) duplication in the following files: 
+Starting at line 97 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanelLayer.java
+Starting at line 76 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanel.java
+
+		tagIcon.addMouseMotionListener(ma);
+	}
+	
+	public boolean isChild(Object o) {
+		return o.equals(this) || o.equals(scroll) || o.equals(content) || 
+=====================================================================
+Found a 1 line (15 tokens) duplication in the following files: 
+Starting at line 52 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanel.java
+Starting at line 53 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailPanel.java
+
+		canvas.setBounds(new Rectangle(0,0,side,side));
+=====================================================================
+Found a 3 line (15 tokens) duplication in the following files: 
+Starting at line 52 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/ThumbnailGrid.java
+Starting at line 68 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/view/BrowseView.java
+
+		ma = new MouseAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+=====================================================================
+Found a 5 line (15 tokens) duplication in the following files: 
+Starting at line 107 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Library.java
+Starting at line 126 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Library.java
+Starting at line 103 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/model/Flickr.java
+Starting at line 103 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/controller/Controller.java
+
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+=====================================================================
+Found a 2 line (15 tokens) duplication in the following files: 
+Starting at line 92 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+Starting at line 109 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+Starting at line 112 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+Starting at line 115 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/dragNdrop/DDFrame.java
+
+	public void dragEnter(DropTargetDragEvent dtde) {
+	    dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanelOK.png")));
+=====================================================================
+Found a 2 line (15 tokens) duplication in the following files: 
+Starting at line 79 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/controller/Controller.java
+Starting at line 98 of /Users/Edvard/git/DesktopHipster/DesktopHipster/src/main/java/controller/Controller.java
+
+					imageToUpload = model.getActiveImage().getVersion(
+							model.getActiveFilter());
