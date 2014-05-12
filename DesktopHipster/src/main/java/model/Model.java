@@ -138,7 +138,6 @@ public class Model {
 	}
 	public boolean addTagToActiveImage(String tag){
 		//TODO
-		System.out.println("Add tag to image");
-		return true;
+		return this.getActiveImage().addTag(tag);
 	}
 }

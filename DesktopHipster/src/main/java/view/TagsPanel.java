@@ -44,16 +44,17 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 		add(new NewTagTextField(pcs),BorderLayout.SOUTH);
 	}
 	public void loadActiveTagsFromImage(ExtendedImage img){
+		for(JCheckBox cb:tagBoxes)
+			cb.setSelected(false);
 		for(String t:img.getTags()){
 			for(JCheckBox cb:tagBoxes){
 				if(cb.getText()==t){
 					cb.setSelected(true);
 				}
-				else{
-					cb.setSelected(false);
-				}
 			}
 		}
+		repaint();
+		revalidate();
 	}
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -65,9 +66,11 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 		case PropertyNames.MODEL_TAGS_CHANGED:
 			tags = (TreeSet<String>)evt.getNewValue();
 			tagList.removeAll();
+			tagBoxes.clear();
 			for(String t:tags){
 				JCheckBox newTag = new JCheckBox(t);
 				newTag.addActionListener(clickListener);
+				tagBoxes.add(newTag);
 				tagList.add(newTag);
 			}
 			add(tagList,BorderLayout.CENTER);

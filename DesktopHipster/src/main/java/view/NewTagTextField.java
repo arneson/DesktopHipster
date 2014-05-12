@@ -19,6 +19,7 @@ public class NewTagTextField extends JTextField {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	        	pcs.firePropertyChange(PropertyNames.VIEW_ADD_NEW_TAG, null, getText());
+	        	setText("");
 	        }
 	    });
 	}

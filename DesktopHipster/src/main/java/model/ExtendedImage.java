@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -24,8 +25,8 @@ import filter.*;
  * 
  * @author Edvard Hubinette
  * @revised by Simon Arneson
- * @revised Edvard Hübinette
- * @revised Lovisa Jäberg
+ * @revised Edvard H��binette
+ * @revised Lovisa J��berg
  */
 
 public class ExtendedImage extends BufferedImage implements ThumbnailData, Serializable {
@@ -34,6 +35,7 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	private final int imageID;
 	private BufferedImage preview;
 	private BufferedImage thumbnail;
+	private TreeSet<String> tags = new TreeSet<String>();
 	
 	// Map for managing image edit versions
 	private HashMap<FiltersEnum, BufferedImage> versions = new HashMap<FiltersEnum, BufferedImage>();
@@ -102,13 +104,17 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	public List<BufferedImage> getVersions() {
 		return new ArrayList(versions.values());
 	}
-
 	@Override
-	public List<String> getTags() {
-		// TODO Auto-generated method stub
-		return null;
+	public TreeSet<String> getTags() {
+		return new TreeSet<String>(tags);
 	}
-
+	public boolean addTag(String tag){
+		if(tags.contains(tag))
+			return false;
+		else
+			tags.add(tag);
+		return true;
+	}
 	@Override
 	public BufferedImage getSelectedVersion() {
 		return thumbnail;
