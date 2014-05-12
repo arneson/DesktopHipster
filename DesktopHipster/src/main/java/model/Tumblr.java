@@ -18,7 +18,7 @@ import com.tumblr.jumblr.types.User;
 /**
  * Implementation for uploading images to Tumblr web archive
  * 
- * @author Edvard
+ * @author Edvard Hübinette
  *
  */
 public class Tumblr implements IHost {
@@ -54,10 +54,8 @@ public class Tumblr implements IHost {
 			post = blog.newPost(PhotoPost.class);
 		} catch (IllegalAccessException e1) {
 			// This should really not happen
-			System.out.println("Boom1");
 		} catch (InstantiationException e1) {
 			// This should really not happen
-			System.out.println("Boom2");
 		}
 		
 		post.setPhoto(new Photo(file));
@@ -68,6 +66,7 @@ public class Tumblr implements IHost {
 			post.save();
 		} catch (IOException e) {
 			// This should really not happen
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		// Needed?
