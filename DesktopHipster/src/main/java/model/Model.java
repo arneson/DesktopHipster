@@ -19,7 +19,7 @@ import general.PropertyNames;
  * contains the application's data.
  * 
  * @author Robin Sveningson
- * @revised Edvard H������binette
+ * @revised Edvard Hübinette
  *	
  */
 
