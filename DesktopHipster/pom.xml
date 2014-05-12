@@ -21,5 +21,16 @@
   		<artifactId>scribe</artifactId>
   		<version>1.3.5</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.apache.directory.studio</groupId>
+  		<artifactId>org.apache.httpcomponents.httpclient</artifactId>
+  		<version>4.1.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.felix</groupId>
+  		<artifactId>org.apache.felix.http</artifactId>
+  		<version>4</version>
+  		<type>pom</type>
+  	</dependency>
   </dependencies>
 </project>
