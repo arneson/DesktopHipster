@@ -115,6 +115,9 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 			tags.add(tag);
 		return true;
 	}
+	public void removeTag(String tag) {
+		tags.remove(tag);
+	}
 	@Override
 	public BufferedImage getSelectedVersion() {
 		return thumbnail;

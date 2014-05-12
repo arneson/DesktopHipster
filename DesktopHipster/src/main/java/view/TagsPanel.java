@@ -29,7 +29,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
         @Override
         public void actionPerformed(ActionEvent e) {
         	JCheckBox src = (JCheckBox)e.getSource();
-            pcs.firePropertyChange(PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED, null, src.getText() );
+            pcs.firePropertyChange(PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED, src.isSelected(), src.getText() );
         }
     };
 	public TagsPanel(PropertyChangeSupport p){
@@ -53,8 +53,6 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 				}
 			}
 		}
-		repaint();
-		revalidate();
 	}
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {

@@ -137,7 +137,10 @@ public class Model {
 		updateGrid();
 	}
 	public boolean addTagToActiveImage(String tag){
-		//TODO
 		return this.getActiveImage().addTag(tag);
+	}
+
+	public void removeTagOnActiveImage(String tag) {
+		this.getActiveImage().removeTag(tag);
 	}
 }
