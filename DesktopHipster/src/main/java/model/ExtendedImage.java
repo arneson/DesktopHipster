@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -18,10 +19,11 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import view.ThumbnailData;
-import filter.*;
+import filter.FiltersEnum;
 
 /**
- * Image class extending BufferedImage for having preview and thumbnail sized versions.
+ * Image class extending BufferedImage for having preview and thumbnail sized
+ * versions.
  * 
  * @author Edvard Hubinette
  * @revised by Simon Arneson
@@ -29,51 +31,59 @@ import filter.*;
  * @revised Lovisa J��berg
  */
 
-public class ExtendedImage extends BufferedImage implements ThumbnailData, Serializable {
+public class ExtendedImage extends BufferedImage implements ThumbnailData,
+		Serializable {
 
 	private static int id;
 	private final int imageID;
-	private BufferedImage preview;
-	private BufferedImage thumbnail;
-	private TreeSet<String> tags = new TreeSet<String>();
-	
-	// Map for managing image edit versions
-	private HashMap<FiltersEnum, BufferedImage> versions = new HashMap<FiltersEnum, BufferedImage>();
 
-	
-	public ExtendedImage(ImageIcon image){
-		super(image.getIconWidth(), image.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+	private transient TreeSet<String> tags = new TreeSet<String>();
+	private transient BufferedImage preview;
+	private transient BufferedImage thumbnail;
+
+	// Map for managing image edit versions
+	private transient TreeMap<FiltersEnum, BufferedImage> versions = new TreeMap<FiltersEnum, BufferedImage>();
+
+	public ExtendedImage(ImageIcon image) {
+		super(image.getIconWidth(), image.getIconHeight(),
+				BufferedImage.TYPE_INT_ARGB);
 		Graphics g = this.createGraphics();
 		image.paintIcon(null, g, 0, 0);
 		g.dispose();
-				
-		preview =  filter.ImageTools.toBufferedImage(getScaledInstance(600, -1, Image.SCALE_SMOOTH));
-		
-		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(100, -1, Image.SCALE_FAST));
-		imageID = id += 1;	
+
+		preview = filter.ImageTools.toBufferedImage(getScaledInstance(600, -1,
+				Image.SCALE_SMOOTH));
+		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(100,
+				-1, Image.SCALE_FAST));
+		imageID = id += 1;
 	}
 
 	/**
 	 * Adds an edited version of this image to a list of versions
 	 * 
-	 * @param filterName The name of the filter used
-	 * @param image The edited image to stash
+	 * @param filterName
+	 *            The name of the filter used
+	 * @param image
+	 *            The edited image to stash
 	 */
-	public void addVersion(FiltersEnum filterName, BufferedImage image){
+	public void addVersion(FiltersEnum filterName, BufferedImage image) {
 		versions.put(filterName, image);
 	}
 
 	/**
 	 * Gets a version of the image with a specific filter
 	 * 
-	 * @param filterName The name of the filter used
+	 * @param filterName
+	 *            The name of the filter used
 	 * @return The edited image to stash
-	 * @throws NoSuchVersionException Image version with that filter does not exist
+	 * @throws NoSuchVersionException
+	 *             Image version with that filter does not exist
 	 */
-	public BufferedImage getVersion(FiltersEnum filterName) throws NoSuchVersionException{
-		if(versions.containsKey(filterName)){
+	public BufferedImage getVersion(FiltersEnum filterName)
+			throws NoSuchVersionException {
+		if (versions.containsKey(filterName)) {
 			return versions.get(filterName);
-		}else{
+		} else {
 			throw new NoSuchVersionException();
 		}
 	}
@@ -83,11 +93,12 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	 * 
 	 * @return Preview-sized version of this image
 	 */
-	public BufferedImage getPreview(){
+	public BufferedImage getPreview() {
 		return preview;
 	}
-	public void setPreview(BufferedImage newPreview){
-		preview=newPreview;
+
+	public void setPreview(BufferedImage newPreview) {
+		preview = newPreview;
 	}
 
 	/**
@@ -95,14 +106,13 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	 * 
 	 * @return Thumbnail-sized version of this image
 	 */
-	public BufferedImage getThumbnail(){
+	public BufferedImage getThumbnail() {
 		return thumbnail;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<BufferedImage> getVersions() {
-		return new ArrayList(versions.values());
+		return new ArrayList<BufferedImage>(versions.values());
 	}
 	@Override
 	public TreeSet<String> getTags() {
@@ -124,42 +134,44 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData, Seria
 	}
 
 	public void setThumbnailSize(int width) {
-		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(width, width, Image.SCALE_FAST));
+		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(width,
+				width, Image.SCALE_FAST));
 	}
-	
-	public int getID(){
+
+	public int getID() {
 		return imageID;
 	}
-	
-	public void writeObject(ObjectOutputStream out) throws IOException {
+
+	private void writeObject(ObjectOutputStream out) throws IOException {
 		out.defaultWriteObject();
-		try {
-			ImageIO.write(this, "png", out);
-			ImageIO.write(preview, "png", out);
-			ImageIO.write(thumbnail, "png", out);
-		
-			final int length = versions.size();
-			
-			out.writeInt(length);
-			Set<FiltersEnum> keys = versions.keySet();
-			for(FiltersEnum key : keys){
-				out.writeInt(key.getName().length());
-				out.writeChars(key.getName());
-				ImageIO.write(versions.get(key), "png", out);
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		ImageIO.write(preview, "png", out);
+		ImageIO.write(thumbnail, "png", out);
+		ImageIO.write((BufferedImage)this, "png", out);
+		out.writeInt(versions.size());
+		for (Entry<FiltersEnum, BufferedImage> entry : versions.entrySet()) {
+			out.writeObject(entry.getKey());
+			ImageIO.write(entry.getValue(), "png", out);
 		}
+		out.flush();
+		out.close();
 	}
-	
-	public void readObject(ObjectInputStream in){
-		try {
-			ImageIO.read(in);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
+		in.defaultReadObject();
+		preview = ImageIO.read(in);
+		thumbnail = ImageIO.read(in);
+		
+		Graphics g = this.createGraphics();
+		ImageIcon image = new ImageIcon(ImageIO.read(in));
+		image.paintIcon(null, g, 0, 0);
+		g.dispose();
+		
+		versions = new TreeMap<FiltersEnum, BufferedImage>();
+		final int n = in.readInt();
+		for (int i = 0; i < n; i++){
+			FiltersEnum key = (FiltersEnum)in.readObject();
+			versions.put(key, ImageIO.read(in));
 		}
+		in.close();
 	}
 }
