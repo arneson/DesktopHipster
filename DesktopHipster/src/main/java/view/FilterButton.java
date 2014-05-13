@@ -1,10 +1,10 @@
 package view;
 import java.awt.Dimension;
-
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
 import filter.FiltersEnum;
 
 /**
@@ -29,11 +29,17 @@ public class FilterButton extends JButton{
 		super();
 		this.filter=filter;	
 		icon = (new ImageIcon(getClass().getResource("/HipsterDemo.png")));
+		BufferedImage img = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
+				BufferedImage.TYPE_INT_ARGB);
+		Graphics g = img.createGraphics();
+		(new ImageIcon(getClass().getResource("/HipsterDemo.png"))).paintIcon(null, g, 0, 0);
+		g.dispose();
+		filter.getFilter().applyFilter(img);
+		
 		this.setPreferredSize(new Dimension(150, 100));
-		this.setIcon(icon);
+		this.setIcon(new ImageIcon(img));
 		JLabel title = new JLabel(filter.name());
 		this.add(title);
-		
 	}
 	
 	public FiltersEnum getFilter(){
