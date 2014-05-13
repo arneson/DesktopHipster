@@ -31,7 +31,7 @@ public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener
 	private List<ThumbnailPanel> panelList;
 	private MouseAdapter ma;
 	private PropertyChangeSupport pcs;
-	private final int numberOfColumns = 3;
+	private final int numberOfColumns = 4;
 	private int side = 0;
 	
 	public ThumbnailGrid(PropertyChangeSupport pcs) {

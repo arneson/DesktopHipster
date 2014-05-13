@@ -36,9 +36,7 @@ import model.Tumblr;
 public class UploadView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 
-	private JButton libraryButton;
-	private JButton saveToDiscButton, backButton;
-	private JLabel logo;
+	private JButton saveToDiscButton, backButton, libraryButton;
 	private JTextField imageName;
 
 	public UploadView(PropertyChangeSupport pcs) {
@@ -56,23 +54,13 @@ public class UploadView extends Card implements PropertyChangeListener {
 		saveToDiscButton.setBorder(null);
 		
 		imageName = new JTextField("Add name..",50);
-
 		imageName.addMouseListener(myMouseListener);
-
-		LayoutManager layout = new GridLayout(createHostButtons().size(),1);
-		
-		JPanel centerPanel = new JPanel(layout);
+		JPanel centerPanel = new JPanel(new GridLayout(createHostButtons().size(),1));
 		
 		for (JButton btn : createHostButtons()){
 			centerPanel.add(btn);
 		}
-
-		
-		/*ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_logo.png"));
-		logo = new JLabel(logoImage);
-		logo.setOpaque(true);
-		logo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-*/
+		centerPanel.setPreferredSize(new Dimension(200,200));
 
 		ImageIcon backImage = new ImageIcon(getClass().getResource("/left.png"));
 		backButton = new JButton(backImage);
@@ -84,12 +72,6 @@ public class UploadView extends Card implements PropertyChangeListener {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);				
 			}
 		});
-		
-		
-		/*addNorth(new JPanel(new BorderLayout()){{
-			add(logo,BorderLayout.NORTH);
-		}});
-		*/
 		
 		addCenter(centerPanel);
 		addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
@@ -157,8 +139,11 @@ public class UploadView extends Card implements PropertyChangeListener {
 		ArrayList<JButton> list = new ArrayList<JButton>();
 		for(final HostsEnum host : HostsEnum.values()){
 			JButton btn = new JButton();
-			btn.setSize(new Dimension(250, 250));
+			btn.setPreferredSize(new Dimension(50, 50));
 			btn.setIcon(host.getIcon());
+			btn.setBorder(null);
+			btn.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+			btn.setOpaque(true);
 			btn.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					pcs.firePropertyChange(PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE, null, host.getHost());

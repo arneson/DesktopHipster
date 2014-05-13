@@ -39,7 +39,7 @@ public abstract class Card extends JPanel {
 		
 		north.setLayout(new GridLayout(1,1));
 		south.setLayout(new GridLayout(1,1));
-		center.setLayout(new GridLayout(1,1));
+		center.setLayout(new BorderLayout());
 		west.setLayout(new GridLayout(1,1));
 		east.setLayout(new GridLayout(1,1));
 		
