@@ -102,10 +102,9 @@ public class Library {
 		return imageList;
 	}
 
-
 	public void saveToHiddenDirectory() {
 		try {
-			
+
 			ObjectOutputStream out = new ObjectOutputStream(
 					new FileOutputStream(hiddenPath.toString()));
 			out.writeObject(imageList);
@@ -125,8 +124,9 @@ public class Library {
 	public void loadFromHiddenDirectory() throws ClassNotFoundException {
 
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(hiddenPath.toString()));
-			imageList = (ArrayList<ExtendedImage>)in.readObject();
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
+					hiddenPath.toString()));
+			imageList = (ArrayList<ExtendedImage>) in.readObject();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
