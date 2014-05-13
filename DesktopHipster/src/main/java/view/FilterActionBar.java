@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 
 import filter.FiltersEnum;
 
@@ -24,7 +26,7 @@ public class FilterActionBar extends JPanel {
 	
 	public FilterActionBar(){
 		
-		setBorder(null);
+		setBorder(new LineBorder(Color.WHITE,10));
 		add(scrollpane);
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -32,7 +34,9 @@ public class FilterActionBar extends JPanel {
 
 		container.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		container.setLayout(new FlowLayout());
-		//setBackground();
+		container.setBorder(null);
+		
+		scrollpane.setBorder(null);
 		
 		for(int i = 0; i < FiltersEnum.values().length; i++){
 			buttons.add(new FilterButton(FiltersEnum.values()[i]));

@@ -37,15 +37,14 @@ public abstract class Card extends JPanel {
 		west.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		east.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		
-
 		north.setLayout(new GridLayout(1,1));
 		south.setLayout(new GridLayout(1,1));
 		center.setLayout(new GridLayout(1,1));
 		west.setLayout(new GridLayout(1,1));
 		east.setLayout(new GridLayout(1,1));
 		
-		north.setPreferredSize(new Dimension(0,50));
-		south.setPreferredSize(new Dimension(1000,100));
+		north.setPreferredSize(new Dimension(1000,300));
+		south.setPreferredSize(new Dimension(1000,150));
 		center.setPreferredSize(new Dimension(0,0));
 		west.setPreferredSize(new Dimension(150,0));
 		east.setPreferredSize(new Dimension(150,0));
@@ -66,10 +65,7 @@ public abstract class Card extends JPanel {
 			add(logo,BorderLayout.NORTH);
 		}};
 		northPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		northPanel.setBorder(new LineBorder(Color.WHITE, 50));
 		addNorth(northPanel);
-		
-		
 	}
 	
 	protected void addNorth(JPanel north) {

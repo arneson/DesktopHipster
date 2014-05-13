@@ -51,7 +51,7 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData,
 		image.paintIcon(null, g, 0, 0);
 		g.dispose();
 
-		preview = filter.ImageTools.toBufferedImage(getScaledInstance(600, -1,
+		preview = filter.ImageTools.toBufferedImage(getScaledInstance(800, -1,
 				Image.SCALE_SMOOTH));
 		thumbnail = filter.ImageTools.toBufferedImage(getScaledInstance(100,
 				-1, Image.SCALE_FAST));

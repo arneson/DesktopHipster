@@ -22,6 +22,7 @@ import java.awt.Color;
  * 
  * @author Robin Sveningson
  * @revised Edvard Hübinette
+ * @revised Lovisa Jäberg 
  *	
  */
 @SuppressWarnings("serial")
@@ -30,7 +31,7 @@ public class EditView extends Card implements PropertyChangeListener {
 	
 	private FilterActionBar filterActionBar = new FilterActionBar();
 	private JButton proceedButton, backButton;
-	private JLabel canvas, logo;
+	private JLabel canvas;
 	private ActionListener filterButtonClick = new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
 			pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_FILTER_CHANGE, null, 
@@ -73,7 +74,6 @@ public class EditView extends Card implements PropertyChangeListener {
 		});
 		
 		canvas = new JLabel();
-		
 	
 		addEast(new JPanel(new BorderLayout()){{add(proceedButton,BorderLayout.CENTER);}});
 		addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
@@ -83,7 +83,6 @@ public class EditView extends Card implements PropertyChangeListener {
 		for(FilterButton button : filterActionBar.getFilterButtons()){
 			button.addActionListener(filterButtonClick);
 		}
-		
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
