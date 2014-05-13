@@ -30,7 +30,6 @@ public class Model {
 	private FiltersEnum activeFilter;
 	private HashSet<IFilter> allFilters = new HashSet<IFilter>();
 	private HashSet<IHost> allHosts = new HashSet<IHost>();
-	private HashMap<String, BufferedImage> filterExamples = new HashMap<String, BufferedImage>();
 	private TreeSet<String> tags = new TreeSet<String>();
 	
 	public Model() {
@@ -62,6 +61,7 @@ public class Model {
 		pcs.firePropertyChange(PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE, null, activeImage);
 	}
 	
+
 	public ExtendedImage getActiveImage(){
 		return activeImage;
 	}
