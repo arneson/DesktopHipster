@@ -7,10 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -68,6 +67,8 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData,
 	 */
 	public void addVersion(FiltersEnum filterName, BufferedImage image) {
 		versions.put(filterName, image);
+		System.out.println(versions.keySet());
+		System.out.println(versions.values());
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData,
 	 */
 	public BufferedImage getVersion(FiltersEnum filterName)
 			throws NoSuchVersionException {
-		if (versions.containsKey(filterName)) {
+		if (filterName != null || versions.containsKey(filterName)) {
 			return versions.get(filterName);
 		} else {
 			throw new NoSuchVersionException();
@@ -114,20 +115,24 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData,
 	public List<BufferedImage> getVersions() {
 		return new ArrayList<BufferedImage>(versions.values());
 	}
+
 	@Override
 	public TreeSet<String> getTags() {
 		return new TreeSet<String>(tags);
 	}
-	public boolean addTag(String tag){
-		if(tags.contains(tag))
+
+	public boolean addTag(String tag) {
+		if (tags.contains(tag))
 			return false;
 		else
 			tags.add(tag);
 		return true;
 	}
+
 	public void removeTag(String tag) {
 		tags.remove(tag);
 	}
+
 	@Override
 	public BufferedImage getSelectedVersion() {
 		return thumbnail;
@@ -142,36 +147,94 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData,
 		return imageID;
 	}
 
+	/**
+	 * Manual enabling of serialization for java object streams
+	 * 
+	 * @param out
+	 *            Associated output stream
+	 * @throws IOException
+	 */
 	private void writeObject(ObjectOutputStream out) throws IOException {
 		out.defaultWriteObject();
 		ImageIO.write(preview, "png", out);
 		ImageIO.write(thumbnail, "png", out);
-		ImageIO.write((BufferedImage)this, "png", out);
+		ImageIO.write((BufferedImage) this, "png", out);
 		out.writeInt(versions.size());
 		for (Entry<FiltersEnum, BufferedImage> entry : versions.entrySet()) {
 			out.writeObject(entry.getKey());
 			ImageIO.write(entry.getValue(), "png", out);
 		}
-		out.flush();
-		out.close();
 	}
 
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
+	/**
+	 * Manual enabling of deserialization for java object streams
+	 * 
+	 * @param in
+	 *            Associated input stream
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	private void readObject(ObjectInputStream in) throws IOException,
+			ClassNotFoundException {
 		in.defaultReadObject();
 		preview = ImageIO.read(in);
 		thumbnail = ImageIO.read(in);
-		
+
 		Graphics g = this.createGraphics();
 		ImageIcon image = new ImageIcon(ImageIO.read(in));
 		image.paintIcon(null, g, 0, 0);
 		g.dispose();
-		
+
 		versions = new TreeMap<FiltersEnum, BufferedImage>();
 		final int n = in.readInt();
-		for (int i = 0; i < n; i++){
-			FiltersEnum key = (FiltersEnum)in.readObject();
+		for (int i = 0; i < n; i++) {
+			FiltersEnum key = (FiltersEnum) in.readObject();
 			versions.put(key, ImageIO.read(in));
 		}
-		in.close();
+	}
+
+	@Override
+	public String toString() {
+		return "ExtendedImage [" + "imageID=" + imageID + ", " + "tags="
+				+ tags.size() + ", " + "versions=" + versions.size() + "]";
+	}
+
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + imageID;
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
+		result = prime * result
+				+ ((versions == null) ? 0 : versions.hashCode());
+		return result;
+	}
+
+	/**
+	 * Ensures, beyond reasonable doubt, that two instances of this class are the same.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ExtendedImage other = (ExtendedImage) obj;
+		if (imageID != other.imageID)
+			return false;
+		if (tags == null) {
+			if (other.tags != null)
+				return false;
+		} else if (!tags.equals(other.tags))
+			return false;
+		if (versions == null) {
+			if (other.versions != null)
+				return false;
+		} else if (!versions.equals(other.versions))
+			return false;
+		return true;
 	}
 }
