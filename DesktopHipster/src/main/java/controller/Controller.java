@@ -27,6 +27,7 @@ import model.NoSuchVersionException;
  * 
  * @author Robin Sveningson
  * @revised Lovisa Jaberg
+ * @revised Edvard Hübinette
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;
@@ -67,7 +68,7 @@ public class Controller implements PropertyChangeListener {
 				model.getActiveImage().addVersion(
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
-								model.getActiveImage()));
+								(BufferedImage)model.getActiveImage()));
 			}
 			model.changeCardView(View.SubView.UPLOAD);
 			break;
@@ -83,6 +84,7 @@ public class Controller implements PropertyChangeListener {
 					imageToUpload = model.getActiveImage();
 				}
 				chosenHost.uploadImage(imageToUpload);
+				model.getLibrary().saveToHiddenDirectory();
 
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
@@ -97,6 +99,7 @@ public class Controller implements PropertyChangeListener {
 			try {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
 				model.getLibrary().save(imageToSave, evt.getNewValue() + ".png");
+				model.getLibrary().saveToHiddenDirectory();
 			} catch (NoSuchVersionException e) {
 				e.printStackTrace();
 			} catch (FileNotFoundException e) {
