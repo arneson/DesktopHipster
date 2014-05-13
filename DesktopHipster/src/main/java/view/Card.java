@@ -8,11 +8,14 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public abstract class Card extends JPanel {
-	private JPanel north, south, center, west, east, 
+	private JPanel northPanel, north, south, center, west, east, 
 		subNorth, subSouth, subCenter, subWest, subEast;
+	
+	private JLabel logo;
 	
 	public Card() {
 		super();
@@ -33,6 +36,7 @@ public abstract class Card extends JPanel {
 		center.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		west.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		east.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
 
 		north.setLayout(new GridLayout(1,1));
 		south.setLayout(new GridLayout(1,1));
@@ -41,7 +45,7 @@ public abstract class Card extends JPanel {
 		east.setLayout(new GridLayout(1,1));
 		
 		north.setPreferredSize(new Dimension(0,50));
-		south.setPreferredSize(new Dimension(0,50));
+		south.setPreferredSize(new Dimension(1000,100));
 		center.setPreferredSize(new Dimension(0,0));
 		west.setPreferredSize(new Dimension(150,0));
 		east.setPreferredSize(new Dimension(150,0));
@@ -52,6 +56,20 @@ public abstract class Card extends JPanel {
 		add(center, BorderLayout.CENTER);
 		add(west, BorderLayout.WEST);
 		add(east, BorderLayout.EAST);
+		
+		ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_logo.png"));
+		logo = new JLabel(logoImage);
+		logo.setOpaque(true);
+		logo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
+		northPanel = new JPanel(new BorderLayout());{{
+			add(logo,BorderLayout.NORTH);
+		}};
+		northPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		northPanel.setBorder(new LineBorder(Color.WHITE, 50));
+		addNorth(northPanel);
+		
+		
 	}
 	
 	protected void addNorth(JPanel north) {
@@ -124,4 +142,5 @@ public abstract class Card extends JPanel {
 		east.addMouseWheelListener(l);
 		center.addMouseWheelListener(l);
 	}
+
 }

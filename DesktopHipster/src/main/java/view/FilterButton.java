@@ -1,4 +1,6 @@
 package view;
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,7 +28,8 @@ public class FilterButton extends JButton{
 	FilterButton(FiltersEnum filter){
 		super();
 		this.filter=filter;	
-		icon = new ImageIcon(getClass().getResource("/HipsterDemo.png"));
+		icon = (new ImageIcon(getClass().getResource("/HipsterDemo.png")));
+		this.setPreferredSize(new Dimension(150, 100));
 		this.setIcon(icon);
 		JLabel title = new JLabel(filter.name());
 		this.add(title);

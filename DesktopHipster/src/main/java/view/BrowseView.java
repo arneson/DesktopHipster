@@ -24,6 +24,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 
 
@@ -41,7 +43,6 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	private final PropertyChangeSupport pcs;
 
 	private JButton proceedButton;
-	//private JLabel desc;
 	private ThumbnailGrid grid;
 	private TagsPanel tags;
 	private DropTarget dt;
@@ -56,7 +57,7 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 
 	public void initialize() {
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		
+
 		ImageIcon proceedImage = new ImageIcon(getClass().getResource("/proceedButton.jpg"));
 		proceedButton = new JButton(proceedImage);
 		proceedButton.setBorderPainted(false);
@@ -64,31 +65,32 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		proceedButton.setEnabled(false);
 		proceedButton.setSize(500, 200);
-		
-		//desc = new JLabel("BrowseView");
+
 		grid = new ThumbnailGrid(pcs);	
 		dt = new DropTarget(grid,this);
 		tags = new TagsPanel(pcs);
 		pcs.addPropertyChangeListener(tags);
-		
-		ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_5.jpg"));
+
+		/*ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_logo.png"));
 		logo = new JLabel(logoImage);
+		logo.setOpaque(true);
 		logo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		logo.setSize(1250,200);
 		JPanel northPanel = new JPanel(new BorderLayout());{{
 			add(logo,BorderLayout.NORTH);
 			add(proceedButton,BorderLayout.SOUTH);
-			setSize(1300, 200);
 		}};
+		northPanel.setBorder(new LineBorder(Color.WHITE, 50));
 		northPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		 */
 		JPanel centerPanel = new JPanel(new GridLayout(1,1));{{
 			add(grid);}}
 		centerPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		addNorth(northPanel);
 		addCenter(centerPanel);
 		addWest(tags);
-
-		logo.setOpaque(true);
+		JPanel southPanel = new JPanel(new BorderLayout()){{
+			add(proceedButton,BorderLayout.CENTER);
+		}};
+		addSouth(southPanel);
 
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {

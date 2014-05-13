@@ -26,11 +26,11 @@ public class FilterActionBar extends JPanel {
 		
 		setBorder(null);
 		add(scrollpane);
-		setSize(new Dimension(WIDTH, HEIGHT));
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
 		container.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-		container.setSize(new Dimension(WIDTH, HEIGHT));
+		container.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		container.setLayout(new FlowLayout());
 		//setBackground();
 		
