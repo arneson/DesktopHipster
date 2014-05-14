@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -144,5 +145,8 @@ public class Library {
 				ex.printStackTrace();
 			}
 		}
+	}
+	public List<ExtendedImage> getImagesWithTagArray(TreeSet<String> tags) {
+		return imageList;
 	}
 }
