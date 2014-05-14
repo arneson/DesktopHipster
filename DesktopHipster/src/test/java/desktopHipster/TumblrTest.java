@@ -3,7 +3,7 @@ package desktopHipster;
 import javax.swing.ImageIcon;
 
 import model.ExtendedImage;
-import model.Tumblr;
+import model.TumblrHost;
 
 import org.junit.Test;
 import org.scribe.exceptions.OAuthConnectionException;
@@ -14,8 +14,8 @@ public class TumblrTest {
 	public boolean testUploadImage() {
 		ExtendedImage image = new ExtendedImage(new ImageIcon(getClass().getResource("/robin.jpg")));
 		try{
-			Tumblr tumblr = new Tumblr();
-			tumblr.uploadImage(image);
+			TumblrHost tumblrHost = new TumblrHost();
+			tumblrHost.uploadImage(image);
 		}
 		catch(OAuthConnectionException e){
 			return false;
