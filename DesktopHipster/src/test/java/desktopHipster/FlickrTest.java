@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import model.Flickr;
+import model.FlickrHost;
 
 import org.junit.Test;
 
@@ -21,19 +21,19 @@ public class FlickrTest {
 
 	@Test
 	public void testAuth() {
-		Flickr flickr = new Flickr();
+		FlickrHost flickrHost = new FlickrHost();
 	}
 	
 	@Test
 	public void testUpload(){
-		Flickr flickr = new Flickr();
+		FlickrHost flickrHost = new FlickrHost();
 	
-		ImageIcon icon = new ImageIcon(flickr.getClass().getResource("/robin.jpg"));
+		ImageIcon icon = new ImageIcon(flickrHost.getClass().getResource("/robin.jpg"));
 		BufferedImage img = new BufferedImage(icon.getIconWidth(),icon.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.createGraphics();
 		icon.paintIcon(null, g, 0, 0);
 		
-		flickr.uploadImage(img);
+		flickrHost.uploadImage(img);
 	}
 
 }

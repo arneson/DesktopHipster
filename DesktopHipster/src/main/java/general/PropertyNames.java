@@ -18,6 +18,7 @@ public class PropertyNames {
 	public static final String VIEW_WIDTH_UPDATE = "VIEW_WIDTH_UPDATE";
 	public static final String VIEW_TAGS_ON_IMAGE_CHANGED = "VIEW_TAGS_ON_IMAGE_CHANGED";
 	public static final String VIEW_ADD_NEW_TAG = "VIEW_ADD_NEW_TAG";
+	public static final String VIEW_SHOW_IMAGES_WITH_TAGS = "VIEW_SHOW_IMAGES_WITH_TAGS";
 	
 	public static final String MODEL_CARD_CHANGE = "MODEL_CARD_CHANGE";
 	public static final String MODEL_ACTIVE_IMAGE_CHANGE = "MODEL_ACTIVE_IMAGE_CHANGE";

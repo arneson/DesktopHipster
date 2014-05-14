@@ -18,15 +18,15 @@ import com.tumblr.jumblr.types.User;
 /**
  * Implementation for uploading images to Tumblr web archive
  * 
- * @author Edvard
+ * @author Edvard Hübinette
  *
  */
-public class Tumblr implements IHost {
+public class TumblrHost implements IHost {
 
 	User user;
 	JumblrClient client;
 
-	public Tumblr(){
+	public TumblrHost(){
 		// Authenticate via OAuth
 		client = new JumblrClient(
 		  "axzIbckazyEegTEcxfMC9PxYvw9I3wxJZohAabAz5uRubK7dCm",
@@ -54,10 +54,10 @@ public class Tumblr implements IHost {
 			post = blog.newPost(PhotoPost.class);
 		} catch (IllegalAccessException e1) {
 			// This should really not happen
-			System.out.println("Boom1");
+			return false;
 		} catch (InstantiationException e1) {
 			// This should really not happen
-			System.out.println("Boom2");
+			return false;
 		}
 		
 		post.setPhoto(new Photo(file));
@@ -68,10 +68,11 @@ public class Tumblr implements IHost {
 			post.save();
 		} catch (IOException e) {
 			// This should really not happen
+			System.out.println(e.getMessage());
 			e.printStackTrace();
+			return false;
 		}
-		// Needed?
-		//file.delete();
-		return false;
+		file.delete();
+		return true;
 	}
 }

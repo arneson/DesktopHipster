@@ -24,6 +24,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 
 
@@ -41,11 +43,11 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	private final PropertyChangeSupport pcs;
 
 	private JButton proceedButton;
-	//private JLabel desc;
 	private ThumbnailGrid grid;
 	private TagsPanel tags;
 	private DropTarget dt;
-	private JLabel logo;
+	private JLabel logo, chooseImage;
+	private JPanel southPanel, centerPanel;
 
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
@@ -56,46 +58,30 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 
 	public void initialize() {
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		
-		ImageIcon proceedImage = new ImageIcon(getClass().getResource("/proceedButton.jpg"));
-		proceedButton = new JButton(proceedImage);
-		proceedButton.setBorderPainted(false);
-		proceedButton.setBorder(null);
-		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		proceedButton.setEnabled(false);
-		proceedButton.setSize(500, 200);
-		
-		//desc = new JLabel("BrowseView");
+
 		grid = new ThumbnailGrid(pcs);	
 		dt = new DropTarget(grid,this);
 		tags = new TagsPanel(pcs);
 		pcs.addPropertyChangeListener(tags);
-		
-		ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_5.jpg"));
-		logo = new JLabel(logoImage);
-		logo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		logo.setSize(1250,200);
-		JPanel northPanel = new JPanel(new BorderLayout());{{
-			add(logo,BorderLayout.NORTH);
-			add(proceedButton,BorderLayout.SOUTH);
-			setSize(1300, 200);
+
+		ImageIcon proceedImage = new ImageIcon(getClass().getResource("/chooseImage.png"));
+		proceedButton = new JButton(proceedImage);
+		proceedButton.setBorderPainted(false);
+		proceedButton.setBorder(null);
+		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+				
+		southPanel = new JPanel(new BorderLayout()){{
+			add(proceedButton,BorderLayout.CENTER);
 		}};
-		northPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		JPanel centerPanel = new JPanel(new GridLayout(1,1));{{
+		southPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		addSouth(southPanel);
+		
+		centerPanel = new JPanel(new GridLayout(1,1));{{
 			add(grid);}}
 		centerPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		addNorth(northPanel);
 		addCenter(centerPanel);
 		addWest(tags);
-
-		logo.setOpaque(true);
-
-		proceedButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);
-			}
-		});
-
+	
 
 		addMouseMotionListener(new MouseAdapter() {
 			@Override
@@ -115,7 +101,12 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch(evt.getPropertyName()){
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
-			proceedButton.setEnabled(true);
+			proceedButton.setIcon(new ImageIcon(getClass().getResource("/proceedButton.jpg")));
+			proceedButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);
+				}
+			});
 			break;
 		}
 	}

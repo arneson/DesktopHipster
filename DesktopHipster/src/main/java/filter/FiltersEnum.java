@@ -6,6 +6,7 @@ package filter;
  * 
  * @author Edvard Hübinette
  * @revised Lovisa Jäberg
+ *
  */
 public enum FiltersEnum {
 

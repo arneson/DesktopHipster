@@ -2,9 +2,11 @@ package view;
 
 import general.PropertyNames;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -12,10 +14,15 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
-import model.Tumblr;
+import model.FlickrHost;
+import model.HostsEnum;
+import model.TumblrHost;
 
 /**
  * The upload view is a card that is used by View.java. It's main
@@ -29,11 +36,7 @@ import model.Tumblr;
 public class UploadView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 
-	private JButton proceedButton;
-	private JButton saveToDiscButton;
-	private JLabel desc;
-	private JButton tumblrButton;
-	private JButton flickrButton;
+	private JButton saveToDiscButton, backButton, libraryButton;
 	private JTextField imageName;
 
 	public UploadView(PropertyChangeSupport pcs) {
@@ -44,40 +47,42 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 	public void initialize() {
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
+
+		libraryButton = new JButton("Back to library");
+		ImageIcon downloadImage = new ImageIcon(getClass().getResource("/down.png"));
+		saveToDiscButton = new JButton(downloadImage);
+		saveToDiscButton.setBorder(null);
 		
-		proceedButton = new JButton("proceed");
-		saveToDiscButton = new JButton("Save to disc");
-		desc = new JLabel("UploadView");
-		tumblrButton = new JButton();
-		tumblrButton.setIcon(new ImageIcon(getClass().getResource("/tumblr_icon.png")));
-		flickrButton = new JButton();
-		flickrButton.setIcon(new ImageIcon(getClass().getResource("/flickr_icon.png")));
 		imageName = new JTextField("Add name..",50);
-
 		imageName.addMouseListener(myMouseListener);
+		JPanel centerPanel = new JPanel(new GridLayout(createHostButtons().size(),1));
+		
+		for (JButton btn : createHostButtons()){
+			centerPanel.add(btn);
+		}
+		centerPanel.setPreferredSize(new Dimension(200,200));
 
-		addNorth(new JPanel(){{add(desc);
-		add(proceedButton);
-		add(saveToDiscButton);
-		}});
-		JPanel centerPanel = new JPanel(new GridLayout(2,1)){{add(tumblrButton);
-		add(flickrButton);}};
-		//TODO Change size 
-		//centerPanel.setPreferredSize(new Dimension(500,500));
+		ImageIcon backImage = new ImageIcon(getClass().getResource("/left.png"));
+		backButton = new JButton(backImage);
+		backButton.setBorder(new LineBorder(Color.WHITE,10));
+		backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);				
+			}
+		});
+		
 		addCenter(centerPanel);
-
+		addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
 		addSouth(new JPanel(){{add(imageName);}});
-
-		proceedButton.addActionListener(new ActionListener(){
+		
+		libraryButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
 			}
 		});
-		tumblrButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE, null, new Tumblr());
-			}
-		});
+		
 		//TODO 
 		saveToDiscButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -125,7 +130,30 @@ public class UploadView extends Card implements PropertyChangeListener {
 		}
 
 	};
-
+	
+	/**
+	 * Returns a list of buttons for all existing hosts.
+	 * @return List of all host buttons
+	 */
+	private List<JButton> createHostButtons(){
+		ArrayList<JButton> list = new ArrayList<JButton>();
+		for(final HostsEnum host : HostsEnum.values()){
+			JButton btn = new JButton();
+			btn.setPreferredSize(new Dimension(50, 50));
+			btn.setIcon(host.getIcon());
+			btn.setBorder(null);
+			btn.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+			btn.setOpaque(true);
+			btn.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					pcs.firePropertyChange(PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE, null, host.getHost());
+				}
+			});
+			list.add(btn);
+		}
+		return list;
+	}
+	
 	public void propertyChange(PropertyChangeEvent evt) {
 
 	}

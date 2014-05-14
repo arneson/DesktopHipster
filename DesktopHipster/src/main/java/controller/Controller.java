@@ -27,6 +27,7 @@ import model.NoSuchVersionException;
  * 
  * @author Robin Sveningson
  * @revised Lovisa Jaberg
+ * @revised Edvard H��binette
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;
@@ -52,7 +53,11 @@ public class Controller implements PropertyChangeListener {
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_NEW_IMAGE_CHOSEN:
-			model.setActiveImage((ExtendedImage)evt.getNewValue());
+			ExtendedImage recievedImage = (ExtendedImage)evt.getNewValue();
+			if(model.getActiveImage()!= recievedImage)
+				model.setActiveImage((ExtendedImage)evt.getNewValue());
+			else
+				model.setActiveImage(null);
 			break;
 		case PropertyNames.VIEW_ACTIVE_FILTER_CHANGE:
 			ExtendedImage tempImg = model.getActiveImage();
@@ -67,7 +72,7 @@ public class Controller implements PropertyChangeListener {
 				model.getActiveImage().addVersion(
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
-								model.getActiveImage()));
+								(BufferedImage)model.getActiveImage()));
 			}
 			model.changeCardView(View.SubView.UPLOAD);
 			break;
@@ -83,6 +88,7 @@ public class Controller implements PropertyChangeListener {
 					imageToUpload = model.getActiveImage();
 				}
 				chosenHost.uploadImage(imageToUpload);
+				model.getLibrary().saveToHiddenDirectory();
 
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
@@ -97,6 +103,7 @@ public class Controller implements PropertyChangeListener {
 			try {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
 				model.getLibrary().save(imageToSave, evt.getNewValue() + ".png");
+				model.getLibrary().saveToHiddenDirectory();
 			} catch (NoSuchVersionException e) {
 				e.printStackTrace();
 			} catch (FileNotFoundException e) {
@@ -109,7 +116,10 @@ public class Controller implements PropertyChangeListener {
 			model.addTag(evt.getNewValue().toString());
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
-			model.addTagToActiveImage(evt.getNewValue().toString());
+			if((boolean) evt.getOldValue())
+				model.addTagToActiveImage(evt.getNewValue().toString());
+			else
+				model.removeTagOnActiveImage(evt.getNewValue().toString());
 			break;
 		case PropertyNames.SAVE_LIST_TO_DISC:
 			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
@@ -132,7 +142,7 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.VIEW_GRID_RESIZE:
 			model.gridWidthChanged((Integer)evt.getNewValue());
-			model.updateGrid();
+			model.updateGrid(null);
 			break;
 		case PropertyNames.VIEW_WIDTH_UPDATE:
 			model.gridWidthChanged((Integer)evt.getNewValue());

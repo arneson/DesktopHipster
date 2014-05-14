@@ -7,10 +7,13 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import filter.FiltersEnum;
 import general.PropertyNames;
 import model.ExtendedImage;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 /**
@@ -18,17 +21,17 @@ import java.awt.Color;
  * view is the stage where the user edits his/hers image.
  * 
  * @author Robin Sveningson
+ * @revised Edvard H��binette
+ * @revised Lovisa J��berg 
  *	
  */
 @SuppressWarnings("serial")
 public class EditView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 	
-	private JButton proceedButton;
-	private JPanel filterPanel;
-	private FilterButton blackWhiteFilterButton;
-	private FilterButton sepiaFilterButton;
-	private JLabel desc, canvas;
+	private FilterActionBar filterActionBar = new FilterActionBar();
+	private JButton proceedButton, backButton;
+	private JLabel canvas;
 	private ActionListener filterButtonClick = new ActionListener(){
 		public void actionPerformed(ActionEvent e) {
 			pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_FILTER_CHANGE, null, 
@@ -45,33 +48,41 @@ public class EditView extends Card implements PropertyChangeListener {
 	}
 	
 	public void initialize() {
-		filterPanel = new JPanel();
+		JPanel filterPanel = new JPanel();
 		filterPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		proceedButton = new JButton("proceed");
+
 		
-		blackWhiteFilterButton = new FilterButton(FiltersEnum.BWFILTER);
-		sepiaFilterButton = new FilterButton(FiltersEnum.SEPIAFILTER);
-		desc = new JLabel("EditView");
-		canvas = new JLabel();
-		
-		filterPanel.add(blackWhiteFilterButton);
-		filterPanel.add(sepiaFilterButton);
-		
-		addNorth(new JPanel(){{add(desc);}});
-		addEast(new JPanel(){{add(proceedButton);}});
-		addCenter(new JPanel(){{add(canvas);}});
-		addSouth(filterPanel);
-		
+		ImageIcon proceedImage = new ImageIcon(getClass().getResource("/right.png"));
+		proceedButton = new JButton(proceedImage);
+		proceedButton.setBorder(new LineBorder(Color.WHITE,10));
+		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		proceedButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_APPLY_FILTER, null, null);
 			}
 		});
-		blackWhiteFilterButton.addActionListener(filterButtonClick);
-		blackWhiteFilterButton.setText("Black/White");
-		sepiaFilterButton.addActionListener(filterButtonClick);
-		sepiaFilterButton.setText("Sepia");
 		
+		ImageIcon backImage = new ImageIcon(getClass().getResource("/left.png"));
+		backButton = new JButton(backImage);
+		backButton.setBorder(new LineBorder(Color.WHITE,10));
+		backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
+			}
+		});
+		
+		canvas = new JLabel();
+	
+		addEast(new JPanel(new BorderLayout()){{add(proceedButton,BorderLayout.CENTER);}});
+		addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
+		addCenter(new JPanel(){{add(canvas);}});
+		addSouth(filterActionBar);
+		
+		for(FilterButton button : filterActionBar.getFilterButtons()){
+			button.addActionListener(filterButtonClick);
+		}
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -79,9 +90,11 @@ public class EditView extends Card implements PropertyChangeListener {
 
 		switch(name){
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
-			canvas.setIcon(new ImageIcon(((ExtendedImage)evt.getNewValue()).getPreview()));
-			revalidate();
-			repaint();
+			if(evt.getNewValue()!=null){
+				canvas.setIcon(new ImageIcon(((ExtendedImage)evt.getNewValue()).getPreview()));
+				revalidate();
+				repaint();
+			}
 			break;
 		}
 	}

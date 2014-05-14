@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
@@ -19,7 +20,7 @@ import general.PropertyNames;
  * contains the application's data.
  * 
  * @author Robin Sveningson
- * @revised Edvard H������binette
+ * @revised Edvard Hübinette
  *	
  */
 
@@ -30,7 +31,6 @@ public class Model {
 	private FiltersEnum activeFilter;
 	private HashSet<IFilter> allFilters = new HashSet<IFilter>();
 	private HashSet<IHost> allHosts = new HashSet<IHost>();
-	private HashMap<String, BufferedImage> filterExamples = new HashMap<String, BufferedImage>();
 	private TreeSet<String> tags = new TreeSet<String>();
 	
 	public Model() {
@@ -62,6 +62,7 @@ public class Model {
 		pcs.firePropertyChange(PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE, null, activeImage);
 	}
 	
+
 	public ExtendedImage getActiveImage(){
 		return activeImage;
 	}
@@ -124,8 +125,11 @@ public class Model {
 		return allHosts;
 	}
 	
-	public void updateGrid() {
-		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
+	public void updateGrid(TreeSet<String> tags) {
+		if(tags==null || tags.isEmpty())
+			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
+		else
+			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImagesWithTagArray(tags));
 	}
 	
 	public void gridWidthChanged(int width) {
@@ -134,11 +138,13 @@ public class Model {
 
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
 		getLibrary().load(imageFile);
-		updateGrid();
+		updateGrid(null);
 	}
 	public boolean addTagToActiveImage(String tag){
-		//TODO
-		System.out.println("Add tag to image");
-		return true;
+		return this.getActiveImage().addTag(tag);
+	}
+
+	public void removeTagOnActiveImage(String tag) {
+		this.getActiveImage().removeTag(tag);
 	}
 }
