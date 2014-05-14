@@ -28,7 +28,7 @@ import java.awt.Color;
 public class ThumbnailGrid extends JScrollPane implements PropertyChangeListener {	
 	private JPanel content, wrapper;
 	private List<ThumbnailData> data;
-	private List<ThumbnailPanel> panelList;
+	private List<ThumbnailPanel> panelList = new ArrayList<ThumbnailPanel>();
 	private MouseAdapter ma;
 	private PropertyChangeSupport pcs;
 	private final int numberOfColumns = 4;

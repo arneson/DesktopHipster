@@ -20,9 +20,9 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-import model.Flickr;
+import model.FlickrHost;
 import model.HostsEnum;
-import model.Tumblr;
+import model.TumblrHost;
 
 /**
  * The upload view is a card that is used by View.java. It's main
