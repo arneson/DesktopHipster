@@ -14,31 +14,33 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class NewTagTextField extends JTextField {
 	PropertyChangeSupport pcs;
-	public NewTagTextField(PropertyChangeSupport p){
+
+	public NewTagTextField(PropertyChangeSupport p) {
 		super();
 		setText("Add new tag...");
 		pcs = p;
-		addActionListener(new ActionListener(){
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	        	pcs.firePropertyChange(PropertyNames.VIEW_ADD_NEW_TAG, null, getText());
-	        	setText("");
-	        }
-	    });
-		addFocusListener(new FocusListener(){
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_ADD_NEW_TAG, null,
+						getText());
+				setText("");
+			}
+		});
+		addFocusListener(new FocusListener() {
 
 			@Override
 			public void focusGained(FocusEvent e) {
 				setText("");
-				
+
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 	}
 }

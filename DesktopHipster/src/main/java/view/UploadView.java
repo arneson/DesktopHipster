@@ -33,8 +33,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.HostsEnum;
 
 /**
- * The upload view is a card that is used by View.java. It's main
- * purpose is to select which site to upload the image to.
+ * The upload view is a card that is used by View.java. It's main purpose is to
+ * select which site to upload the image to.
  * 
  * @author Robin Sveningson
  * @revised Lovisa Jäberg
@@ -89,14 +89,36 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 		uploadLogo = new JPanel(new BorderLayout()){{
 			add((new JLabel(new ImageIcon(getClass().getResource("/upload.png")))),BorderLayout.CENTER);}};
-			uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-			uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-			centerPanel = new JPanel(new GridLayout(createHostButtons().size()+3,1));
-			centerPanel.add(uploadLogo);
-			for (JButton btn : createHostButtons()){
+		centerPanel = new JPanel(new GridLayout(createHostButtons().size()+3,1));
+		centerPanel.add(uploadLogo);
+		
+		for (JButton btn : createHostButtons()){
 				centerPanel.add(btn);
-			}
+		}
+		saveLogo = new JPanel(new BorderLayout()){{
+			add((new JLabel(new ImageIcon(getClass().getResource("/save.png")))),BorderLayout.CENTER);}};
+		saveLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+
+		saveIcon = new JPanel(new BorderLayout()){{add(saveToDiscButton);}};
+		saveIcon.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
+		centerPanel.add(saveLogo);
+		centerPanel.add(saveIcon);
+		centerPanel.setPreferredSize(new Dimension(200,200));
+
+		backButton = new JButton(new ImageIcon(getClass().getResource("/left.png")));
+		backButton.setBorder(new LineBorder(Color.WHITE,10));
+
+		backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE,
+						null, View.SubView.EDIT);}
+			});
 
 			saveLogo = new JPanel(new BorderLayout()){{
 				add((new JLabel(new ImageIcon(getClass().getResource("/save.png")))),BorderLayout.CENTER);}};
@@ -129,7 +151,6 @@ public class UploadView extends Card implements PropertyChangeListener {
 	/**
 	 * Shows save dialog to be able to save file as you wish.
 	 */
-
 	private void saveDialog()
 	{
 		fileChooser.setAcceptAllFileFilterUsed(false);
@@ -167,20 +188,24 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 	/**
 	 * Returns a list of buttons for all existing hosts.
+	 * 
 	 * @return List of all host buttons
 	 */
-	private List<JButton> createHostButtons(){
+	private List<JButton> createHostButtons() {
 		ArrayList<JButton> list = new ArrayList<JButton>();
 		for(final HostsEnum host : HostsEnum.values()){
 			JButton btn = new JButton(host.getIcon());
+
 			btn.setIcon(host.getIcon());
 			btn.setPreferredSize(new Dimension(200,100));
 			btn.setBorder(null);
 			btn.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 			btn.setOpaque(true);
-			btn.addActionListener(new ActionListener(){
+			btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					pcs.firePropertyChange(PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE, null, host.getHost());
+					pcs.firePropertyChange(
+							PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE, null,
+							host.getHost());
 				}
 			});
 			list.add(btn);
@@ -188,14 +213,18 @@ public class UploadView extends Card implements PropertyChangeListener {
 		return list;
 	}
 
-	public void propertyChange(PropertyChangeEvent evt) {
-
-	}
 	private String addFileExtIfNecessary(String file,String ext) {
 		file=file.toLowerCase();
 	    if(!file.endsWith(ext))
 	        file += ext;
 
 	    return file;
+	}
+
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+		
 	}
 }
