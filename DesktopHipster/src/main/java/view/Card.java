@@ -56,7 +56,7 @@ public abstract class Card extends JPanel {
 		add(west, BorderLayout.WEST);
 		add(east, BorderLayout.EAST);
 		
-		ImageIcon logoImage = new ImageIcon(getClass().getResource("/desktophipster_logo.png"));
+		ImageIcon logoImage = new ImageIcon(getClass().getResource("/logo.png"));
 		logo = new JLabel(logoImage);
 		logo.setOpaque(true);
 		logo.setBackground(Constants.BACKGROUNDCOLOR.getColor());

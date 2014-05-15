@@ -82,7 +82,7 @@ public class ExtendedImage extends BufferedImage implements ThumbnailData,
 	 */
 	public BufferedImage getVersion(FiltersEnum filterName)
 			throws NoSuchVersionException {
-		if (filterName != null || versions.containsKey(filterName)) {
+		if (filterName != null && versions.containsKey(filterName)) {
 			return versions.get(filterName);
 		} else {
 			throw new NoSuchVersionException();
