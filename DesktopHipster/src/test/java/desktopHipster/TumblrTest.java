@@ -12,12 +12,12 @@ public class TumblrTest {
 
 	@Test
 	public boolean testUploadImage() {
-		ExtendedImage image = new ExtendedImage(new ImageIcon(getClass().getResource("/robin.jpg")));
-		try{
+		ExtendedImage image = new ExtendedImage(new ImageIcon(getClass()
+				.getResource("/robin.jpg")));
+		try {
 			TumblrHost tumblrHost = new TumblrHost();
-			tumblrHost.uploadImage(image);
-		}
-		catch(OAuthConnectionException e){
+			tumblrHost.uploadImage(image.getOriginal());
+		} catch (OAuthConnectionException e) {
 			return false;
 		}
 		return true;

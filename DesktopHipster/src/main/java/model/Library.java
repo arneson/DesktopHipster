@@ -61,7 +61,6 @@ public class Library {
 	 * Saves image to disc in the folder created for this desktop application.
 	 * Takes an ExtendedImage and a String (the new filename) as parameters.
 	 */
-
 	public void save(BufferedImage saveImage, File file)
 			throws FileNotFoundException, IOException {
 		try {
