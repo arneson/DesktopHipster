@@ -15,82 +15,77 @@ import general.PropertyNames;
 @SuppressWarnings("serial")
 public class DDFrame extends JFrame implements DropTargetListener {
 
-	DropTarget dt;
-	JTextArea ta;
-	JLabel dropArea;
+  DropTarget dt;
+  JTextArea ta;
+  JLabel dropArea;
 
-	public DDFrame() {
-		super("DesktopHipster");
-		setSize(200, 140);
-		addWindowListener(null);
-		setUndecorated(true);
+  public DDFrame() {
+    super("DesktopHipster");
+    setSize(200,140);
+    addWindowListener(null);
+    setUndecorated(true);
 
-		// getContentPane().add(
-		// new JLabel("Drop a list from your file chooser here:"),
-		// BorderLayout.NORTH);
-		ta = new JTextArea();
+    ta = new JTextArea();
+    
+    dropArea = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
+    
+    ta.setBackground(Color.white);
+    add(dropArea, BorderLayout.CENTER);
 
-		dropArea = new JLabel(new ImageIcon(getClass().getResource(
-				"/AddPanel.png")));
+    dt = new DropTarget(dropArea, this);
+    setVisible(true);
+  }
 
-		ta.setBackground(Color.white);
-		add(dropArea, BorderLayout.CENTER);
+  public void drop(DropTargetDropEvent dtde) {
+    try {
+      Transferable tr = dtde.getTransferable();
+      DataFlavor[] flavors = tr.getTransferDataFlavors();
+      for (int i = 0; i < flavors.length; i++) {
+		  System.out.println("Possible flavor: " + flavors[i].getMimeType());
+		  // Check for file lists specifically
+		  if (flavors[i].isFlavorJavaFileListType()) {
+		    // Great!  Accept copy drops...
+		    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+		    ta.setText("Successful file list drop.\n\n");
+		    
+		    // And add the list of file names to our text area
+		    java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
+		    boolean valid = true;
+		    for (int j = 0; j < list.size(); j++) {
+		    	if(isAcceptedImage(list.get(j))){
+		    		firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+		    		setDropOKLogo();
+		    	}
+		    	else{
+		    		setDropNotOKLogo();
+		    	}
+		    }
+		    dtde.dropComplete(true);
+		    return;
+		  }
+      }
+      dtde.rejectDrop();
+    } catch (Exception e) {
+      e.printStackTrace();
+      dtde.rejectDrop();
+    }
+  }
 
-		// Set up our text area to recieve drops...
-		// This class will handle drop events
-		dt = new DropTarget(dropArea, this);
-		setVisible(true);
+
+	private boolean isAcceptedImage(Object object) {
+	try {
+		File imgFile = (File)object;
+	    Image img =ImageIO.read(imgFile);
+	    if (img == null || imgFile.getAbsolutePath().endsWith(".tiff")) {
+	        return false;
+	    }
+	    else{
+	    	return true;
+	    }
+	} catch(IOException ex) {
+	    return false;
 	}
-
-	public void drop(DropTargetDropEvent dtde) {
-		try {
-			// Ok, get the dropped object and try to figure out what it is
-			Transferable tr = dtde.getTransferable();
-			DataFlavor[] flavors = tr.getTransferDataFlavors();
-			for (int i = 0; i < flavors.length; i++) {
-				System.out.println("Possible flavor: "
-						+ flavors[i].getMimeType());
-				// Check for file lists specifically
-				if (flavors[i].isFlavorJavaFileListType()) {
-					// Great! Accept copy drops...
-					dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-					ta.setText("Successful file list drop.\n\n");
-
-					// And add the list of file names to our text area
-					java.util.List list = (java.util.List) tr
-							.getTransferData(flavors[i]);
-					boolean valid = true;
-					for (int j = 0; j < list.size(); j++) {
-						try {
-							Image img = ImageIO.read((File) list.get(j));
-							if (img == null) {
-								valid = false;
-							} else {
-								firePropertyChange(
-										PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,
-										null, list.get(j));
-							}
-						} catch (IOException ex) {
-							valid = false;
-						}
-					}
-					if (valid) {
-						setDropOKLogo();
-					} else {
-						setDropNotOKLogo();
-					}
-
-					dtde.dropComplete(true);
-					return;
-				}
-			}
-			// Not a file-list dropped
-			dtde.rejectDrop();
-		} catch (Exception e) {
-			e.printStackTrace();
-			// dtde.rejectDrop();
-		}
-	}
+}
 
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
