@@ -98,8 +98,12 @@ public class Controller implements PropertyChangeListener {
 			
 		case PropertyNames.VIEW_SAVE_IMAGE_TO_DISC:
 			try {
-				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
-				System.out.println("bläääääää" + evt.getOldValue());
+				BufferedImage imageToSave;
+				if (model.getActiveImage().getVersion(model.getActiveFilter()).equals(null)) {
+					imageToSave = model.getActiveImage();
+				} else {
+					imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
+				}
 				model.getLibrary().save(imageToSave, (File)evt.getNewValue());
 				model.getLibrary().saveToHiddenDirectory();
 				

@@ -11,9 +11,6 @@ import org.xml.sax.SAXException;
 import com.aetrion.flickr.Flickr;
 import com.aetrion.flickr.FlickrException;
 import com.aetrion.flickr.Transport;
-import com.aetrion.flickr.auth.Auth;
-import com.aetrion.flickr.auth.AuthInterface;
-import com.aetrion.flickr.auth.Permission;
 import com.aetrion.flickr.uploader.UploadMetaData;
 import com.aetrion.flickr.uploader.Uploader;
 
