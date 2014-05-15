@@ -72,7 +72,7 @@ public class DDFrame extends JFrame implements DropTargetListener {
   }
 
 
-	private boolean isAcceptedImage(Object object) {
+	public boolean isAcceptedImage(Object object) {
 	try {
 		File imgFile = (File)object;
 	    Image img =ImageIO.read(imgFile);
