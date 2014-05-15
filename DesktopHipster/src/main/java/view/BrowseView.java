@@ -28,18 +28,18 @@ import javax.swing.border.LineBorder;
 
 import java.awt.Color;
 
-
 /**
- * One of the cards used in View.java. This jPanel represents
- * the browse view where the user browses all of his/hers 
- * images.
+ * One of the cards used in View.java. This jPanel represents the browse view
+ * where the user browses all of his/hers images.
  * 
  * @author Robin Sveningson
  * @revised Simon Arneson
  * @revised Lovisa J��berg
  */
-@SuppressWarnings("serial")
-public class BrowseView extends Card implements PropertyChangeListener,DropTargetListener {
+public class BrowseView extends Card implements PropertyChangeListener,
+		DropTargetListener {
+	private static final long serialVersionUID = 5488743145525577005L;
+
 	private final PropertyChangeSupport pcs;
 
 	private JButton proceedButton;
@@ -59,29 +59,35 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	public void initialize() {
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-		grid = new ThumbnailGrid(pcs);	
-		dt = new DropTarget(grid,this);
+		grid = new ThumbnailGrid(pcs);
+		dt = new DropTarget(grid, this);
 		tags = new TagsPanel(pcs);
 		pcs.addPropertyChangeListener(tags);
 
-		ImageIcon proceedImage = new ImageIcon(getClass().getResource("/chooseImage.png"));
+		ImageIcon proceedImage = new ImageIcon(getClass().getResource(
+				"/chooseImage.png"));
 		proceedButton = new JButton(proceedImage);
 		proceedButton.setBorderPainted(false);
 		proceedButton.setBorder(null);
 		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-				
-		southPanel = new JPanel(new BorderLayout()){{
-			add(proceedButton,BorderLayout.CENTER);
-		}};
+
+		southPanel = new JPanel(new BorderLayout()) {
+			{
+				add(proceedButton, BorderLayout.CENTER);
+			}
+		};
 		southPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		addSouth(southPanel);
-		
-		centerPanel = new JPanel(new GridLayout(1,1));{{
-			add(grid);}}
+
+		centerPanel = new JPanel(new GridLayout(1, 1));
+		{
+			{
+				add(grid);
+			}
+		}
 		centerPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		addCenter(centerPanel);
 		addWest(tags);
-	
 
 		addMouseMotionListener(new MouseAdapter() {
 			@Override
@@ -90,7 +96,7 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 			}
 		});
 
-		addMouseWheelListener(new MouseWheelListener(){
+		addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				grid.mouseWheelMoved(e);
@@ -99,12 +105,15 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		switch(evt.getPropertyName()){
+		switch (evt.getPropertyName()) {
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
-			proceedButton.setIcon(new ImageIcon(getClass().getResource("/proceedButton.jpg")));
-			proceedButton.addActionListener(new ActionListener(){
+			proceedButton.setIcon(new ImageIcon(getClass().getResource(
+					"/proceedButton.jpg")));
+			proceedButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);
+					pcs.firePropertyChange(
+							PropertyNames.VIEW_REQUEST_CARD_CHANGE, null,
+							View.SubView.EDIT);
 				}
 			});
 			break;
@@ -146,17 +155,21 @@ public class BrowseView extends Card implements PropertyChangeListener,DropTarge
 			Transferable tr = dtde.getTransferable();
 			DataFlavor[] flavors = tr.getTransferDataFlavors();
 			for (int i = 0; i < flavors.length; i++) {
-				System.out.println("Possible flavor: " + flavors[i].getMimeType());
+				System.out.println("Possible flavor: "
+						+ flavors[i].getMimeType());
 				// Check for file lists specifically
 				if (flavors[i].isFlavorJavaFileListType()) {
-					// Great!  Accept copy drops...
+					// Great! Accept copy drops...
 					dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
 
 					// And add the list of file names to our text area
-					java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
+					java.util.List list = (java.util.List) tr
+							.getTransferData(flavors[i]);
 					for (int j = 0; j < list.size(); j++) {
-						//ta.append(list.get(j) + "\n");
-						pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+						// ta.append(list.get(j) + "\n");
+						pcs.firePropertyChange(
+								PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY, null,
+								list.get(j));
 					}
 
 					dtde.dropComplete(true);

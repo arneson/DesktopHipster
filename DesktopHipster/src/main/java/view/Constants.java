@@ -5,25 +5,25 @@ import java.awt.Font;
 
 public enum Constants {
 
-	BACKGROUNDCOLOR (new Color(255,255,255)),
-	TEXTCOLOR (new Color(104,106,108));
-	
+	BACKGROUNDCOLOR(new Color(255, 255, 255)), TEXTCOLOR(new Color(104, 106,
+			108));
+
 	private Color color;
 	private Font font;
-	
-	Constants(Color color){
+
+	Constants(Color color) {
 		this.color = color;
 	}
-	
-	Constants(Font font){
+
+	Constants(Font font) {
 		this.font = font;
 	}
-	
-	public Color getColor(){
+
+	public Color getColor() {
 		return color;
 	}
-	
-	public Font getFont(){
+
+	public Font getFont() {
 		return font;
 	}
 

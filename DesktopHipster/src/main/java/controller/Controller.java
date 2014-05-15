@@ -71,7 +71,7 @@ public class Controller implements PropertyChangeListener {
 				model.getActiveImage().addVersion(
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
-								(BufferedImage)model.getActiveImage()));
+								model.getActiveImage().getOriginal()));
 			}
 			model.changeCardView(View.SubView.UPLOAD);
 			break;
@@ -84,7 +84,7 @@ public class Controller implements PropertyChangeListener {
 							model.getActiveFilter());
 
 				} else {
-					imageToUpload = model.getActiveImage();
+					imageToUpload = model.getActiveImage().getOriginal();
 				}
 				chosenHost.uploadImage(imageToUpload);
 				model.getLibrary().saveToHiddenDirectory();

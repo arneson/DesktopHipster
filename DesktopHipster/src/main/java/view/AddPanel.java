@@ -61,18 +61,18 @@ public class AddPanel extends JPanel {
 		/*label.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				JFileChooser chooseFile = new JFileChooser();
-				FileNameExtensionFilter allowedSuffix = new FileNameExtensionFilter("JPG, PNG, & GIF", ".jpg", ".png", ".gif");
+				FileNameExtensionFilter allowedSuffix = new FileNameExtensionFilter(
+						"JPG, PNG, & GIF", ".jpg", ".png", ".gif");
 				chooseFile.setFileFilter(allowedSuffix);
 				int file = chooseFile.showOpenDialog(getParent());
-				if(file == JFileChooser.APPROVE_OPTION) {
-	    	    	firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,chooseFile.getSelectedFiles());
+				if (file == JFileChooser.APPROVE_OPTION) {
+					firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,
+							null, chooseFile.getSelectedFiles());
 				}
 			}
 		});*/
 		label.setOpaque(true);
-		add(label,BorderLayout.CENTER);
+		add(label, BorderLayout.CENTER);
 	}
-
-
 
 }
