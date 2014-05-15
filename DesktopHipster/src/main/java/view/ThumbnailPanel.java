@@ -96,6 +96,9 @@ public class ThumbnailPanel extends JPanel {
 	public ThumbnailData getData() {
 		return data;
 	}
+	public boolean isSelected(){
+		return selected;
+	}
 	
 	/*private int getScaledHeight(BufferedImage image, int width) {
 		double widthHeightRatio = image.getWidth() / image.getHeight();

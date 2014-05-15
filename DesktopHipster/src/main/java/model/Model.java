@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
@@ -124,8 +125,11 @@ public class Model {
 		return allHosts;
 	}
 	
-	public void updateGrid() {
-		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
+	public void updateGrid(TreeSet<String> tags) {
+		if(tags==null || tags.isEmpty())
+			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageArray());
+		else
+			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImagesWithTagArray(tags));
 	}
 	
 	public void gridWidthChanged(int width) {
@@ -134,7 +138,7 @@ public class Model {
 
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
 		getLibrary().load(imageFile);
-		updateGrid();
+		updateGrid(null);
 	}
 	public boolean addTagToActiveImage(String tag){
 		return this.getActiveImage().addTag(tag);

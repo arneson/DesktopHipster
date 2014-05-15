@@ -24,12 +24,22 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	private TreeSet<String> tags;
 	private List<JCheckBox> tagBoxes;
 	private JPanel tagList;
+	private boolean imageChosen = false;
 	private ActionListener clickListener = new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent e) {
         	JCheckBox src = (JCheckBox)e.getSource();
-            pcs.firePropertyChange(PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED, src.isSelected(), src.getText() );
+        	if(imageChosen)
+        		pcs.firePropertyChange(PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED, src.isSelected(), src.getText() );
+        	else{
+        		TreeSet<String> tagsToShow = new TreeSet<String>();
+        		for(JCheckBox jcb:tagBoxes){
+        			if(jcb.isSelected())
+        				tagsToShow.add(jcb.getText());
+        		}
+        		pcs.firePropertyChange(PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS,null,tagsToShow);
+        	}
         }
     };
 	public TagsPanel(PropertyChangeSupport p){
@@ -46,10 +56,12 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	public void loadActiveTagsFromImage(ExtendedImage img){
 		for(JCheckBox cb:tagBoxes)
 			cb.setSelected(false);
-		for(String t:img.getTags()){
-			for(JCheckBox cb:tagBoxes){
-				if(cb.getText()==t){
-					cb.setSelected(true);
+		if(img!=null){
+			for(String t:img.getTags()){
+				for(JCheckBox cb:tagBoxes){
+					if(cb.getText()==t){
+						cb.setSelected(true);
+					}
 				}
 			}
 		}
@@ -58,8 +70,15 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch(evt.getPropertyName()){
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
-			ExtendedImage img = (ExtendedImage) evt.getNewValue();
-			loadActiveTagsFromImage(img);
+			if(evt.getNewValue()!=null){
+				ExtendedImage img = (ExtendedImage) evt.getNewValue();
+				loadActiveTagsFromImage(img);
+				imageChosen = true;
+			}
+			else{
+					loadActiveTagsFromImage(null);
+					imageChosen = false;
+			}
 			break;
 		case PropertyNames.MODEL_TAGS_CHANGED:
 			tags = (TreeSet<String>)evt.getNewValue();

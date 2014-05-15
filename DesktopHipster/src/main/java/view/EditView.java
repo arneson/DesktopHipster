@@ -21,8 +21,8 @@ import java.awt.Color;
  * view is the stage where the user edits his/hers image.
  * 
  * @author Robin Sveningson
- * @revised Edvard Hübinette
- * @revised Lovisa Jäberg 
+ * @revised Edvard H��binette
+ * @revised Lovisa J��berg 
  *	
  */
 @SuppressWarnings("serial")
@@ -90,9 +90,11 @@ public class EditView extends Card implements PropertyChangeListener {
 
 		switch(name){
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
-			canvas.setIcon(new ImageIcon(((ExtendedImage)evt.getNewValue()).getPreview()));
-			revalidate();
-			repaint();
+			if(evt.getNewValue()!=null){
+				canvas.setIcon(new ImageIcon(((ExtendedImage)evt.getNewValue()).getPreview()));
+				revalidate();
+				repaint();
+			}
 			break;
 		}
 	}

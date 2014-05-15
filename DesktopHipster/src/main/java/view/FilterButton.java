@@ -34,7 +34,7 @@ public class FilterButton extends JButton{
 		Graphics g = img.createGraphics();
 		(new ImageIcon(getClass().getResource("/HipsterDemo.png"))).paintIcon(null, g, 0, 0);
 		g.dispose();
-		filter.getFilter().applyFilter(img);
+		img = filter.getFilter().applyFilter(img);
 		
 		this.setPreferredSize(new Dimension(150, 100));
 		this.setIcon(new ImageIcon(img));

@@ -26,7 +26,7 @@ import dragNdrop.DragNDropTray;
  * 
  * @author Robin Sveningson
  * @revised Lovisa Jaberg
- * @revised Edvard Hübinette
+ * @revised Edvard H��binette
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;
@@ -52,7 +52,11 @@ public class Controller implements PropertyChangeListener {
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_NEW_IMAGE_CHOSEN:
-			model.setActiveImage((ExtendedImage)evt.getNewValue());
+			ExtendedImage recievedImage = (ExtendedImage)evt.getNewValue();
+			if(model.getActiveImage()!= recievedImage)
+				model.setActiveImage((ExtendedImage)evt.getNewValue());
+			else
+				model.setActiveImage(null);
 			break;
 		case PropertyNames.VIEW_ACTIVE_FILTER_CHANGE:
 			ExtendedImage tempImg = model.getActiveImage();
@@ -143,7 +147,7 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.VIEW_GRID_RESIZE:
 			model.gridWidthChanged((Integer)evt.getNewValue());
-			model.updateGrid();
+			model.updateGrid(null);
 			break;
 		case PropertyNames.VIEW_WIDTH_UPDATE:
 			model.gridWidthChanged((Integer)evt.getNewValue());
