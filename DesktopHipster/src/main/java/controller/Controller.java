@@ -74,6 +74,7 @@ public class Controller implements PropertyChangeListener {
 								model.getActiveImage().getOriginal()));
 			}
 			model.changeCardView(View.SubView.UPLOAD);
+			model.getLibrary().saveToHiddenDirectory();
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
