@@ -89,37 +89,15 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 		uploadLogo = new JPanel(new BorderLayout()){{
 			add((new JLabel(new ImageIcon(getClass().getResource("/upload.png")))),BorderLayout.CENTER);}};
-		uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+			uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+			uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-		centerPanel = new JPanel(new GridLayout(createHostButtons().size()+3,1));
-		centerPanel.add(uploadLogo);
-		
-		for (JButton btn : createHostButtons()){
+			centerPanel = new JPanel(new GridLayout(createHostButtons().size()+3,1));
+			centerPanel.add(uploadLogo);
+
+			for (JButton btn : createHostButtons()){
 				centerPanel.add(btn);
-		}
-		saveLogo = new JPanel(new BorderLayout()){{
-			add((new JLabel(new ImageIcon(getClass().getResource("/save.png")))),BorderLayout.CENTER);}};
-		saveLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-
-		saveIcon = new JPanel(new BorderLayout()){{add(saveToDiscButton);}};
-		saveIcon.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		
-		centerPanel.add(saveLogo);
-		centerPanel.add(saveIcon);
-		centerPanel.setPreferredSize(new Dimension(200,200));
-
-		backButton = new JButton(new ImageIcon(getClass().getResource("/left.png")));
-		backButton.setBorder(new LineBorder(Color.WHITE,10));
-
-		backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		backButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE,
-						null, View.SubView.EDIT);}
-			});
-
+			}
 			saveLogo = new JPanel(new BorderLayout()){{
 				add((new JLabel(new ImageIcon(getClass().getResource("/save.png")))),BorderLayout.CENTER);}};
 				saveLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
@@ -133,13 +111,19 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 				backButton = new JButton(new ImageIcon(getClass().getResource("/left.png")));
 				backButton.setBorder(new LineBorder(Color.WHITE,10));
+
 				backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-				backButton.addActionListener(new ActionListener(){
+				backButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);				
-					}
+						pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE,
+								null, View.SubView.EDIT);}
 				});
+
+
+
+
+
 
 				addCenter(centerPanel);
 				addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
@@ -154,11 +138,11 @@ public class UploadView extends Card implements PropertyChangeListener {
 	private void saveDialog()
 	{
 		fileChooser.setAcceptAllFileFilterUsed(false);
-		
+
 		FileFilter imageFilter = new FileNameExtensionFilter(
-			    "Image files", ImageIO.getReaderFileSuffixes());
+				"Image files", ImageIO.getReaderFileSuffixes());
 		fileChooser.addChoosableFileFilter(imageFilter);
-		
+
 		int saveChoice = fileChooser.showSaveDialog(this);
 		logChoice(saveChoice, new File(addFileExtIfNecessary(
 				fileChooser.getSelectedFile().toPath().toString(),".png")));
@@ -215,16 +199,16 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 	private String addFileExtIfNecessary(String file,String ext) {
 		file=file.toLowerCase();
-	    if(!file.endsWith(ext))
-	        file += ext;
+		if(!file.endsWith(ext))
+			file += ext;
 
-	    return file;
+		return file;
 	}
 
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
