@@ -24,9 +24,6 @@ public class DDFrame extends JFrame implements DropTargetListener {
     addWindowListener(null);
     setUndecorated(true);
 
-//    getContentPane().add(
-//        new JLabel("Drop a list from your file chooser here:"),
-//  BorderLayout.NORTH);
     ta = new JTextArea();
     
     dropArea = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
@@ -34,15 +31,12 @@ public class DDFrame extends JFrame implements DropTargetListener {
     ta.setBackground(Color.white);
     add(dropArea, BorderLayout.CENTER);
 
-    // Set up our text area to recieve drops...
-    // This class will handle drop events
     dt = new DropTarget(dropArea, this);
     setVisible(true);
   }
 
   public void drop(DropTargetDropEvent dtde) {
     try {
-      // Ok, get the dropped object and try to figure out what it is
       Transferable tr = dtde.getTransferable();
       DataFlavor[] flavors = tr.getTransferDataFlavors();
       for (int i = 0; i < flavors.length; i++) {
@@ -57,36 +51,39 @@ public class DDFrame extends JFrame implements DropTargetListener {
 		    java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
 		    boolean valid = true;
 		    for (int j = 0; j < list.size(); j++) {
-		    	try {
-		    	    Image img =ImageIO.read((File)list.get(j));
-		    	    if (img == null) {
-		    	        valid = false;
-		    	    }
-		    	    else{
-		    	    	firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
-		    	    }
-		    	} catch(IOException ex) {
-		    	    valid=false;
+		    	if(isAcceptedImage(list.get(j))){
+		    		firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+		    		setDropOKLogo();
+		    	}
+		    	else{
+		    		setDropNotOKLogo();
 		    	}
 		    }
-		    if(valid){
-		    	setDropOKLogo();
-		    }
-		    else{
-		    	setDropNotOKLogo();
-		    }
-		
 		    dtde.dropComplete(true);
 		    return;
 		  }
       }
-      // Not a file-list dropped
       dtde.rejectDrop();
     } catch (Exception e) {
       e.printStackTrace();
       dtde.rejectDrop();
     }
   }
+
+	private boolean isAcceptedImage(Object object) {
+	try {
+		File imgFile = (File)object;
+	    Image img =ImageIO.read(imgFile);
+	    if (img == null || imgFile.getAbsolutePath().endsWith(".tiff")) {
+	        return false;
+	    }
+	    else{
+	    	return true;
+	    }
+	} catch(IOException ex) {
+	    return false;
+	}
+}
 
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
