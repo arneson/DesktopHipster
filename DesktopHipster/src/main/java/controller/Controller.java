@@ -95,7 +95,7 @@ public class Controller implements PropertyChangeListener {
 						.println("Good job, send us an email on how you managed!");
 			}
 			break;
-			
+
 		case PropertyNames.VIEW_SAVE_IMAGE_TO_DISC:
 			try {
 				BufferedImage imageToSave;
@@ -106,22 +106,23 @@ public class Controller implements PropertyChangeListener {
 				}
 				model.getLibrary().save(imageToSave, (File)evt.getNewValue());
 
+
 				model.getLibrary().saveToHiddenDirectory();
-				
+
 			} catch (NoSuchVersionException e) {
 				System.out.println("No such version!");
 				e.printStackTrace();
-				
+
 			} catch (FileNotFoundException e) {
 				System.out.println("File not found!");
 				e.printStackTrace();
-				
+
 			} catch (IOException e) {
 				System.out.println("IO Exception!");
 				e.printStackTrace();
 			}
 			break;
-			
+
 		case PropertyNames.VIEW_ADD_NEW_TAG:
 			model.addTag(evt.getNewValue().toString());
 			break;
@@ -131,21 +132,12 @@ public class Controller implements PropertyChangeListener {
 			else
 				model.removeTagOnActiveImage(evt.getNewValue().toString());
 			break;
-		case PropertyNames.SAVE_LIST_TO_DISC:
-			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
-			for (ExtendedImage image : listToSave) {
-				try {
-					// TODO save list to disc in hidden folder
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
 			System.out.println(evt.getNewValue());
 			File imageFile = (File) evt.getNewValue();
 			try {
 				model.addFileToLibrary(imageFile);
+				model.getLibrary().saveToHiddenDirectory();
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
