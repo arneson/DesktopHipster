@@ -1,8 +1,8 @@
 package general;
 
 /**
- * This class contains property names that will be used by
- * the PropertyChangeSupports/Listeners in the application.
+ * This class contains property names that will be used by the
+ * PropertyChangeSupports/Listeners in the application.
  * 
  * @author Robin Sveningson
  * @revised Lovisa Jaberg
@@ -19,12 +19,12 @@ public class PropertyNames {
 	public static final String VIEW_TAGS_ON_IMAGE_CHANGED = "VIEW_TAGS_ON_IMAGE_CHANGED";
 	public static final String VIEW_ADD_NEW_TAG = "VIEW_ADD_NEW_TAG";
 	public static final String VIEW_SHOW_IMAGES_WITH_TAGS = "VIEW_SHOW_IMAGES_WITH_TAGS";
-	
+
 	public static final String MODEL_CARD_CHANGE = "MODEL_CARD_CHANGE";
 	public static final String MODEL_ACTIVE_IMAGE_CHANGE = "MODEL_ACTIVE_IMAGE_CHANGE";
 	public static final String MODEL_GRID_UPDATE = "GRID_UPDATE";
 	public static final String MODEL_TAGS_CHANGED = "MODEL_TAGS_CHANGED";
-	
+
 	public static final String ADD_NEW_IMAGE_TO_LIBRARY = "ADD_NEW_IMAGE_TO_LIBRARY";
 	public static final String SAVE_LIST_TO_DISC = "SAVE_LIST_TO_DISC";
 

@@ -1,29 +1,27 @@
 package controller;
 
+import filter.FiltersEnum;
+import general.PropertyNames;
+
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.net.MalformedURLException;
-import java.net.URL;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import dragNdrop.DragNDropTray;
-import filter.FiltersEnum;
-import general.PropertyNames;
-import view.View;
+import java.util.List;
+
 import model.ExtendedImage;
 import model.IHost;
 import model.Model;
 import model.NoSuchVersionException;
+import view.View;
+import dragNdrop.DragNDropTray;
 
 /**
- * The controller is a part of the MVC. It will listen
- * to events from the View and then tell the model how
- * to react.
+ * The controller is a part of the MVC. It will listen to events from the View
+ * and then tell the model how to react.
  * 
  * @author Robin Sveningson
  * @revised Lovisa Jaberg
@@ -43,6 +41,7 @@ public class Controller implements PropertyChangeListener {
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
 		dndTray.addPropertyChangeListener(this);
+		model.updateGrid(null);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -53,9 +52,9 @@ public class Controller implements PropertyChangeListener {
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_NEW_IMAGE_CHOSEN:
-			ExtendedImage recievedImage = (ExtendedImage)evt.getNewValue();
-			if(model.getActiveImage()!= recievedImage)
-				model.setActiveImage((ExtendedImage)evt.getNewValue());
+			ExtendedImage recievedImage = (ExtendedImage) evt.getNewValue();
+			if (model.getActiveImage() != recievedImage)
+				model.setActiveImage((ExtendedImage) evt.getNewValue());
 			else
 				model.setActiveImage(null);
 			break;
@@ -72,7 +71,7 @@ public class Controller implements PropertyChangeListener {
 				model.getActiveImage().addVersion(
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
-								(BufferedImage)model.getActiveImage()));
+								model.getActiveImage().getOriginal()));
 			}
 			model.changeCardView(View.SubView.UPLOAD);
 			break;
@@ -85,7 +84,7 @@ public class Controller implements PropertyChangeListener {
 							model.getActiveFilter());
 
 				} else {
-					imageToUpload = model.getActiveImage();
+					imageToUpload = model.getActiveImage().getOriginal();
 				}
 				chosenHost.uploadImage(imageToUpload);
 				model.getLibrary().saveToHiddenDirectory();
@@ -93,66 +92,72 @@ public class Controller implements PropertyChangeListener {
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
 				System.out
-				.println("Good job, send us an email on how you managed!");
+						.println("Good job, send us an email on how you managed!");
 			}
 			break;
+			
 		case PropertyNames.VIEW_SAVE_IMAGE_TO_DISC:
-			
-			//TODO Give user a save dialog to add name
-			
 			try {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
-				model.getLibrary().save(imageToSave, evt.getNewValue() + ".png");
+				System.out.println("bläääääää" + evt.getOldValue());
+				model.getLibrary().save(imageToSave, (File)evt.getNewValue());
+
 				model.getLibrary().saveToHiddenDirectory();
+				
 			} catch (NoSuchVersionException e) {
+				System.out.println("No such version!");
 				e.printStackTrace();
+				
 			} catch (FileNotFoundException e) {
+				System.out.println("File not found!");
 				e.printStackTrace();
+				
 			} catch (IOException e) {
+				System.out.println("IO Exception!");
 				e.printStackTrace();
 			}
 			break;
+			
 		case PropertyNames.VIEW_ADD_NEW_TAG:
 			model.addTag(evt.getNewValue().toString());
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
-			if((boolean) evt.getOldValue())
+			if ((boolean) evt.getOldValue())
 				model.addTagToActiveImage(evt.getNewValue().toString());
 			else
 				model.removeTagOnActiveImage(evt.getNewValue().toString());
 			break;
 		case PropertyNames.SAVE_LIST_TO_DISC:
 			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
-			for (ExtendedImage image : listToSave){
-				try{
-					//TODO save list to disc in hidden folder
-				}catch(Exception ex){
+			for (ExtendedImage image : listToSave) {
+				try {
+					// TODO save list to disc in hidden folder
+				} catch (Exception ex) {
 					ex.printStackTrace();
-				} 
-			} 
+				}
+			}
 			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
-	    	System.out.println(evt.getNewValue());
-	    	File imageFile = (File) evt.getNewValue();
-	    	try {
-	    		model.addFileToLibrary(imageFile);
+			System.out.println(evt.getNewValue());
+			File imageFile = (File) evt.getNewValue();
+			try {
+				model.addFileToLibrary(imageFile);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
 			break;
 		case PropertyNames.VIEW_GRID_RESIZE:
-			model.gridWidthChanged((Integer)evt.getNewValue());
+			model.gridWidthChanged((Integer) evt.getNewValue());
 			model.updateGrid(null);
 			break;
 		case PropertyNames.VIEW_WIDTH_UPDATE:
-			model.gridWidthChanged((Integer)evt.getNewValue());
+			model.gridWidthChanged((Integer) evt.getNewValue());
 			break;
 		}
 	}
 
 	public void shutDownEverything() {
 		model.getLibrary().saveToHiddenDirectory();
-		
+
 	}
 }
-

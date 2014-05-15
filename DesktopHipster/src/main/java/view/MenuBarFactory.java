@@ -13,14 +13,14 @@ public class MenuBarFactory {
 		JMenuBar main = new JMenuBar();
 		JMenu tools = new JMenu("Tools");
 		JMenuItem settings = new JMenuItem("Settings");
-		
-		settings.addActionListener(new ActionListener(){
+
+		settings.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
-		
+
 		tools.add(settings);
 		main.add(tools);
 		frame.setJMenuBar(main);

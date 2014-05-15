@@ -1,8 +1,6 @@
 package model;
 
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -27,23 +24,19 @@ import javax.swing.ImageIcon;
  * 
  */
 
-// TODO Must save the list with images to disc in hidden directory when you quit
-// the application
-// TODO
-
 public class Library {
 
-	// Array of extended images
+	/**
+	 * This list keeps track of your the ExtendedImages you import to your library.
+	 */
 	private List<ExtendedImage> imageList = new ArrayList<ExtendedImage>();
 
-	// Path to the directory where you save the images
 	private Path path;
 	private Path hiddenPath;
 
 	/**
-	 * Create a directory where you save your images. If this directory is
-	 * already created then it sets the directory where to save to the created
-	 * directory.
+	 * Create a directory where you save your images. If this directory already exists 
+	 * then it sets the directory where to save your images.
 	 */
 
 	public Library() {
@@ -52,8 +45,13 @@ public class Library {
 				.mkdirs();
 		path = Paths.get(System.getProperty("user.home")
 				+ "/Pictures/DesktopHipster");
-		new File(System.getProperty("user.home")
-				+ "/Pictures/DesktopHipster/.backUp");
+		try {
+			new File(System.getProperty("user.home")
+					+ "/Pictures/DesktopHipster/.backUp").createNewFile();
+		} catch (IOException e) {
+			System.out.println("IOException when creating .backUp");
+			e.printStackTrace();
+		}
 		hiddenPath = Paths.get(System.getProperty("user.home")
 				+ "/Pictures/DesktopHipster/.backUp");
 
@@ -63,12 +61,10 @@ public class Library {
 	 * Saves image to disc in the folder created for this desktop application.
 	 * Takes an ExtendedImage and a String (the new filename) as parameters.
 	 */
-
-	public void save(BufferedImage saveImage, String name)
+	public void save(BufferedImage saveImage, File file)
 			throws FileNotFoundException, IOException {
 		try {
-			File outputfile = new File(path + "/" + name);
-			ImageIO.write(saveImage, "png", outputfile);
+			ImageIO.write(saveImage, "png", file);
 		} catch (FileNotFoundException fileNotFound) {
 			// TODO catch exception x2
 			System.out.println("File not found");
@@ -79,10 +75,10 @@ public class Library {
 
 	/**
 	 * When you import an image to the application by choosing from file system
-	 * or drops it in drop down panel this method will put it into the arraylist
-	 * of images it will show in the library
+	 * or drops it in drop down panel this method will put it into the list
+	 * of ExtendedImages shown in the library
 	 */
-
+	
 	public void load(File imageFile) {
 
 		addToImageArray(new ExtendedImage(new ImageIcon(
@@ -90,53 +86,74 @@ public class Library {
 	}
 
 	/**
-	 * Adds image to the array of images.
-	 * 
+	 * Adds image to the list of images.
 	 * @param image
 	 */
 
 	public void addToImageArray(ExtendedImage image) {
 		imageList.add(image);
 	}
+	
 
 	public List<ExtendedImage> getImageArray() {
-		return imageList;
+		return new ArrayList<ExtendedImage>(imageList);
 	}
 
 	public void saveToHiddenDirectory() {
+		System.out.println("Saving to hidden directory");
 		try {
 
-			ObjectOutputStream out = new ObjectOutputStream(
+			final ObjectOutputStream out = new ObjectOutputStream(
 					new FileOutputStream(hiddenPath.toString()));
-			out.writeObject(imageList);
+			out.writeInt(imageList.size());
+			for (ExtendedImage ei : imageList) {
+				out.writeObject(ei);
+				out.reset();
+			}
 			out.flush();
 			out.close();
 
 		} catch (FileNotFoundException e1) {
+			System.out.println("Failed, file not found");
 			e1.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Failed, IOException");
 			e.printStackTrace();
 		}
 
 	}
 
 	// Method to run when program starts
-	public void loadFromHiddenDirectory() throws ClassNotFoundException {
-
-		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-					hiddenPath.toString()));
-			imageList = (ArrayList<ExtendedImage>) in.readObject();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void loadFromHiddenDirectory() {
+		System.out.println(new File(hiddenPath.toString()).length());
+		if (new File(hiddenPath.toString()).length() > 0) {
+			System.out.println("Reading in saved library..");
+			try {
+				FileInputStream fis = new FileInputStream(hiddenPath.toString());
+				ObjectInputStream in = new ObjectInputStream(fis);
+				final int size = in.readInt();
+				for (int i = 0; i < size; i++) {
+					imageList.add((ExtendedImage) in.readObject());
+					System.out.println(imageList.get(imageList.size() - 1));
+				}
+				in.close();
+				fis.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("Failed, file not found");
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.out.println("Failed, IOException");
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				System.out.println("Failed, class not found");
+				e.printStackTrace();
+			}
 		}
+		
 	}
 
+	// There is an addPanel in the imageList!
 	public void updateThumbnailSizes(int width) {
 		for (ExtendedImage image : imageList) {
 			try {
@@ -146,7 +163,8 @@ public class Library {
 			}
 		}
 	}
+
 	public List<ExtendedImage> getImagesWithTagArray(TreeSet<String> tags) {
-		return imageList;
+		return new ArrayList<ExtendedImage>(imageList);
 	}
 }

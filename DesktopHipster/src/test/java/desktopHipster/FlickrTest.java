@@ -14,8 +14,9 @@ import org.junit.Test;
 
 /**
  * Basic flickr auth and upload tests
+ * 
  * @author Edvard
- *
+ * 
  */
 public class FlickrTest {
 
@@ -23,16 +24,18 @@ public class FlickrTest {
 	public void testAuth() {
 		FlickrHost flickrHost = new FlickrHost();
 	}
-	
+
 	@Test
-	public void testUpload(){
+	public void testUpload() {
 		FlickrHost flickrHost = new FlickrHost();
-	
-		ImageIcon icon = new ImageIcon(flickrHost.getClass().getResource("/robin.jpg"));
-		BufferedImage img = new BufferedImage(icon.getIconWidth(),icon.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+
+		ImageIcon icon = new ImageIcon(flickrHost.getClass().getResource(
+				"/robin.jpg"));
+		BufferedImage img = new BufferedImage(icon.getIconWidth(),
+				icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.createGraphics();
 		icon.paintIcon(null, g, 0, 0);
-		
+
 		flickrHost.uploadImage(img);
 	}
 

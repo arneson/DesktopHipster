@@ -1,4 +1,5 @@
 package dragNdrop;
+
 import java.awt.*;
 import java.awt.dnd.*;
 import java.awt.datatransfer.*;
@@ -70,6 +71,7 @@ public class DDFrame extends JFrame implements DropTargetListener {
     }
   }
 
+
 	private boolean isAcceptedImage(Object object) {
 	try {
 		File imgFile = (File)object;
@@ -87,29 +89,33 @@ public class DDFrame extends JFrame implements DropTargetListener {
 
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
-	    dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanelOK.png")));
+		dropArea.setIcon(new ImageIcon(getClass()
+				.getResource("/AddPanelOK.png")));
 	}
-	
+
 	@Override
 	public void dragOver(DropTargetDragEvent dtde) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void dropActionChanged(DropTargetDragEvent dtde) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void dragExit(DropTargetEvent dte) {
-		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));		
-	}
-	public void setDropOKLogo(){
 		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
 	}
-	public void setDropNotOKLogo(){
-	    dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanelNOK.png")));	
+
+	public void setDropOKLogo() {
+		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
 	}
-} 
+
+	public void setDropNotOKLogo() {
+		dropArea.setIcon(new ImageIcon(getClass().getResource(
+				"/AddPanelNOK.png")));
+	}
+}
