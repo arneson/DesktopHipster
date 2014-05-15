@@ -21,41 +21,43 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-
 public class DragNDropTray {
-    static DDFrame popup = new DDFrame();
-    public DragNDropTray(){
-        TrayIcon trayIcon = null;
-        popup.setVisible(false);
-        
-         if (SystemTray.isSupported()) {
-             // get the SystemTray instance
-             SystemTray tray = SystemTray.getSystemTray();
-             // load an image
-             Image image = null;
-			image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/desktop_hipster.png"));
-            trayIcon = new TrayIcon(image, "Tray Demo", null);         
-            try {
-                tray.add(trayIcon);
-            } catch (AWTException e) {
-                System.err.println(e);
-            }
-            trayIcon.addMouseListener(new MouseAdapter() {
-                @Override
-            	public void mousePressed(MouseEvent e) {
-                    	 if(!popup.isVisible()){
-		                	 popup.setLocation(MouseInfo.getPointerInfo().getLocation().x-5,24);
-		                     popup.setVisible(true);
-		                	 popup.setAlwaysOnTop(true);
-                    	 }
-                    	 else{
-                    		 popup.setVisible(false);
-                    	 }
-                     }
-             });
-         } 
-    }
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
+	static DDFrame popup = new DDFrame();
+
+	public DragNDropTray() {
+		TrayIcon trayIcon = null;
+		popup.setVisible(false);
+
+		if (SystemTray.isSupported()) {
+			// get the SystemTray instance
+			SystemTray tray = SystemTray.getSystemTray();
+			// load an image
+			Image image = null;
+			image = Toolkit.getDefaultToolkit().getImage(
+					getClass().getResource("/desktop_hipster.png"));
+			trayIcon = new TrayIcon(image, "Tray Demo", null);
+			try {
+				tray.add(trayIcon);
+			} catch (AWTException e) {
+				System.err.println(e);
+			}
+			trayIcon.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if (!popup.isVisible()) {
+						popup.setLocation(MouseInfo.getPointerInfo()
+								.getLocation().x - 5, 24);
+						popup.setVisible(true);
+						popup.setAlwaysOnTop(true);
+					} else {
+						popup.setVisible(false);
+					}
+				}
+			});
+		}
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		popup.addPropertyChangeListener(listener);
 	}
 }
