@@ -20,9 +20,8 @@ import view.View;
 import dragNdrop.DragNDropTray;
 
 /**
- * The controller is a part of the MVC. It will listen
- * to events from the View and then tell the model how
- * to react.
+ * The controller is a part of the MVC. It will listen to events from the View
+ * and then tell the model how to react.
  * 
  * @author Robin Sveningson
  * @revised Lovisa Jaberg
@@ -42,6 +41,7 @@ public class Controller implements PropertyChangeListener {
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
 		dndTray.addPropertyChangeListener(this);
+		model.updateGrid(null);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -52,9 +52,9 @@ public class Controller implements PropertyChangeListener {
 			model.changeCardView((View.SubView) evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_NEW_IMAGE_CHOSEN:
-			ExtendedImage recievedImage = (ExtendedImage)evt.getNewValue();
-			if(model.getActiveImage()!= recievedImage)
-				model.setActiveImage((ExtendedImage)evt.getNewValue());
+			ExtendedImage recievedImage = (ExtendedImage) evt.getNewValue();
+			if (model.getActiveImage() != recievedImage)
+				model.setActiveImage((ExtendedImage) evt.getNewValue());
 			else
 				model.setActiveImage(null);
 			break;
@@ -92,7 +92,7 @@ public class Controller implements PropertyChangeListener {
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
 				System.out
-				.println("Good job, send us an email on how you managed!");
+						.println("Good job, send us an email on how you managed!");
 			}
 			break;
 			
@@ -101,6 +101,7 @@ public class Controller implements PropertyChangeListener {
 				BufferedImage imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
 				System.out.println("bläääääää" + evt.getOldValue());
 				model.getLibrary().save(imageToSave, (File)evt.getNewValue());
+
 				model.getLibrary().saveToHiddenDirectory();
 				
 			} catch (NoSuchVersionException e) {
@@ -121,20 +122,20 @@ public class Controller implements PropertyChangeListener {
 			model.addTag(evt.getNewValue().toString());
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
-			if((boolean) evt.getOldValue())
+			if ((boolean) evt.getOldValue())
 				model.addTagToActiveImage(evt.getNewValue().toString());
 			else
 				model.removeTagOnActiveImage(evt.getNewValue().toString());
 			break;
 		case PropertyNames.SAVE_LIST_TO_DISC:
 			List<ExtendedImage> listToSave = model.getLibrary().getImageArray();
-			for (ExtendedImage image : listToSave){
-				try{
-					//TODO save list to disc in hidden folder
-				}catch(Exception ex){
+			for (ExtendedImage image : listToSave) {
+				try {
+					// TODO save list to disc in hidden folder
+				} catch (Exception ex) {
 					ex.printStackTrace();
-				} 
-			} 
+				}
+			}
 			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
 			System.out.println(evt.getNewValue());
@@ -146,11 +147,11 @@ public class Controller implements PropertyChangeListener {
 			}
 			break;
 		case PropertyNames.VIEW_GRID_RESIZE:
-			model.gridWidthChanged((Integer)evt.getNewValue());
+			model.gridWidthChanged((Integer) evt.getNewValue());
 			model.updateGrid(null);
 			break;
 		case PropertyNames.VIEW_WIDTH_UPDATE:
-			model.gridWidthChanged((Integer)evt.getNewValue());
+			model.gridWidthChanged((Integer) evt.getNewValue());
 			break;
 		}
 	}
@@ -160,4 +161,3 @@ public class Controller implements PropertyChangeListener {
 
 	}
 }
-
