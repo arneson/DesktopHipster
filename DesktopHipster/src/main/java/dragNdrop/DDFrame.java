@@ -12,13 +12,23 @@ import javax.swing.*;
 
 import general.PropertyNames;
 
+/**
+ * Frame allowing files to be dropped on it and then sends them to the application 
+ * if they can be processed there.
+ * @author Simon Arneson
+ */
+
 @SuppressWarnings("serial")
 public class DDFrame extends JFrame implements DropTargetListener {
 
   DropTarget dt;
   JTextArea ta;
   JLabel dropArea;
-
+	
+	/**
+	 * Creates a new DDFrame and sets up the DropEvent listeners.
+	 * 
+	 */
   public DDFrame() {
     super("DesktopHipster");
     setSize(200,140);
@@ -35,25 +45,26 @@ public class DDFrame extends JFrame implements DropTargetListener {
     dt = new DropTarget(dropArea, this);
     setVisible(true);
   }
-
+	/**
+	 * This method is fired when a file/file list is dropped in the DDFrame.
+	 * It fires an event saying a new image has requested to be added to the library
+	 * @param dtde
+	 *            The DropTargetEvent containing the tranferable file
+	 */
   public void drop(DropTargetDropEvent dtde) {
     try {
       Transferable tr = dtde.getTransferable();
       DataFlavor[] flavors = tr.getTransferDataFlavors();
+      //Checks if the dropped object is a Java File List Type
       for (int i = 0; i < flavors.length; i++) {
-		  System.out.println("Possible flavor: " + flavors[i].getMimeType());
-		  // Check for file lists specifically
 		  if (flavors[i].isFlavorJavaFileListType()) {
-		    // Great!  Accept copy drops...
 		    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-		    ta.setText("Successful file list drop.\n\n");
-		    
-		    // And add the list of file names to our text area
-		    java.util.List list = (java.util.List)tr.getTransferData(flavors[i]);
+		    //Adds all the files dropped to a list
+		    java.util.List droppedFiles = (java.util.List)tr.getTransferData(flavors[i]);
 		    boolean valid = true;
-		    for (int j = 0; j < list.size(); j++) {
-		    	if(isAcceptedImage(list.get(j))){
-		    		firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,list.get(j));
+		    for (int j = 0; j < droppedFiles.size(); j++) {
+		    	if(isAcceptedImage(droppedFiles.get(j))){
+		    		firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,droppedFiles.get(j));
 		    		setDropOKLogo();
 		    	}
 		    	else{
@@ -71,7 +82,13 @@ public class DDFrame extends JFrame implements DropTargetListener {
     }
   }
 
-
+	/**
+	 * The method is used to check if an file can be handled by the Application or not
+	 * 
+	 * @param object
+	 *            The object to be controlled
+	 * @returns Whether the file is allowed or not
+	 */
 	public boolean isAcceptedImage(Object object) {
 	try {
 		File imgFile = (File)object;
@@ -89,31 +106,37 @@ public class DDFrame extends JFrame implements DropTargetListener {
 
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
+		//Used to show the user if he has dropped and accepted file or not.
 		dropArea.setIcon(new ImageIcon(getClass()
 				.getResource("/AddPanelOK.png")));
 	}
 
 	@Override
 	public void dragOver(DropTargetDragEvent dtde) {
-		// TODO Auto-generated method stub
-
+		//Has to be here to implement interface.
 	}
 
 	@Override
 	public void dropActionChanged(DropTargetDragEvent dtde) {
-		// TODO Auto-generated method stub
-
+		//Has to be here to implement interface.
 	}
 
 	@Override
 	public void dragExit(DropTargetEvent dte) {
 		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
 	}
-
+	/**
+	 * Sets the Drop Logo in the DDFrame to accepted file
+	 * 
+	 */
 	public void setDropOKLogo() {
 		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
 	}
 
+	/**
+	 * Sets the Drop Logo in the DDFrame to unaccepted file
+	 * 
+	 */
 	public void setDropNotOKLogo() {
 		dropArea.setIcon(new ImageIcon(getClass().getResource(
 				"/AddPanelNOK.png")));

@@ -1,4 +1,9 @@
 package dragNdrop;
+/**
+ * Class to represent and add the system tray icon of the application
+ * 
+ * @author Simon Arneson
+ */
 
 import java.awt.AWTException;
 import java.awt.Dimension;
@@ -56,7 +61,12 @@ public class DragNDropTray {
 			});
 		}
 	}
-
+	/**
+	 * Used to add a PropertyChangeListener to the popup window.
+	 * 
+	 * @param listener
+	 *            The Object to listen to changes in the popup(The drag and drop frame)
+	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		popup.addPropertyChangeListener(listener);
 	}

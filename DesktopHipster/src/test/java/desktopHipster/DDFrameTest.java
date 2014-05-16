@@ -6,6 +6,7 @@ import java.io.File;
 import org.junit.Test;
 
 import dragNdrop.DDFrame;
+import dragNdrop.DragNDropTray;
 public class DDFrameTest {
 	@Test
 	public boolean testDropImage(){
@@ -43,6 +44,15 @@ public class DDFrameTest {
 			return false;
 		}
 		return false;		
+	}
+	@Test
+	public boolean testTrayIcon(){
+		try{
+			DragNDropTray ddtray = new DragNDropTray();
+			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 	
 }
