@@ -74,7 +74,7 @@ public class Controller implements PropertyChangeListener {
 								model.getActiveImage().getOriginal()));
 			}
 			model.changeCardView(View.SubView.UPLOAD);
-			model.getLibrary().saveToHiddenDirectory();
+			model.saveState();
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
@@ -88,7 +88,7 @@ public class Controller implements PropertyChangeListener {
 					imageToUpload = model.getActiveImage().getOriginal();
 				}
 				chosenHost.uploadImage(imageToUpload);
-				model.getLibrary().saveToHiddenDirectory();
+				model.saveState();
 
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
@@ -100,15 +100,16 @@ public class Controller implements PropertyChangeListener {
 		case PropertyNames.VIEW_SAVE_IMAGE_TO_DISC:
 			try {
 				BufferedImage imageToSave;
-				if (model.getActiveImage().getVersion(model.getActiveFilter()).equals(null)) {
+				if (model.getActiveImage().getVersion(model.getActiveFilter())
+						.equals(null)) {
 					imageToSave = model.getActiveImage().getOriginal();
 				} else {
-					imageToSave = model.getActiveImage().getVersion(model.getActiveFilter());
+					imageToSave = model.getActiveImage().getVersion(
+							model.getActiveFilter());
 				}
-				model.getLibrary().save(imageToSave, (File)evt.getNewValue());
+				model.getLibrary().save(imageToSave, (File) evt.getNewValue());
 
-
-				model.getLibrary().saveToHiddenDirectory();
+				model.saveState();
 
 			} catch (NoSuchVersionException e) {
 				System.out.println("No such version!");
@@ -126,19 +127,21 @@ public class Controller implements PropertyChangeListener {
 
 		case PropertyNames.VIEW_ADD_NEW_TAG:
 			model.addTag(evt.getNewValue().toString());
+			model.saveState();
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
-			if ((boolean) evt.getOldValue())
+			if ((boolean) evt.getOldValue()){
 				model.addTagToActiveImage(evt.getNewValue().toString());
-			else
+			}else{
 				model.removeTagOnActiveImage(evt.getNewValue().toString());
+			}
+			model.saveState();
 			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
-			System.out.println(evt.getNewValue());
 			File imageFile = (File) evt.getNewValue();
 			try {
 				model.addFileToLibrary(imageFile);
-				model.getLibrary().saveToHiddenDirectory();
+				model.saveState();
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -154,7 +157,6 @@ public class Controller implements PropertyChangeListener {
 	}
 
 	public void shutDownEverything() {
-		model.getLibrary().saveToHiddenDirectory();
-
+		model.saveState();
 	}
 }
