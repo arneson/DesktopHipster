@@ -20,23 +20,24 @@ import javax.swing.ImageIcon;
 /**
  * The Library will keep track of the imported images.
  * 
- * @authour Lovisa Jaberg
- * 
+ * @authour Lovisa Jäberg
+ * @revised Edvard Hübinette
  */
 
 public class Library {
 
 	/**
-	 * This list keeps track of your the ExtendedImages you import to your library.
+	 * This list keeps track of your the ExtendedImages you import to your
+	 * library.
 	 */
 	private List<ExtendedImage> imageList = new ArrayList<ExtendedImage>();
 
-	private Path path;
-	private Path hiddenPath;
+	Path path;
+	Path hiddenPath;
 
 	/**
-	 * Create a directory where you save your images. If this directory already exists 
-	 * then it sets the directory where to save your images.
+	 * Create a directory where you save your images. If this directory already
+	 * exists then it sets the directory where to save your images.
 	 */
 
 	public Library() {
@@ -75,10 +76,10 @@ public class Library {
 
 	/**
 	 * When you import an image to the application by choosing from file system
-	 * or drops it in drop down panel this method will put it into the list
-	 * of ExtendedImages shown in the library
+	 * or drops it in drop down panel this method will put it into the list of
+	 * ExtendedImages shown in the library
 	 */
-	
+
 	public void load(File imageFile) {
 
 		addToImageArray(new ExtendedImage(new ImageIcon(
@@ -87,18 +88,27 @@ public class Library {
 
 	/**
 	 * Adds image to the list of images.
+	 * 
 	 * @param image
 	 */
 
 	public void addToImageArray(ExtendedImage image) {
 		imageList.add(image);
 	}
-	
 
-	public List<ExtendedImage> getImageArray() {
+	/**
+	 * Returns a list of all images in this library
+	 * 
+	 * @return The list of images
+	 */
+	public List<ExtendedImage> getImageList() {
 		return new ArrayList<ExtendedImage>(imageList);
 	}
 
+	/**
+	 * Saves all data this library contains to disk. This can be used to restore
+	 * the posture of the application on restart.
+	 */
 	public void saveToHiddenDirectory() {
 		System.out.println("Saving to hidden directory");
 		try {
@@ -122,9 +132,11 @@ public class Library {
 		}
 	}
 
-	// Method to run when program starts
+	/**
+	 * Loads all data from a previously saved session from disk. This restores
+	 * the application posture as it was before it was shut down.
+	 */
 	public void loadFromHiddenDirectory() {
-		System.out.println(new File(hiddenPath.toString()).length());
 		if (new File(hiddenPath.toString()).length() > 0) {
 			System.out.println("Reading in saved library..");
 			try {
@@ -133,7 +145,6 @@ public class Library {
 				final int size = in.readInt();
 				for (int i = 0; i < size; i++) {
 					imageList.add((ExtendedImage) in.readObject());
-					System.out.println(imageList.get(imageList.size() - 1));
 				}
 				in.close();
 				fis.close();
@@ -149,10 +160,9 @@ public class Library {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
-	// There is an addPanel in the imageList!
 	public void updateThumbnailSizes(int width) {
 		for (ExtendedImage image : imageList) {
 			try {
@@ -163,6 +173,7 @@ public class Library {
 		}
 	}
 
+	// What is even this?
 	public List<ExtendedImage> getImagesWithTagArray(TreeSet<String> tags) {
 		return new ArrayList<ExtendedImage>(imageList);
 	}

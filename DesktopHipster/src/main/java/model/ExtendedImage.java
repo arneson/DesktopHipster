@@ -46,7 +46,6 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	 * For use of the java serialization engine.
 	 */
 	public ExtendedImage() {
-		System.out.println("Empty constructor in EI!");
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	 */
 	public ExtendedImage(final ImageIcon image) {
 		if (image == null) {
-			throw new NullPointerException("Supplied image is null");
+			throw new IllegalArgumentException("Supplied image is null");
 		}
 		original = new BufferedImage(image.getIconWidth(),
 				image.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -83,8 +82,6 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	public void addVersion(final FiltersEnum filterName,
 			final BufferedImage image) {
 		versions.put(filterName, image);
-		System.out.println(versions.keySet());
-		System.out.println(versions.values());
 	}
 
 	/**
@@ -224,17 +221,12 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		ImageIO.write(original, "png", out);
 
 		out.writeInt(tags.size());
-		System.out.println("nbr of tags: " + tags.size());
 		for (String string : tags) {
-			System.out.println("Loop for writing tags");
 			out.writeObject(string);
 		}
-		// out.writeObject(tags);
 
 		out.writeInt(versions.keySet().size());
-		System.out.println("versions size: " + versions.keySet().size());
 		for (Entry<FiltersEnum, BufferedImage> entry : versions.entrySet()) {
-			System.out.println("Looping for versions set");
 			out.writeObject(entry.getKey().name());
 			ImageIO.write(entry.getValue(), "png", out);
 		}
@@ -253,20 +245,29 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		inStream.defaultReadObject();
 		original = ImageIO.read(inStream);
 		preview = filter.ImageTools.toBufferedImage(original.getScaledInstance(
-				750, -1, Image.SCALE_SMOOTH));
+				750, -1, Image.SCALE_FAST));
 		thumbnail = filter.ImageTools.toBufferedImage(original
 				.getScaledInstance(50, -1, Image.SCALE_FAST));
 
 		tags = new TreeSet<String>();
+
+		/*
+		 * I have no idea how this works, but in the stream we encounter three
+		 * separate, apparently random, 32-bit ints that come from nowhere, I do
+		 * not write them to the stream nor can I find the source in any
+		 * sun/oracle serialization documentation. After extensive debugging,
+		 * the serialization works with this configuration, on other clients as
+		 * well.
+		 */
 		inStream.readInt();
 		int len = inStream.readInt();
-		System.out.println("Length of tags: " + len);
+		System.out.println(len);
 		for (int i = 0; i < len; i++) {
 			tags.add((String) inStream.readObject());
 		}
-		// tags = (TreeSet<String>)in.readObject();
 
 		versions = new TreeMap<FiltersEnum, BufferedImage>();
+		// The second and third random int
 		inStream.readInt();
 		inStream.readInt();
 		len = inStream.readInt();
@@ -275,11 +276,8 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 				final FiltersEnum key = FiltersEnum.valueOf((String) inStream
 						.readObject());
 				versions.put(key, ImageIO.read(inStream));
-				System.out.println("Count: " + i);
 			}
 		} catch (OptionalDataException e) {
-			System.out.println("Failed, OptionalDataException");
-			System.out.println("Bytes primitive data left: " + e.length);
 			e.printStackTrace();
 		}
 	}
