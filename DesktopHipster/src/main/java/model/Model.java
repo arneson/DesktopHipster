@@ -3,6 +3,11 @@ package model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.util.TreeSet;
 
@@ -24,11 +29,11 @@ public class Model {
 	private final Library library = new Library();
 	private ExtendedImage activeImage;
 	private FiltersEnum activeFilter;
-	private final TreeSet<String> tags = new TreeSet<String>();
+	private TreeSet<String> tags = new TreeSet<String>();
 
 	public Model() {
 		pcs = new PropertyChangeSupport(this);
-		library.loadFromHiddenDirectory();
+		startUp();
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -43,29 +48,58 @@ public class Model {
 		pcs.firePropertyChange(PropertyNames.MODEL_CARD_CHANGE, null, sv);
 	}
 
+	/**
+	 * Sets a new image as active for editing or uploading
+	 * 
+	 * @param newImage
+	 *            The new active image
+	 */
 	public void setActiveImage(ExtendedImage newImage) {
 		activeImage = newImage;
 		pcs.firePropertyChange(PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE, null,
 				activeImage);
 	}
 
+	/**
+	 * Returns the image currently set for editing or uploading
+	 * 
+	 * @return The active image
+	 */
 	public ExtendedImage getActiveImage() {
 		return activeImage;
 	}
 
+	/**
+	 * Returns the active filter for applying to the active image
+	 * 
+	 * @return The active filter
+	 */
 	public FiltersEnum getActiveFilter() {
 		return activeFilter;
 	}
 
+	/**
+	 * Set a new active filter for applying to the active image
+	 * 
+	 * @param activeFilter
+	 *            The new active filter
+	 */
 	public void setActiveFilter(FiltersEnum activeFilter) {
 		this.activeFilter = activeFilter;
 	}
 
+	/**
+	 * Returns all tags created by the user
+	 * 
+	 * @return A sorted set of all tags
+	 */
 	public TreeSet<String> getTags() {
 		return new TreeSet<String>(tags);
 	}
 
 	/**
+	 * Add a tag to the set of tags
+	 * 
 	 * @param tag
 	 *            The tag to add
 	 * @return true if the tag did not already exist
@@ -79,9 +113,11 @@ public class Model {
 	}
 
 	/**
+	 * Remove a tag from the set of tags
+	 * 
 	 * @param tag
 	 *            The tag to remove
-	 * @return true if the tag existed in the tag list
+	 * @return true if the tag was removed from the tag list
 	 */
 	public boolean removeTag(String tag) {
 		if (tags.remove(tag)) {
@@ -91,14 +127,20 @@ public class Model {
 			return false;
 	}
 
+	/**
+	 * Returns the library associated with this model
+	 * 
+	 * @return The library
+	 */
 	public Library getLibrary() {
 		return library;
 	}
 
+
 	public void updateGrid(TreeSet<String> tags) {
 		if (tags == null || tags.isEmpty())
 			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null,
-					library.getImageArray());
+					library.getImageList());
 		else
 			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null,
 					library.getImagesWithTagArray(tags));
@@ -108,16 +150,48 @@ public class Model {
 		library.updateThumbnailSizes(width);
 	}
 
+	/**
+	 * Adds an image file to the library
+	 * 
+	 * @param imageFile
+	 *            The image file to add
+	 * @throws MalformedURLException
+	 *             If the URL to the file is malformed
+	 */
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
 		getLibrary().load(imageFile);
 		updateGrid(null);
 	}
 
+	/**
+	 * Adds a tag to the currently active image
+	 * 
+	 * @param tag
+	 *            The tag to add
+	 * @return True if the tag was added
+	 */
 	public boolean addTagToActiveImage(String tag) {
 		return this.getActiveImage().addTag(tag);
 	}
 
+	/**
+	 * Removes a tag from the currently selected image
+	 * 
+	 * @param tag
+	 *            The tag to remove
+	 */
 	public void removeTagOnActiveImage(String tag) {
 		this.getActiveImage().removeTag(tag);
 	}
+
+	// TODO save tags
+	public void saveState() {
+		library.saveToHiddenDirectory();
+	}
+	
+	// TODO load tags
+	public void startUp(){
+		library.loadFromHiddenDirectory();
+	}
+	
 }
