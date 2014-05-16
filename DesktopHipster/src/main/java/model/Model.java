@@ -136,7 +136,6 @@ public class Model {
 		return library;
 	}
 
-
 	public void updateGrid(TreeSet<String> tags) {
 		if (tags == null || tags.isEmpty())
 			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null,
@@ -184,14 +183,44 @@ public class Model {
 		this.getActiveImage().removeTag(tag);
 	}
 
-	// TODO save tags
+	/**
+	 * Saves the current application state for reading on the next boot
+	 */
 	public void saveState() {
-		library.saveToHiddenDirectory();
+		ObjectOutputStream outStream = null;
+		try {
+			outStream = new ObjectOutputStream(new FileOutputStream(
+					library.hiddenPath.toString()));
+			outStream.writeObject(tags);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		library.saveToHiddenDirectory(outStream);
+		try {
+			outStream.flush();
+			outStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
-	
-	// TODO load tags
-	public void startUp(){
-		library.loadFromHiddenDirectory();
+
+	/**
+	 * Reads the previous state written to disk to preserve application state.
+	 */
+	public void startUp() {
+		if (new File(library.hiddenPath.toString()).length() > 0) {
+			ObjectInputStream inStream = null;
+			try {
+				FileInputStream fis = new FileInputStream(
+						library.hiddenPath.toString());
+				inStream = new ObjectInputStream(fis);
+				tags = (TreeSet<String>)inStream.readObject();
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			library.loadFromHiddenDirectory(inStream);
+		}
 	}
-	
+
 }
