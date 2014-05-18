@@ -1,33 +1,58 @@
 package desktopHipster;
 
 import java.awt.HeadlessException;
-import java.awt.dnd.DropTargetDropEvent;
+import java.io.File;
 
 import org.junit.Test;
 
 import dragNdrop.DDFrame;
+import dragNdrop.DragNDropTray;
 public class DDFrameTest {
 	@Test
 	public boolean testDropImage(){
 		try{
 			DDFrame testFrame = new DDFrame();
-			//testFrame.drop(new DropTargetDropEvent());
+			if(testFrame.isAcceptedImage(new File(getClass().getResource("/robin.jpg").getPath())))
+				return true;
 		}
 		catch (HeadlessException he){
 			return false;
 		}
-		return true;
-	}
-	/*
-	@Test
-	public boolean testDropNotImage(){
-		DDFrame testFrame = new DDFrame();
 		return false;
 	}
 	@Test
+	public boolean testDropNotImage(){
+		try{
+			DDFrame testFrame = new DDFrame();
+			if(testFrame.isAcceptedImage(new File(getClass().getResource("/robin.txt").getPath())))
+				return true;
+		}
+		catch (HeadlessException he){
+			return false;
+		}
+		return false;
+	}
+	
+	@Test
 	public boolean testDropNotImageWithImageExtension(){
-		DDFrame testFrame = new DDFrame();
+		try{
+			DDFrame testFrame = new DDFrame();
+			if(testFrame.isAcceptedImage(new File(getClass().getResource("/robin.png").getPath())))
+				return true;
+		}
+		catch (HeadlessException he){
+			return false;
+		}
 		return false;		
-	}*/
+	}
+	@Test
+	public boolean testTrayIcon(){
+		try{
+			DragNDropTray ddtray = new DragNDropTray();
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
 	
 }
