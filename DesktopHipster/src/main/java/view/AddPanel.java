@@ -16,6 +16,8 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
+import java.io.File;
+import java.nio.file.Files;
 
 /**
  * 
@@ -27,6 +29,7 @@ public class AddPanel extends JPanel {
 
 	private JLabel label;
 	private int side;
+	private JFileChooser chooseFile;
 
 
 	/**
@@ -41,38 +44,37 @@ public class AddPanel extends JPanel {
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setOpaque(true);
 		label = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
+		label.setOpaque(true);
+		add(label, BorderLayout.CENTER);
 		label.addMouseListener(new MouseAdapter(){
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-
-				JFileChooser chooseFile = new JFileChooser();
-				//FileNameExtensionFilter allowedSuffix = new FileNameExtensionFilter("JPG, PNG, & GIF", ".jpg", ".png", ".gif");
-				//chooseFile.setFileFilter(allowedSuffix);
-				int file = chooseFile.showOpenDialog(getParent());
-				if(file == JFileChooser.APPROVE_OPTION) {
-					firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY, null, chooseFile.getSelectedFiles());
-				}
+				saveDialog();
 			}
-
 		});
-
-
-		/*label.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				JFileChooser chooseFile = new JFileChooser();
-				FileNameExtensionFilter allowedSuffix = new FileNameExtensionFilter(
-						"JPG, PNG, & GIF", ".jpg", ".png", ".gif");
-				chooseFile.setFileFilter(allowedSuffix);
-				int file = chooseFile.showOpenDialog(getParent());
-				if (file == JFileChooser.APPROVE_OPTION) {
-					firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,
-							null, chooseFile.getSelectedFiles());
-				}
-			}
-		});*/
-		label.setOpaque(true);
-		add(label, BorderLayout.CENTER);
+	}
+	private void saveDialog(){
+		chooseFile = new JFileChooser();
+		logChoice();
 	}
 
+	private void logChoice(){
+		int openChoice = chooseFile.showOpenDialog(this);
+		
+		switch (openChoice)
+		{
+		case JFileChooser.CANCEL_OPTION:
+			break;
+		case JFileChooser.APPROVE_OPTION:
+			for(int i = 0; i < chooseFile.getSelectedFiles().length; i++){
+				//File chosenFile = chooseFile.getSelectedFiles().;
+				//firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY, null, chosenFile);
+			}
+			break;
+		case JFileChooser.ERROR_OPTION:
+			break;
+		}
+
+	}
 }

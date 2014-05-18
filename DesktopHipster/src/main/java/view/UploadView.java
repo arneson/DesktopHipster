@@ -120,11 +120,6 @@ public class UploadView extends Card implements PropertyChangeListener {
 								null, View.SubView.EDIT);}
 				});
 
-
-
-
-
-
 				addCenter(centerPanel);
 				addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
 				addSouth(new JPanel(){{
