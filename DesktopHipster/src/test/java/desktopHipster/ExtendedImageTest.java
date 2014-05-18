@@ -30,7 +30,7 @@ public class ExtendedImageTest {
 	}
 
 	@Test
-	public void testSerializationEquality() {
+	public void testSerializationEquality() throws IOException, ClassNotFoundException {
 		ImageIcon icon = new ImageIcon(getClass().getResource("/robin.jpg"));
 		ExtendedImage writeImage = new ExtendedImage(icon);
 
@@ -42,28 +42,19 @@ public class ExtendedImageTest {
 				.applyFilter(writeImage.getOriginal());
 		writeImage.addVersion(FiltersEnum.OLDSTYLEFILTER, testImageB);
 
-		try {
-			FileOutputStream out = new FileOutputStream(TMP_FILE);
-			ObjectOutputStream oOut = new ObjectOutputStream(out);
-			oOut.writeObject(writeImage);
-			oOut.reset();
-			oOut.flush();
-			oOut.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		FileOutputStream out = new FileOutputStream(TMP_FILE);
+		ObjectOutputStream oOut = new ObjectOutputStream(out);
+		oOut.writeObject(writeImage);
+		oOut.reset();
+		oOut.flush();
+		oOut.close();
 
 		ExtendedImage readImage = null;
-		try {
-			FileInputStream in = new FileInputStream(TMP_FILE);
-			ObjectInputStream oIn = new ObjectInputStream(in);
-			readImage = (ExtendedImage) oIn.readObject();
-			oIn.close();
-		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		FileInputStream in = new FileInputStream(TMP_FILE);
+		ObjectInputStream oIn = new ObjectInputStream(in);
+		readImage = (ExtendedImage) oIn.readObject();
+		oIn.close();
 
 		boolean isEqual = writeImage.equals(readImage);
 		System.out.println(writeImage);
