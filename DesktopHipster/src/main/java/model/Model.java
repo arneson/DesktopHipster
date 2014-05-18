@@ -202,11 +202,12 @@ public class Model {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
 	 * Reads the previous state written to disk to preserve application state.
+	 * Reads in old applied tags and continues to read the library image dump.
 	 */
 	public void startUp() {
 		if (new File(library.hiddenPath.toString()).length() > 0) {
@@ -215,7 +216,9 @@ public class Model {
 				FileInputStream fis = new FileInputStream(
 						library.hiddenPath.toString());
 				inStream = new ObjectInputStream(fis);
-				tags = (TreeSet<String>)inStream.readObject();
+				tags = (TreeSet<String>) inStream.readObject();
+				pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null,
+						new TreeSet<String>(tags));
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
