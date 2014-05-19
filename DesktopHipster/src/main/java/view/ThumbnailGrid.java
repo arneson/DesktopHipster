@@ -68,7 +68,7 @@ public class ThumbnailGrid extends JScrollPane implements
 	}
 
 	private void updateGrid() {
-		addPanel = new AddPanel(side);
+		addPanel = new AddPanel(side, pcs);
 		addPanel.setOpaque(true);
 		
 		int size = data.size()+1;

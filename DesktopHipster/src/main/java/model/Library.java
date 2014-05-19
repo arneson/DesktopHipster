@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -41,7 +42,7 @@ public class Library {
 	public Library() {
 
 		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster")
-				.mkdirs();
+		.mkdirs();
 		path = Paths.get(System.getProperty("user.home")
 				+ "/Pictures/DesktopHipster");
 		try {
@@ -149,8 +150,32 @@ public class Library {
 		}
 	}
 
-	// What is even this?
 	public List<ExtendedImage> getImagesWithTagArray(final Set<String> tags) {
-		return new ArrayList<ExtendedImage>(imageList);
-	}
+
+		ArrayList<ExtendedImage> returnList = new ArrayList<ExtendedImage>();
+
+		boolean ok = true;
+		
+		//List of all ExtendedImages in library.
+		List<ExtendedImage> list = getImageList();
+
+		/*For every ExtendedImage the method gets the tags for this specific image.
+		For every tag in the list containing the asked for tags, if any of those doesn't 
+		exist, the method breaks. Otherwise, the image will be added to the returnList.
+		*/
+		for (ExtendedImage image : list){
+			TreeSet<String> imageTags = image.getTags();
+			for(String tag : tags){
+				ok = imageTags.contains(tag);
+				if(ok == false){
+					break;
+				}
+			}
+			if(ok){
+				returnList.add(image);
+			}
+		}
+	
+	return returnList;
+}
 }
