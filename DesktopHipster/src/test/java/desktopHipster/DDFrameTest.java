@@ -6,8 +6,8 @@ import java.io.File;
 
 import org.junit.Test;
 
-import dragNdrop.DDFrame;
-import dragNdrop.DragNDropTray;
+import view.DDFrame;
+import view.DragNDropTray;
 public class DDFrameTest {
 	@Test
 	public boolean testDropImage(){
