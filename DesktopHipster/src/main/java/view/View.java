@@ -4,6 +4,7 @@ import general.PropertyNames;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -69,6 +70,7 @@ public class View extends JFrame implements PropertyChangeListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+		setMinimumSize(new Dimension(1000,660));
 
 		addComponentListener(new ComponentListener() {
 			@Override

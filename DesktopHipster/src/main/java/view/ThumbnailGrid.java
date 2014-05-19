@@ -79,11 +79,11 @@ public class ThumbnailGrid extends JScrollPane implements
 		wrapper.setLayout(new GridLayout(
 				numberOfRows, 
 				numberOfColumns));
-		wrapper.add(addPanel);
 		for(int i = 0; i < numberOfRows * numberOfColumns; i++) {
-			if (i < size-1) {
-
-				ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i), side);
+			if(i == 0) {
+				wrapper.add(addPanel);
+			} else if(i < size) {
+				ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i-1), side);
 				tp.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 				tp.addMouseMotionL(ma);
 				wrapper.add(tp);
@@ -149,6 +149,6 @@ public class ThumbnailGrid extends JScrollPane implements
 	}
 
 	private void calculateGridWidth() {
-		side = (getWidth() - 2) / numberOfColumns;
+		side = (getWidth() - 20) / numberOfColumns;
 	}
 }
