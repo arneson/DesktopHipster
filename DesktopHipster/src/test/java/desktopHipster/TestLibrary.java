@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -57,5 +60,14 @@ public class TestLibrary {
 			e.printStackTrace();
 		}
 		assertTrue(file.exists());
+	}
+	
+	@Test
+	public void testgetImagesWithTagArray(){
+		image.addTag("TestTag");
+		image.addTag("TestTag2");
+		lib.addToImageArray(image);
+		List<ExtendedImage> imagesWithTags = lib.getImagesWithTagArray(image.getTags());
+		assertTrue(imagesWithTags.contains(image));
 	}
 }

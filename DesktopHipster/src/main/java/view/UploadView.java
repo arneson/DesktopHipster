@@ -82,10 +82,10 @@ public class UploadView extends Card implements PropertyChangeListener {
 		saveToDiscButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		saveToDiscButton.addMouseListener(myMouseListener);
 
-		imageName = new JTextField("Add name..",10);
+		/*imageName = new JTextField("Add name..",10);
 		imageName.setPreferredSize(new Dimension(50, 20));
 		imageName.setFont(new Font("Avenir Next Ultra Light", Font.PLAIN, 14));
-		imageName.addMouseListener(myMouseListener);
+		imageName.addMouseListener(myMouseListener);*/
 
 		uploadLogo = new JPanel(new BorderLayout()){{
 			add((new JLabel(new ImageIcon(getClass().getResource("/upload.png")))),BorderLayout.CENTER);}};
@@ -122,9 +122,9 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 				addCenter(centerPanel);
 				addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
-				addSouth(new JPanel(){{
+				/*addSouth(new JPanel(){{
 					add(imageName);
-				}});
+				}});*/
 	}
 
 	/**
