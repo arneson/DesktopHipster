@@ -60,8 +60,11 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.VIEW_ACTIVE_FILTER_CHANGE:
 			ExtendedImage tempImg = model.getActiveImage();
-			tempImg.setPreview(((FiltersEnum) evt.getNewValue()).getFilter()
-					.applyFilter(tempImg.getPreview()));
+			tempImg.setPreview(((FiltersEnum) evt.getNewValue()).
+					getFilter()
+					.applyFilter(
+							tempImg.
+							getPreview()));
 			model.setActiveImage(tempImg);
 			model.setActiveFilter((FiltersEnum) evt.getNewValue());
 			break;
@@ -74,7 +77,7 @@ public class Controller implements PropertyChangeListener {
 								model.getActiveImage().getOriginal()));
 			}
 			model.changeCardView(View.SubView.UPLOAD);
-			model.saveState();
+			//model.saveState();
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
@@ -88,7 +91,7 @@ public class Controller implements PropertyChangeListener {
 					imageToUpload = model.getActiveImage().getOriginal();
 				}
 				chosenHost.uploadImage(imageToUpload);
-				model.saveState();
+				//model.saveState();
 
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
@@ -109,7 +112,7 @@ public class Controller implements PropertyChangeListener {
 				}
 				model.getLibrary().save(imageToSave, (File) evt.getNewValue());
 
-				model.saveState();
+				//model.saveState();
 
 			} catch (NoSuchVersionException e) {
 				System.out.println("No such version!");
@@ -127,7 +130,7 @@ public class Controller implements PropertyChangeListener {
 
 		case PropertyNames.VIEW_ADD_NEW_TAG:
 			model.addTag(evt.getNewValue().toString());
-			model.saveState();
+			//model.saveState();
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
 			if ((boolean) evt.getOldValue()){
@@ -135,13 +138,13 @@ public class Controller implements PropertyChangeListener {
 			}else{
 				model.removeTagOnActiveImage(evt.getNewValue().toString());
 			}
-			model.saveState();
+			//model.saveState();
 			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
 			File imageFile = (File) evt.getNewValue();
 			try {
 				model.addFileToLibrary(imageFile);
-				model.saveState();
+				//model.saveState();
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
