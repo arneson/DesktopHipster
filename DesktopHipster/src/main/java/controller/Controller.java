@@ -12,21 +12,20 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.TreeSet;
-
 import model.ExtendedImage;
 import model.IHost;
 import model.Model;
 import model.NoSuchVersionException;
+import view.DragNDropTray;
 import view.View;
-import dragNdrop.DragNDropTray;
 
 /**
  * The controller is a part of the MVC. It will listen to events from the View
  * and then tell the model how to react.
  * 
  * @author Robin Sveningson
- * @revised Lovisa Jaberg
- * @revised Edvard H��binette
+ * @revised Lovisa Jäberg
+ * @revised Edvard Hübinette
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;
@@ -78,7 +77,6 @@ public class Controller implements PropertyChangeListener {
 						activeFilterName.getFilter().applyFilter(
 								model.getActiveImage().getOriginal()));
 			}
-			//model.saveState();
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
@@ -92,7 +90,6 @@ public class Controller implements PropertyChangeListener {
 					imageToUpload = model.getActiveImage().getOriginal();
 				}
 				chosenHost.uploadImage(imageToUpload);
-				model.saveState();
 
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
@@ -113,7 +110,6 @@ public class Controller implements PropertyChangeListener {
 				}
 				model.getLibrary().save(imageToSave, (File) evt.getNewValue());
 
-				model.saveState();
 
 			} catch (NoSuchVersionException e) {
 				System.out.println("No such version!");
@@ -131,7 +127,6 @@ public class Controller implements PropertyChangeListener {
 
 		case PropertyNames.VIEW_ADD_NEW_TAG:
 			model.addTag(evt.getNewValue().toString());
-			model.saveState();
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
 			if ((boolean) evt.getOldValue()){
@@ -139,13 +134,11 @@ public class Controller implements PropertyChangeListener {
 			}else{
 				model.removeTagOnActiveImage(evt.getNewValue().toString());
 			}
-			model.saveState();
 			break;
 		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
 			File imageFile = (File) evt.getNewValue();
 			try {
 				model.addFileToLibrary(imageFile);
-				model.saveState();
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
