@@ -58,7 +58,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 			} else if(e.getSource().equals(saveToDiscButton)){
 				saveDialog();
 			} else if(e.getSource().equals(libraryButton)){
-				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
+				//pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
 			} //else if(e.getSource().equals(obj))
 		}
 	};
@@ -116,8 +116,8 @@ public class UploadView extends Card implements PropertyChangeListener {
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE,
-						null, View.SubView.EDIT);}
+				/*pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE,
+						null, View.SubView.EDIT);*/}
 			});
 
 			saveLogo = new JPanel(new BorderLayout()){{
@@ -137,7 +137,8 @@ public class UploadView extends Card implements PropertyChangeListener {
 				backButton.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.EDIT);				
+						pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, 
+								View.CardState.EDIT.toString());				
 					}
 				});
 

@@ -62,6 +62,8 @@ public class EditView extends Card implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_APPLY_FILTER, null,
 						null);
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, 
+						View.CardState.UPLOAD.toString());
 			}
 		});
 
@@ -73,7 +75,7 @@ public class EditView extends Card implements PropertyChangeListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE,
-						null, View.SubView.BROWSE);
+						null, View.CardState.BROWSE.toString());
 			}
 		});
 

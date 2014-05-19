@@ -49,7 +49,7 @@ public class Controller implements PropertyChangeListener {
 
 		switch (name) {
 		case PropertyNames.VIEW_REQUEST_CARD_CHANGE:
-			model.changeCardView((View.SubView) evt.getNewValue());
+			model.changeCardView((String) evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_NEW_IMAGE_CHOSEN:
 			ExtendedImage recievedImage = (ExtendedImage) evt.getNewValue();
@@ -76,7 +76,6 @@ public class Controller implements PropertyChangeListener {
 						activeFilterName.getFilter().applyFilter(
 								model.getActiveImage().getOriginal()));
 			}
-			model.changeCardView(View.SubView.UPLOAD);
 			//model.saveState();
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:

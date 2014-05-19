@@ -44,8 +44,8 @@ public class Model {
 		pcs.removePropertyChangeListener(listener);
 	}
 
-	public void changeCardView(View.SubView sv) {
-		pcs.firePropertyChange(PropertyNames.MODEL_CARD_CHANGE, null, sv);
+	public void changeCardView(String s) {
+		pcs.firePropertyChange(PropertyNames.MODEL_CARD_CHANGE, null, s);
 	}
 
 	/**
