@@ -17,6 +17,13 @@ import javax.swing.*;
 
 import model.ThumbnailData;
 
+/**
+ * Provides support for representing image thumbnails with version management.
+ * 
+ * @author Robin Sveningson
+ * @revised Edvard Hübinette
+ * 
+ */
 @SuppressWarnings("serial")
 public class ThumbnailPanelLayer extends JPanel {
 	private final int iconSide = 35;
@@ -132,7 +139,8 @@ public class ThumbnailPanelLayer extends JPanel {
 		content.setLayout(new GridLayout(1, versions.size()));
 		content.setPreferredSize(new Dimension(side * versions.size(), side));
 		for (BufferedImage img : versions) {
-			JLabel version = new JLabel(new ImageIcon(img));
+			JLabel version = new JLabel(new ImageIcon(img.getScaledInstance(
+					side - 1, side - 1, WIDTH)));
 			version.setPreferredSize(new Dimension(side - 1, side - 1));
 			version.setBorder(BorderFactory.createLineBorder(new Color(150,
 					150, 150), 1));
