@@ -27,7 +27,7 @@ public class DesktopHipster {
 		final DesktopHipster dh = new DesktopHipster();
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
-				dh.getController().shutDownEverything();
+				//dh.getController().shutDownEverything();
 			}
 		});
 	}	
