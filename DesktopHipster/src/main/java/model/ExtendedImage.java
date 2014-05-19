@@ -256,12 +256,15 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		 * the serialization works with this configuration, on other clients as
 		 * well.
 		 */
-		stream.readInt();stream.readInt();stream.readInt();stream.readInt();
-		
+		stream.readInt();
+		stream.readInt();
+		stream.readInt();
+		stream.readInt();
+
 		tags = (TreeSet<String>) stream.readObject();
 
 		versions = new TreeMap<FiltersEnum, BufferedImage>();
-		
+
 		int len = stream.readInt();
 		try {
 			for (int i = 0; i < len; i++) {
@@ -283,7 +286,9 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	}
 
 	/**
-	 * Generates a hash code for this instance
+	 * Generates a hash code for this instance. Does not take the actual image
+	 * data in account because the absence of hashCode methods and the
+	 * computation load of checksums
 	 */
 	@Override
 	public int hashCode() {
@@ -292,13 +297,14 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		result = prime * result + imageID;
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result
-				+ ((versions == null) ? 0 : versions.hashCode());
+				+ ((versions == null) ? 0 : versions.keySet().hashCode());
 		return result;
 	}
 
 	/**
 	 * Ensures, beyond reasonable doubt, that two instances of this class are
-	 * the identical.
+	 * the identical. Does not take the actual image data in account because the
+	 * absence of hashCode methods and the computation load of checksums
 	 */
 	@Override
 	public boolean equals(final Object obj) {
@@ -326,7 +332,7 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 			if (other.versions != null) {
 				return false;
 			}
-		} else if (!versions.equals(other.versions)) {
+		} else if (versions.entrySet().equals(other.versions.entrySet())) {
 			return false;
 		}
 		return true;
