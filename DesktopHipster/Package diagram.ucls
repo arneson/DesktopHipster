@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <package id="1" language="java" name="model" project="desktopHipster" file="/desktopHipster/src/main/java/model" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="257" y="26"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="general" project="desktopHipster" file="/desktopHipster/src/main/java/general" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="109" y="26"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="view" project="desktopHipster" file="/desktopHipster/src/main/java/view" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="74" y="294"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="dragNdrop" project="desktopHipster" 
+    file="/desktopHipster/src/main/java/dragNdrop" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="257" y="255"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="filter" project="desktopHipster" file="/desktopHipster/src/main/java/filter" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="437" y="293"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="controller" project="desktopHipster" 
+    file="/desktopHipster/src/main/java/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="257" y="172"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <dependency id="7">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
