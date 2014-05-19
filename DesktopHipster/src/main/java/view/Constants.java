@@ -5,8 +5,9 @@ import java.awt.Font;
 
 public enum Constants {
 
-	BACKGROUNDCOLOR(new Color(255, 255, 255)), TEXTCOLOR(new Color(104, 106,
-			108));
+	BACKGROUNDCOLOR(new Color(255, 255, 255)), 
+	TEXTCOLOR(new Color(104, 106, 108)),
+	ADDPANELBACKGROUND(new Color(250, 240, 200));
 
 	private Color color;
 	private Font font;

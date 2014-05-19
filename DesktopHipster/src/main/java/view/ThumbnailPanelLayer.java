@@ -146,6 +146,7 @@ public class ThumbnailPanelLayer extends JPanel {
 					150, 150), 1));
 			content.add(version);
 		}
+		content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		content.revalidate();
 		content.repaint();
 	}

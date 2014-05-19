@@ -202,7 +202,6 @@ public class Model {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**

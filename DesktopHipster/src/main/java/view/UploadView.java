@@ -139,8 +139,13 @@ public class UploadView extends Card implements PropertyChangeListener {
 		fileChooser.addChoosableFileFilter(imageFilter);
 
 		int saveChoice = fileChooser.showSaveDialog(this);
-		logChoice(saveChoice, new File(addFileExtIfNecessary(
+		if(saveChoice == JFileChooser.APPROVE_OPTION || 
+				saveChoice == JFileChooser.CANCEL_OPTION ||
+				saveChoice == JFileChooser.ERROR_OPTION) {
+			logChoice(saveChoice, new File(addFileExtIfNecessary(
 				fileChooser.getSelectedFile().toPath().toString(),".png")));
+		}
+		
 	}
 
 	/**

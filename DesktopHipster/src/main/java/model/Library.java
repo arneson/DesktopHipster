@@ -120,7 +120,6 @@ public class Library {
 		}
 	}
 
-
 	/**
 	 * Loads all data from disk to recreate an old session in this library instance.
 	 * @param stream The input stream for reading
@@ -137,7 +136,6 @@ public class Library {
 			// image library
 			e.printStackTrace();
 		}
-
 	}
 
 	public void updateThumbnailSizes(final int width) {
