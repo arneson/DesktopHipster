@@ -1,9 +1,11 @@
 package desktopHipster;
 
-import java.io.File;
+import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import javax.swing.ImageIcon;
 
@@ -14,48 +16,46 @@ import org.junit.Test;
 
 public class TestLibrary {
 	
-	private Library lib = new Library();
-	private ExtendedImage image = new ExtendedImage(new ImageIcon(getClass().getResource("/robin.jpg")));
+	private Library lib;
+	private ExtendedImage image;
 
 	public TestLibrary(){
-		try {
-			test();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		testAddToImageArray();
+		lib = new Library();
+		image = new ExtendedImage(new ImageIcon(getClass().getResource("/robin.jpg")));
 	}
-	
 	
 	@Test
-	public void test() throws FileNotFoundException, IOException {
-		
-		lib.save(image.getOriginal(), new File(System.getProperty("user.home")
-				+ "/Pictures/DesktopHipster/TESTIMAGE.png"));
-
-	}
-	
 	public void testSaveToHiddenDirectory(){
-		
+		//assertTrue();
 	}
 	
+	@Test
 	public void testLoadFromHiddenDirectory(){
-		
+		//assertTrue();
 	}
 	
-	public boolean testAddToImageArray(){
-		int length = lib.getImageArray().size();
+	@Test
+	public void testAddToImageArray(){
+		int length = lib.getImageList().size();
 		lib.addToImageArray(image);
-		int newLenght = lib.getImageArray().size();
-		boolean ok = (length + 1 == newLenght); 
-		return ok;
+		int newLenght = lib.getImageList().size();
+		assertTrue(length + 1 == newLenght);
 	}
 	
+	@Test
 	public void testSave(){
-		
+		File file = new File(System.getProperty("user.home")
+				+ "/Pictures/DesktopHipster/TESTIMAGE.png");
+		file.deleteOnExit();
+		try {
+			lib.save(image.getOriginal(), file);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found!");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Error!");
+			e.printStackTrace();
+		}
+		assertTrue(file.exists());
 	}
 }
