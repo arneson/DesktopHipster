@@ -187,18 +187,18 @@ public class Model {
 	 * Saves the current application state for reading on the next boot
 	 */
 	public void saveState() {
-		ObjectOutputStream outStream = null;
+		ObjectOutputStream stream = null;
 		try {
-			outStream = new ObjectOutputStream(new FileOutputStream(
+			stream = new ObjectOutputStream(new FileOutputStream(
 					library.hiddenPath.toString()));
-			outStream.writeObject(tags);
+			stream.writeObject(tags);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		library.saveToHiddenDirectory(outStream);
+		library.saveToHiddenDirectory(stream);
 		try {
-			outStream.flush();
-			outStream.close();
+			stream.flush();
+			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -211,18 +211,18 @@ public class Model {
 	 */
 	public void startUp() {
 		if (new File(library.hiddenPath.toString()).length() > 0) {
-			ObjectInputStream inStream = null;
+			ObjectInputStream stream = null;
 			try {
 				FileInputStream fis = new FileInputStream(
 						library.hiddenPath.toString());
-				inStream = new ObjectInputStream(fis);
-				tags = (TreeSet<String>) inStream.readObject();
+				stream = new ObjectInputStream(fis);
+				tags = (TreeSet<String>) stream.readObject();
 				pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null,
 						new TreeSet<String>(tags));
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			library.loadFromHiddenDirectory(inStream);
+			library.loadFromHiddenDirectory(stream);
 		}
 	}
 
