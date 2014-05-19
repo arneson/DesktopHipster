@@ -100,7 +100,7 @@ public class ThumbnailGrid extends JScrollPane implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
+	public void propertyChange(PropertyChangeEvent evt)	 {
 		String name = evt.getPropertyName();
 		switch (name) {
 		case PropertyNames.MODEL_GRID_UPDATE:

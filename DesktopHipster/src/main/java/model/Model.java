@@ -33,7 +33,7 @@ public class Model {
 
 	public Model() {
 		pcs = new PropertyChangeSupport(this);
-		startUp();
+		//startUp();
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener listener) {

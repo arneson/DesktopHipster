@@ -65,7 +65,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 		if (img != null) {
 			for (String t : img.getTags()) {
 				for (JCheckBox cb : tagBoxes) {
-					if (cb.getText() == t) {
+					if (cb.getText().equals(t)) {
 						cb.setSelected(true);
 					}
 				}

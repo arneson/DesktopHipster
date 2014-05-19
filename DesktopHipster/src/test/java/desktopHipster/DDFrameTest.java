@@ -1,6 +1,7 @@
 package desktopHipster;
 
 import java.awt.HeadlessException;
+import java.awt.dnd.DropTargetDropEvent;
 import java.io.File;
 
 import org.junit.Test;
@@ -21,6 +22,16 @@ public class DDFrameTest {
 		return false;
 	}
 	@Test
+	public boolean testDropNull(){
+		DDFrame testFrame = new DDFrame();
+		try{
+			testFrame.drop(new DropTargetDropEvent(null, null, 0, 0));
+			return true;
+		}catch (Exception e){
+			return false;
+		}
+	}
+	@Test
 	public boolean testDropNotImage(){
 		try{
 			DDFrame testFrame = new DDFrame();
@@ -35,14 +46,9 @@ public class DDFrameTest {
 	
 	@Test
 	public boolean testDropNotImageWithImageExtension(){
-		try{
-			DDFrame testFrame = new DDFrame();
-			if(testFrame.isAcceptedImage(new File(getClass().getResource("/robin.png").getPath())))
-				return true;
-		}
-		catch (HeadlessException he){
-			return false;
-		}
+		DDFrame testFrame = new DDFrame();
+		if(testFrame.isAcceptedImage(new File(getClass().getResource("/robin.png").getPath())))
+			return true;
 		return false;		
 	}
 	@Test

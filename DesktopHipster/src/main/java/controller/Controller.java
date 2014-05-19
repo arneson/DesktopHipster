@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.TreeSet;
 
 import model.ExtendedImage;
 import model.IHost;
@@ -41,6 +42,7 @@ public class Controller implements PropertyChangeListener {
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
 		dndTray.addPropertyChangeListener(this);
+		model.startUp();
 		model.updateGrid(null);
 	}
 
@@ -155,6 +157,8 @@ public class Controller implements PropertyChangeListener {
 		case PropertyNames.VIEW_WIDTH_UPDATE:
 			model.gridWidthChanged((Integer) evt.getNewValue());
 			break;
+		case PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS:
+			model.updateGrid((TreeSet<String>) evt.getNewValue());
 		}
 	}
 
