@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
@@ -37,8 +38,14 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 			else {
 				TreeSet<String> tagsToShow = new TreeSet<String>();
 				for (JCheckBox jcb : tagBoxes) {
-					if (jcb.isSelected())
+					if (jcb.isSelected()){
 						tagsToShow.add(jcb.getText());
+						jcb.setBorderPainted(true);
+					}
+					else{
+						jcb.setBorderPainted(false);
+					}
+						
 				}
 				pcs.firePropertyChange(
 						PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS, null,
@@ -60,13 +67,16 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	public void loadActiveTagsFromImage(ExtendedImage img) {
-		for (JCheckBox cb : tagBoxes)
+		for (JCheckBox cb : tagBoxes){
 			cb.setSelected(false);
+			cb.setBorderPainted(false);
+		}
 		if (img != null) {
 			for (String t : img.getTags()) {
 				for (JCheckBox cb : tagBoxes) {
 					if (cb.getText().equals(t)) {
 						cb.setSelected(true);
+						cb.setBorderPainted(true);
 					}
 				}
 			}
@@ -92,6 +102,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 			tagBoxes.clear();
 			for (String t : tags) {
 				JCheckBox newTag = new JCheckBox(t);
+				giveCheckBoxRightLook(newTag);
 				newTag.addActionListener(clickListener);
 				tagBoxes.add(newTag);
 				tagList.add(newTag);
@@ -102,5 +113,9 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 			break;
 		}
 
+	}
+	private void giveCheckBoxRightLook(JCheckBox cb){
+		cb.setIcon(new ImageIcon(getClass().getResource("/blank.png")));
+		cb.setPressedIcon(new ImageIcon(getClass().getResource("/blank.png")));
 	}
 }
