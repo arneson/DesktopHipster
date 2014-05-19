@@ -261,10 +261,8 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		tags = (TreeSet<String>) stream.readObject();
 
 		versions = new TreeMap<FiltersEnum, BufferedImage>();
-		// The second and third random int
-
+		
 		int len = stream.readInt();
-		System.out.println("versions.size: " + len);
 		try {
 			for (int i = 0; i < len; i++) {
 				final FiltersEnum key = ((FiltersEnum) stream.readObject());
