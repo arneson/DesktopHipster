@@ -76,7 +76,7 @@ public class Controller implements PropertyChangeListener {
 						activeFilterName.getFilter().applyFilter(
 								model.getActiveImage().getOriginal()));
 			}
-			model.saveState();
+			//model.saveState();
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			IHost chosenHost = (IHost) evt.getNewValue();
