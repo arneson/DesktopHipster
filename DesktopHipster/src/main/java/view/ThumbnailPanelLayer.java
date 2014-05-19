@@ -140,7 +140,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		content.setPreferredSize(new Dimension(side * versions.size(), side));
 		for (BufferedImage img : versions) {
 			JLabel version = new JLabel(new ImageIcon(img.getScaledInstance(
-					side - 1, side - 1, WIDTH)));
+					side - 1, -1, WIDTH)));
 			version.setPreferredSize(new Dimension(side - 1, side - 1));
 			version.setBorder(BorderFactory.createLineBorder(new Color(150,
 					150, 150), 1));
