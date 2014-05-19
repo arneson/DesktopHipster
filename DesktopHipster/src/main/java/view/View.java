@@ -4,6 +4,7 @@ import general.PropertyNames;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -28,8 +29,8 @@ public class View extends JFrame implements PropertyChangeListener {
 	private EditView editView;
 	private UploadView uploadView;
 	private JPanel cardPanel;
-
-	public enum SubView {
+	
+	public enum CardState {
 		BROWSE, EDIT, UPLOAD
 	}
 
@@ -56,11 +57,11 @@ public class View extends JFrame implements PropertyChangeListener {
 
 		cardPanel.setLayout(new CardLayout());
 		cardPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		cardPanel.add(browseView, SubView.BROWSE.toString());
-		cardPanel.add(editView, SubView.EDIT.toString());
-		cardPanel.add(uploadView, SubView.UPLOAD.toString());
+		cardPanel.add(browseView, CardState.BROWSE.toString());//SubView.BROWSE.toString());
+		cardPanel.add(editView, CardState.EDIT.toString());//SubView.EDIT.toString());
+		cardPanel.add(uploadView, CardState.UPLOAD.toString());//SubView.UPLOAD.toString());
 
-		updateVisibleCard(SubView.BROWSE.toString());
+		updateVisibleCard(CardState.BROWSE.toString());//SubView.BROWSE.toString());
 
 		setLayout(new GridLayout(1, 1));
 		add(cardPanel);
@@ -69,6 +70,7 @@ public class View extends JFrame implements PropertyChangeListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+		setMinimumSize(new Dimension(1000,660));
 
 		addComponentListener(new ComponentListener() {
 			@Override
@@ -102,7 +104,7 @@ public class View extends JFrame implements PropertyChangeListener {
 		pcs.firePropertyChange(evt);
 		String name = evt.getPropertyName();
 		if (name.equals(PropertyNames.MODEL_CARD_CHANGE)) {
-			updateVisibleCard(((SubView) evt.getNewValue()).toString());
+			updateVisibleCard((String) evt.getNewValue());
 		}
 	}
 

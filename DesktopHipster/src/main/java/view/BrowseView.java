@@ -113,7 +113,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 				public void actionPerformed(ActionEvent e) {
 					pcs.firePropertyChange(
 							PropertyNames.VIEW_REQUEST_CARD_CHANGE, null,
-							View.SubView.EDIT);
+							View.CardState.EDIT.toString());
 				}
 			});
 			break;

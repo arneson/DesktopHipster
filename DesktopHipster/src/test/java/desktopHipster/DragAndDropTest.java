@@ -7,6 +7,7 @@ import org.junit.Test;
 public class DragAndDropTest {
 	@Test
 	public void main(){
+	
 		DDFrameTest frameTest = new DDFrameTest();
 		//Test if real image is accepted by file filter
 		assertTrue(frameTest.testDropImage());
@@ -16,5 +17,7 @@ public class DragAndDropTest {
 		assertFalse(frameTest.testDropNotImageWithImageExtension());	
 		//See if tray icon can be created
 		assertTrue(frameTest.testTrayIcon());
+		//Test if it can handle nulls
+		assertFalse(frameTest.testDropNull());
 	}
 }
