@@ -11,9 +11,6 @@ import org.xml.sax.SAXException;
 import com.aetrion.flickr.Flickr;
 import com.aetrion.flickr.FlickrException;
 import com.aetrion.flickr.Transport;
-import com.aetrion.flickr.auth.Auth;
-import com.aetrion.flickr.auth.AuthInterface;
-import com.aetrion.flickr.auth.Permission;
 import com.aetrion.flickr.uploader.UploadMetaData;
 import com.aetrion.flickr.uploader.Uploader;
 
@@ -30,30 +27,29 @@ public class FlickrHost implements IHost {
 
 	private void auth() {
 		Transport transport = flickr.getTransport();
-		flickr = new Flickr(API_KEY);		
+		flickr = new Flickr(API_KEY);
 	}
 
 	@Override
-	public boolean uploadImage(BufferedImage image) {	
-		
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-			ImageIO.write(image, "png", out );
+	public boolean uploadImage(BufferedImage image) {
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(image, "png", out);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        byte[] asBytes = out.toByteArray();
-        
-        try {
+
+		byte[] asBytes = out.toByteArray();
+
+		try {
 			out.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        
 		Uploader uploader = flickr.getUploader();
 		UploadMetaData metaData = new UploadMetaData();
 		metaData.setContentType("photo");
@@ -64,7 +60,7 @@ public class FlickrHost implements IHost {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return true;
 	}
 }

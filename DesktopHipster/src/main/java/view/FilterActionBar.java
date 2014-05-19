@@ -14,8 +14,9 @@ import filter.FiltersEnum;
 
 /**
  * An action bar containing buttons for selecting filters in the edit stage
+ * 
  * @author Edvard Hübinette
- *
+ * 
  */
 public class FilterActionBar extends JPanel {
 	private final int WIDTH = 1000;
@@ -23,10 +24,10 @@ public class FilterActionBar extends JPanel {
 	private JPanel container = new JPanel();
 	private JScrollPane scrollpane = new JScrollPane();
 	private List<FilterButton> buttons = new ArrayList<FilterButton>();
-	
-	public FilterActionBar(){
-		
-		setBorder(new LineBorder(Color.WHITE,10));
+
+	public FilterActionBar() {
+
+		setBorder(new LineBorder(Color.WHITE, 10));
 		add(scrollpane);
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -35,22 +36,22 @@ public class FilterActionBar extends JPanel {
 		container.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		container.setLayout(new FlowLayout());
 		container.setBorder(null);
-		
+
 		scrollpane.setBorder(null);
-		
-		for(int i = 0; i < FiltersEnum.values().length; i++){
+
+		for (int i = 0; i < FiltersEnum.values().length; i++) {
 			buttons.add(new FilterButton(FiltersEnum.values()[i]));
 		}
-		
-		for(FilterButton button : buttons){
+
+		for (FilterButton button : buttons) {
 			container.add(button);
 		}
-		
+
 		scrollpane.setViewportView(container);
-		
+
 	}
-	
-	public List<FilterButton> getFilterButtons(){
+
+	public List<FilterButton> getFilterButtons() {
 		return new ArrayList<FilterButton>(buttons);
 	}
-}	
+}

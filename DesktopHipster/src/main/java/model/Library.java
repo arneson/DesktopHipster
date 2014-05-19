@@ -1,21 +1,16 @@
 package model;
 
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,27 +18,24 @@ import javax.swing.ImageIcon;
 /**
  * The Library will keep track of the imported images.
  * 
- * @authour Lovisa Jaberg
- * 
+ * @authour Lovisa Jäberg
+ * @revised Edvard Hübinette
  */
-
-// TODO Must save the list with images to disc in hidden directory when you quit
-// the application
-// TODO
 
 public class Library {
 
-	// Array of extended images
-	private List<ExtendedImage> imageList = new ArrayList<ExtendedImage>();
+	/**
+	 * This list keeps track of your the ExtendedImages you import to your
+	 * library.
+	 */
+	private final List<ExtendedImage> imageList = new ArrayList<ExtendedImage>();
 
-	// Path to the directory where you save the images
-	private Path path;
-	private Path hiddenPath;
+	protected transient Path path;
+	protected transient Path hiddenPath;
 
 	/**
-	 * Create a directory where you save your images. If this directory is
-	 * already created then it sets the directory where to save to the created
-	 * directory.
+	 * Create a directory where you save your images. If this directory already
+	 * exists then it sets the directory where to save your images.
 	 */
 
 	public Library() {
@@ -52,8 +44,12 @@ public class Library {
 				.mkdirs();
 		path = Paths.get(System.getProperty("user.home")
 				+ "/Pictures/DesktopHipster");
-		new File(System.getProperty("user.home")
-				+ "/Pictures/DesktopHipster/.backUp");
+		try {
+			new File(System.getProperty("user.home")
+					+ "/Pictures/DesktopHipster/.backUp").createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		hiddenPath = Paths.get(System.getProperty("user.home")
 				+ "/Pictures/DesktopHipster/.backUp");
 
@@ -63,82 +59,88 @@ public class Library {
 	 * Saves image to disc in the folder created for this desktop application.
 	 * Takes an ExtendedImage and a String (the new filename) as parameters.
 	 */
-
-	public void save(BufferedImage saveImage, String name)
+	public void save(final BufferedImage saveImage, final File file)
 			throws FileNotFoundException, IOException {
 		try {
-			File outputfile = new File(path + "/" + name);
-			ImageIO.write(saveImage, "png", outputfile);
-		} catch (FileNotFoundException fileNotFound) {
-			// TODO catch exception x2
-			System.out.println("File not found");
-		} catch (IOException ioExc) {
-			System.out.println("Error");
-		}
+			ImageIO.write(saveImage, "png", file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 	}
 
 	/**
 	 * When you import an image to the application by choosing from file system
-	 * or drops it in drop down panel this method will put it into the arraylist
-	 * of images it will show in the library
+	 * or drops it in drop down panel this method will put it into the list of
+	 * ExtendedImages shown in the library
 	 */
 
-	public void load(File imageFile) {
+	public void load(final File imageFile) {
 
 		addToImageArray(new ExtendedImage(new ImageIcon(
 				imageFile.getAbsolutePath())));
 	}
 
 	/**
-	 * Adds image to the array of images.
+	 * Adds image to the list of images.
 	 * 
 	 * @param image
 	 */
 
-	public void addToImageArray(ExtendedImage image) {
+	public void addToImageArray(final ExtendedImage image) {
 		imageList.add(image);
 	}
 
-	public List<ExtendedImage> getImageArray() {
-		return imageList;
+	/**
+	 * Returns a list of all images in this library
+	 * 
+	 * @return The list of images
+	 */
+	public List<ExtendedImage> getImageList() {
+		return new ArrayList<ExtendedImage>(imageList);
 	}
 
-	public void saveToHiddenDirectory() {
+	/**
+	 * Saves all data this library contains to disk. This can be used to restore
+	 * the posture of the application on restart.
+	 * @param stream The output stream for writing
+	 */
+	public void saveToHiddenDirectory(final ObjectOutputStream stream) {
 		try {
-
-			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream(hiddenPath.toString()));
-			out.writeObject(imageList);
-			out.flush();
-			out.close();
+			stream.writeInt(imageList.size());
+			for (ExtendedImage ei : imageList) {
+				stream.writeObject(ei);
+				stream.reset();
+			}
 
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
-	// Method to run when program starts
-	public void loadFromHiddenDirectory() throws ClassNotFoundException {
 
+	/**
+	 * Loads all data from disk to recreate an old session in this library instance.
+	 * @param stream The input stream for reading
+	 */
+	public void loadFromHiddenDirectory(final ObjectInputStream stream) {
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-					hiddenPath.toString()));
-			imageList = (ArrayList<ExtendedImage>) in.readObject();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			final int size = stream.readInt();
+			for (int i = 0; i < size; i++) {
+				imageList.add((ExtendedImage) stream.readObject());
+			}
+			stream.close();
+		} catch (IOException | ClassNotFoundException e) {
+			// Could not restore the user DB, application will start with empty
+			// image library
 			e.printStackTrace();
 		}
+
 	}
 
-	public void updateThumbnailSizes(int width) {
-		for (ExtendedImage image : imageList) {
+	public void updateThumbnailSizes(final int width) {
+		for (final ExtendedImage image : imageList) {
 			try {
 				image.setThumbnailSize(width);
 			} catch (Exception ex) {
@@ -146,7 +148,9 @@ public class Library {
 			}
 		}
 	}
-	public List<ExtendedImage> getImagesWithTagArray(TreeSet<String> tags) {
-		return imageList;
+
+	// What is even this?
+	public List<ExtendedImage> getImagesWithTagArray(final Set<String> tags) {
+		return new ArrayList<ExtendedImage>(imageList);
 	}
 }
