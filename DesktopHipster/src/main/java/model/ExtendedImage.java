@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,7 +41,7 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	private transient BufferedImage thumbnail;
 	private transient BufferedImage original;
 
-	private transient Map<FiltersEnum, BufferedImage> versions = new TreeMap<FiltersEnum, BufferedImage>();
+	private transient Map<FiltersEnum, BufferedImage> versions = new HashMap<FiltersEnum, BufferedImage>();
 
 	/**
 	 * For use of the java serialization engine.
@@ -74,14 +75,13 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	/**
 	 * Adds an edited version of this image to a list of versions
 	 * 
-	 * @param filterName
+	 * @param filter
 	 *            The name of the filter used
 	 * @param image
 	 *            The edited image to stash
 	 */
-	public void addVersion(final FiltersEnum filterName,
-			final BufferedImage image) {
-		versions.put(filterName, image);
+	public void addVersion(final FiltersEnum filter, final BufferedImage image) {
+		versions.put(filter, image);
 	}
 
 	/**
@@ -212,85 +212,82 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	/**
 	 * Manual enabling of serialization for java object streams
 	 * 
-	 * @param out
+	 * @param stream
 	 *            Associated output stream
 	 * @throws IOException
 	 */
-	private void writeObject(final ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		ImageIO.write(original, "png", out);
+	private void writeObject(final ObjectOutputStream stream)
+			throws IOException {
+		stream.defaultWriteObject();
+		ImageIO.write(original, "png", stream);
 
-		out.writeInt(tags.size());
-		for (String string : tags) {
-			out.writeObject(string);
-		}
+		stream.writeObject(tags);
 
-		out.writeInt(versions.keySet().size());
-		for (Entry<FiltersEnum, BufferedImage> entry : versions.entrySet()) {
-			out.writeObject(entry.getKey().name());
-			ImageIO.write(entry.getValue(), "png", out);
+		stream.writeInt(versions.size());
+		for (final Entry<FiltersEnum, BufferedImage> entry : versions
+				.entrySet()) {
+			stream.writeObject(entry.getKey());
+			ImageIO.write(entry.getValue(), "png", stream);
 		}
 	}
 
 	/**
 	 * Manual enabling of deserialization for java object streams
 	 * 
-	 * @param inStream
+	 * @param stream
 	 *            Associated input stream
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	private void readObject(final ObjectInputStream inStream)
-			throws IOException, ClassNotFoundException {
-		inStream.defaultReadObject();
-		original = ImageIO.read(inStream);
+	private void readObject(final ObjectInputStream stream) throws IOException,
+			ClassNotFoundException {
+		stream.defaultReadObject();
+		original = ImageIO.read(stream);
 		preview = filter.ImageTools.toBufferedImage(original.getScaledInstance(
 				750, -1, Image.SCALE_FAST));
 		thumbnail = filter.ImageTools.toBufferedImage(original
 				.getScaledInstance(50, -1, Image.SCALE_FAST));
 
-		tags = new TreeSet<String>();
-
 		/*
-		 * I have no idea how this works, but in the stream we encounter three
+		 * I have no idea how this works, but in the stream we encounter four
 		 * separate, apparently random, 32-bit ints that come from nowhere, I do
 		 * not write them to the stream nor can I find the source in any
 		 * sun/oracle serialization documentation. After extensive debugging,
 		 * the serialization works with this configuration, on other clients as
 		 * well.
 		 */
-		inStream.readInt();
-		int len = inStream.readInt();
-		System.out.println(len);
-		for (int i = 0; i < len; i++) {
-			tags.add((String) inStream.readObject());
-		}
+		stream.readInt();stream.readInt();stream.readInt();stream.readInt();
+		
+		tags = (TreeSet<String>) stream.readObject();
 
 		versions = new TreeMap<FiltersEnum, BufferedImage>();
-		// The second and third random int
-		inStream.readInt();
-		inStream.readInt();
-		len = inStream.readInt();
+		
+		int len = stream.readInt();
 		try {
 			for (int i = 0; i < len; i++) {
-				final FiltersEnum key = FiltersEnum.valueOf((String) inStream
-						.readObject());
-				versions.put(key, ImageIO.read(inStream));
+				final FiltersEnum key = ((FiltersEnum) stream.readObject());
+				versions.put(key, ImageIO.read(stream));
 			}
 		} catch (OptionalDataException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Returns a human-readable string representation of this instance
+	 */
 	@Override
 	public String toString() {
 		return "ExtendedImage [" + "imageID=" + imageID + ", " + "tags="
 				+ tags.size() + ", " + "versions=" + versions.size() + "]";
 	}
 
+	/**
+	 * Generates a hash code for this instance
+	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		int prime = 31;
 		int result = 1;
 		result = prime * result + imageID;
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
@@ -305,25 +302,33 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ExtendedImage other = (ExtendedImage) obj;
-		if (imageID != other.imageID)
+		if (imageID != other.imageID) {
 			return false;
+		}
 		if (tags == null) {
-			if (other.tags != null)
+			if (other.tags != null) {
 				return false;
-		} else if (!tags.equals(other.tags))
+			}
+		} else if (!tags.equals(other.tags)) {
 			return false;
+		}
 		if (versions == null) {
-			if (other.versions != null)
+			if (other.versions != null) {
 				return false;
-		} else if (!versions.equals(other.versions))
+			}
+		} else if (!versions.equals(other.versions)) {
 			return false;
+		}
 		return true;
 	}
 }
