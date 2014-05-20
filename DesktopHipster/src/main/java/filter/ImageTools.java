@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-
 /**
  * This class contains all the different tools that can be used on an image.
  * 
@@ -23,7 +21,7 @@ public class ImageTools {
 					int layerRed, int layerGreen, int layerBlue, int layerAlpha) {
 				int total = red + green + blue;
 				int midvalue = total / 3;
-				int rgb = new Color(midvalue, midvalue, midvalue).getRGB();
+				int rgb = new Color(midvalue, midvalue, midvalue, alpha).getRGB();
 				return rgb;
 			}
 		};
@@ -48,7 +46,7 @@ public class ImageTools {
 				newG = (newG > 255) ? 255 : newG;
 				newB = (newB > 255) ? 255 : newB;
 
-				int rgb = new Color(newR, newG, newB).getRGB();
+				int rgb = new Color(newR, newG, newB, alpha).getRGB();
 				return rgb;
 			}
 		};
@@ -70,7 +68,7 @@ public class ImageTools {
 				newG = (newG > 255) ? 255 : newG;
 				newB = (newB > 255) ? 255 : newB;
 
-				int rgb = new Color(newR, newG, newB).getRGB();
+				int rgb = new Color(newR, newG, newB, alpha).getRGB();
 				return rgb;
 			}
 		};
@@ -84,7 +82,7 @@ public class ImageTools {
 				int total = red + green + blue;
 				int midvalue = total / 3;
 				int rgb = new Color(255 - midvalue, 255 - midvalue,
-						255 - midvalue).getRGB();
+						255 - midvalue, alpha).getRGB();
 				return rgb;
 			}
 		};
