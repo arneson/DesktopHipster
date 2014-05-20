@@ -2,43 +2,67 @@ package view;
 
 import general.PropertyNames;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.beans.PropertyChangeSupport;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class NewTagTextField extends JTextField {
+public class NewTagTextField extends JPanel {
 	PropertyChangeSupport pcs;
+	private JTextField tf;
+	private Color foreColor = new Color(150,150,150);
 
-	public NewTagTextField(PropertyChangeSupport p) {
+	public NewTagTextField(PropertyChangeSupport p, int height) {
 		super();
-		setText("Add new tag...");
+		setPreferredSize(new Dimension(0, height));
+		
+		tf = new JTextField();
+		tf.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		tf.setBackground(Constants.BACKGROUNDCOLOR_1.getColor());
+		tf.setOpaque(true);
 		pcs = p;
-		addActionListener(new ActionListener() {
+		
+		tf.setForeground(foreColor);
+		tf.setText("Add new tag...");
+		
+		setLayout(new GridLayout(1,1));
+		add(tf);
+		tf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_ADD_NEW_TAG, null,
-						getText());
-				setText("");
+						tf.getText());
+				tf.setText("");
 			}
 		});
-		addFocusListener(new FocusListener() {
+		tf.addFocusListener(new FocusListener() {
 
 			@Override
 			public void focusGained(FocusEvent e) {
-				setText("");
-
+				if(tf.getForeground().equals(foreColor)) {
+					tf.setForeground(Color.black);
+					tf.setText("");
+				}
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-
+				if(tf.getText().equals("")) {
+					tf.setForeground(foreColor);
+					tf.setText("Add new tag...");
+				}
 			}
 
 		});

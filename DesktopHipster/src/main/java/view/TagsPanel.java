@@ -5,8 +5,12 @@ import general.PropertyNames;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -19,6 +23,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import model.ExtendedImage;
@@ -27,40 +32,28 @@ import model.ExtendedImage;
 public class TagsPanel extends JPanel implements PropertyChangeListener {
 	private PropertyChangeSupport pcs;
 	private TreeSet<String> tags;
-	private List<JCheckBox> tagBoxes;
-	private JPanel tagList;
+	private List<TagItem> items;
+	private JPanel tagPanel;
+	private JScrollPane scroll;
 	private boolean imageChosen = false;
-	private ActionListener clickListener = new ActionListener() {
-
+	private TreeSet<String> tagsToShow = new TreeSet<String>();;
+	private final int height = 40;
+	private MouseListener ma = new MouseAdapter() {
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			JCheckBox src = (JCheckBox) e.getSource();
+		public void mouseReleased(MouseEvent e) {
+			TagItem src = (TagItem) e.getSource();
+			src.setSelected(!src.isSelected());
 			if (imageChosen){
 				pcs.firePropertyChange(
 						PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED,
 						src.isSelected(), src.getText());
-				if(src.isSelected())
-					src.setBackground(Constants.MARKEDTAGCOLOR.getColor());
-				else
-					src.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 			}
 			else {
-				TreeSet<String> tagsToShow = new TreeSet<String>();
-				for (JCheckBox jcb : tagBoxes) {
-					if (jcb.isSelected()){
-						tagsToShow.add(jcb.getText());
-						//jcb.setBorderPainted(true);
-						jcb.setBackground(Constants.MARKEDTAGCOLOR.getColor());
-						jcb.repaint();
-						jcb.validate();
-					}
-					else{
-						jcb.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-						//jcb.setBorderPainted(false);
-						jcb.repaint();
-						jcb.validate();
-					}
-						
+				tagsToShow.clear();
+				for (TagItem item : items) {
+					if (item.isSelected()){
+						tagsToShow.add(item.getText());
+					}	
 				}
 				pcs.firePropertyChange(
 						PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS, null,
@@ -71,39 +64,50 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 
 	public TagsPanel(PropertyChangeSupport p) {
 		super();
-		setLayout(new BorderLayout());
-		tagBoxes = new ArrayList<JCheckBox>();
-		tagList = new JPanel();
-		tagList.setLayout(new BoxLayout(tagList, BoxLayout.Y_AXIS));
-		tagList.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		pcs = p;
-		pcs.firePropertyChange(PropertyNames.VIEW_ADD_NEW_TAG, null, "All");
-		add(new NewTagTextField(pcs), BorderLayout.SOUTH);
+		items = new ArrayList<TagItem>();
+		initialize();
+	}
+	
+	private void initialize() {
+		setLayout(new BorderLayout());
+		
+		tagPanel = new JPanel();
+		tagPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		tagPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
+		
+		scroll = new JScrollPane(tagPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setBorder(null);
+		
+		add(scroll, BorderLayout.CENTER);
+		add(new NewTagTextField(pcs, height), BorderLayout.SOUTH);
 	}
 
 	public void loadActiveTagsFromImage(ExtendedImage img) {
-		for (JCheckBox cb : tagBoxes){
-			cb.setSelected(false);
-			//cb.setBorderPainted(false);
-			cb.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-			cb.repaint();
-			cb.validate();
+		for (TagItem item : items){
+			item.setSelected(false);
 		}
 		if (img != null) {
 			for (String t : img.getTags()) {
-				for (JCheckBox cb : tagBoxes) {
-					if (cb.getText().equals(t)) {
-						cb.setSelected(true);
-						//cb.setBorderPainted(true);
-						cb.setBackground(Constants.MARKEDTAGCOLOR.getColor());
-						cb.repaint();
-						cb.validate();
+				for (TagItem item : items) {
+					if (item.getText().equals(t)) {
+						item.setSelected(true);
+					}
+				}
+			}
+		} else {
+			for(String t : tagsToShow) {
+				for(TagItem item : items) {
+					if(item.getText().equals(t)) {
+						item.setSelected(true);
 					}
 				}
 			}
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch (evt.getPropertyName()) {
@@ -119,32 +123,29 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 			break;
 		case PropertyNames.MODEL_TAGS_CHANGED:
 			tags = (TreeSet<String>) evt.getNewValue();
-			tagList.removeAll();
-			tagBoxes.clear();
-			for (String t : tags) {
-				JCheckBox newTag = new JCheckBox(t);
-				giveCheckBoxRightLook(newTag);
-				newTag.addActionListener(clickListener);
-				tagBoxes.add(newTag);
-				tagList.add(newTag);
-			}
-			add(tagList, BorderLayout.CENTER);
-			repaint();
-			revalidate();
+			updateTagList(tags);
 			break;
 		}
 
 	}
-	private void giveCheckBoxRightLook(JCheckBox cb){
-		cb.setIcon(new ImageIcon(getClass().getResource("/blank.png")));
-		cb.setPressedIcon(new ImageIcon(getClass().getResource("/blank.png")));
-		cb.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		cb.setOpaque(true);
+	
+	private void updateTagList(TreeSet<String> tags) {
+		items.clear();
 		
-		/*Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-		Border compound = BorderFactory.createCompoundBorder(
-                raisedbevel, loweredbevel);
-		cb.setBorder(compound);*/
+		tagPanel.setLayout(new BoxLayout(tagPanel, BoxLayout.PAGE_AXIS));
+		tagPanel.setPreferredSize(new Dimension(getWidth(), tags.size()*height));
+		tagPanel.removeAll();
+		
+		int i = 0;
+		for(String t : tags) {
+			TagItem item = new TagItem(pcs, t, height, getWidth(), i%2==0);
+			item.addMouseListener(ma);
+			items.add(item);
+			tagPanel.add(item);
+			i++;
+		}
+		
+		tagPanel.revalidate();
+		tagPanel.repaint();
 	}
 }

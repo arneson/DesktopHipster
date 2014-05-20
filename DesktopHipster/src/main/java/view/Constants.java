@@ -5,8 +5,10 @@ import java.awt.Font;
 
 public enum Constants {
 
-	BACKGROUNDCOLOR(new Color(255, 255, 255)), TEXTCOLOR(new Color(104, 106,
-			108)),MARKEDTAGCOLOR(Color.lightGray);
+	BACKGROUNDCOLOR(new Color(255, 255, 255)),
+	BACKGROUNDCOLOR_1(new Color(245, 245, 245)),
+	BACKGROUNDCOLOR_2(new Color(240, 240, 240)), 
+	TEXTCOLOR(new Color(104, 106,108));
 
 	private Color color;
 	private Font font;
