@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.TreeSet;
 import model.ExtendedImage;
 import model.IHost;
