@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseMotionListener;
@@ -62,14 +63,11 @@ public abstract class Card extends JPanel {
 		logo.setOpaque(true);
 		logo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-		northPanel = new JPanel(new BorderLayout());
-		{
-			{
+		northPanel = new JPanel(new BorderLayout());{{
 				add(logo, BorderLayout.NORTH);
-			}
-		}
-		;
+		}};
 		northPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		
 		addNorth(northPanel);
 	}
 

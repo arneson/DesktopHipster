@@ -1,5 +1,9 @@
 package model;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -33,5 +37,11 @@ public enum HostsEnum {
 
 	public ImageIcon getIcon() {
 		return icon;
+	}
+	
+	public ImageIcon getScaledIcon(Dimension d){
+		Image image = this.getIcon().getImage();
+		BufferedImage bufImage = filter.ImageTools.toBufferedImage(image);
+		return new ImageIcon(bufImage.getScaledInstance((int)d.getWidth(), (int)d.getHeight(), BufferedImage.SCALE_SMOOTH));
 	}
 }

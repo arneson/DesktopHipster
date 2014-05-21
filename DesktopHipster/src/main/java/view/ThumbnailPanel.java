@@ -95,7 +95,7 @@ public class ThumbnailPanel extends JPanel {
 
 	public void updateBorderColor() {
 		if (selected) {
-			setBackground(new Color(255, 100, 100));
+			setBackground(Constants.CONTRASTCOLOR.getColor());
 		} else {
 			setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		}

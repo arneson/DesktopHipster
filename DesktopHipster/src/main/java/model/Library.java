@@ -176,4 +176,10 @@ public class Library {
 	
 	return returnList;
 }
+
+	public void remove(ExtendedImage extendedImage) {
+		if(imageList.contains(extendedImage)){
+			imageList.remove(extendedImage);
+		}
+	}
 }

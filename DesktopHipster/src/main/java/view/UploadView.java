@@ -4,6 +4,7 @@ import general.PropertyNames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -45,9 +46,10 @@ public class UploadView extends Card implements PropertyChangeListener {
 	private final PropertyChangeSupport pcs;
 
 	private JButton saveToDiscButton, backButton, libraryButton;
-	private JPanel centerPanel, uploadLogo, saveLogo, saveIcon;
+	private JPanel hostButtonPanel, centerPanel, uploadLogo, saveLogo, saveIcon;
 	private JTextField imageName;
 	private JFileChooser fileChooser;
+	private final int ICONWIDTH = 350;
 
 	private MouseAdapter myMouseListener = new MouseAdapter() {
 
@@ -58,8 +60,8 @@ public class UploadView extends Card implements PropertyChangeListener {
 			} else if(e.getSource().equals(saveToDiscButton)){
 				saveDialog();
 			} else if(e.getSource().equals(libraryButton)){
-				//pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.SubView.BROWSE);
-			} //else if(e.getSource().equals(obj))
+				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.CardState.BROWSE.toString());
+			}
 		}
 	};
 
@@ -67,66 +69,71 @@ public class UploadView extends Card implements PropertyChangeListener {
 		super();
 		initialize();
 		this.pcs = pcs;
+
 	}
 
 	public void initialize() {
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
 		fileChooser = new JFileChooser();
-
-		libraryButton = new JButton("Back to library");
+		libraryButton = new JButton(new ImageIcon(getClass().getResource("/libraryImage.png")));
+		libraryButton.setPreferredSize(new Dimension(100,100));
+		libraryButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		libraryButton.addMouseListener(myMouseListener);
+		libraryButton.setBorder(new LineBorder(Color.WHITE,10));
+		libraryButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-		saveToDiscButton = new JButton(new ImageIcon(getClass().getResource("/down.png")));
+		saveToDiscButton = new JButton(new ImageIcon(getClass().getResource("/down_mint.png")));
 		saveToDiscButton.setBorder(null);
 		saveToDiscButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		saveToDiscButton.addMouseListener(myMouseListener);
-
-		/*imageName = new JTextField("Add name..",10);
-		imageName.setPreferredSize(new Dimension(50, 20));
-		imageName.setFont(new Font("Avenir Next Ultra Light", Font.PLAIN, 14));
-		imageName.addMouseListener(myMouseListener);*/
+		saveToDiscButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		uploadLogo = new JPanel(new BorderLayout()){{
 			add((new JLabel(new ImageIcon(getClass().getResource("/upload.png")))),BorderLayout.CENTER);}};
 			uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-			uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-			centerPanel = new JPanel(new GridLayout(createHostButtons().size()+3,1));
-			centerPanel.add(uploadLogo);
-			
+			centerPanel = new JPanel(new BorderLayout());
+			centerPanel.add(uploadLogo,BorderLayout.NORTH);
+
+			hostButtonPanel = new JPanel(new GridLayout(createHostButtons().size()+1,1));
+			hostButtonPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 			for (JButton btn : createHostButtons()){
-				centerPanel.add(btn);
+				hostButtonPanel.add(btn);
 			}
 			saveLogo = new JPanel(new BorderLayout()){{
-				add((new JLabel(new ImageIcon(getClass().getResource("/save.png")))),BorderLayout.CENTER);}};
-				saveLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+				add((new JLabel(new ImageIcon(getClass().getResource("/save.png")))),BorderLayout.CENTER);
+			}};
+			saveLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-				saveIcon = new JPanel(new BorderLayout()){{add(saveToDiscButton);}};
-				saveIcon.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+			saveIcon = new JPanel(new BorderLayout()){{add(saveToDiscButton);}};
+			saveIcon.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-				centerPanel.add(saveLogo);
-				centerPanel.add(saveIcon);
-				centerPanel.setPreferredSize(new Dimension(200,200));
+			hostButtonPanel.add(saveLogo);
 
-				backButton = new JButton(new ImageIcon(getClass().getResource("/left.png")));
-				backButton.setBorder(new LineBorder(Color.WHITE,10));
+			backButton = new JButton(new ImageIcon(getClass().getResource("/left.png")));
+			backButton.setBorder(new LineBorder(Color.WHITE,10));
+			backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+			backButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, 
+							View.CardState.EDIT.toString());				
+				}
 
-				backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-				backButton.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, 
-								View.CardState.EDIT.toString());				
-					}
+			});
 
-				});
-
-				addCenter(centerPanel);
-				addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
-				/*addSouth(new JPanel(){{
-					add(imageName);
-				}});*/
+			centerPanel.add(hostButtonPanel,BorderLayout.CENTER);
+			addCenter(centerPanel);
+			addWest(new JPanel(new BorderLayout()){{add(backButton,BorderLayout.CENTER);}});
+			addEast(new JPanel(new BorderLayout()){{
+				add(libraryButton,BorderLayout.CENTER);
+			}});
+			addSouth(new JPanel(new BorderLayout()){{
+				//add(saveLogo,BorderLayout.NORTH);
+			add(saveIcon,BorderLayout.NORTH);
+			}});
 	}
 
 	/**
@@ -145,9 +152,9 @@ public class UploadView extends Card implements PropertyChangeListener {
 				saveChoice == JFileChooser.CANCEL_OPTION ||
 				saveChoice == JFileChooser.ERROR_OPTION) {
 			logChoice(saveChoice, new File(addFileExtIfNecessary(
-				fileChooser.getSelectedFile().toPath().toString(),".png")));
+					fileChooser.getSelectedFile().toPath().toString(),".png")));
 		}
-		
+
 	}
 
 	/**
@@ -180,10 +187,12 @@ public class UploadView extends Card implements PropertyChangeListener {
 	private List<JButton> createHostButtons() {
 		ArrayList<JButton> list = new ArrayList<JButton>();
 		for(final HostsEnum host : HostsEnum.values()){
-			JButton btn = new JButton(host.getIcon());
 
-			btn.setIcon(host.getIcon());
-			btn.setPreferredSize(new Dimension(200,100));
+			JButton btn = new JButton(host.getIcon());
+			Dimension btnDimension = new Dimension(ICONWIDTH, -1);
+			btn.setIcon(host.getScaledIcon(btnDimension));
+			btn.setPreferredSize(btnDimension);
+			btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			btn.setBorder(null);
 			btn.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 			btn.setOpaque(true);
@@ -200,10 +209,9 @@ public class UploadView extends Card implements PropertyChangeListener {
 	}
 
 	private String addFileExtIfNecessary(String file,String ext) {
-		file=file.toLowerCase();
+		//file=file.toLowerCase();
 		if(!file.endsWith(ext))
 			file += ext;
-
 		return file;
 	}
 

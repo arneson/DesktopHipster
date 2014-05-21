@@ -160,6 +160,9 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS:
 			model.updateGrid((TreeSet<String>) evt.getNewValue());
+			break;
+		case PropertyNames.REMOVE_IMAGE_FROM_LIBRARY:
+			model.getLibrary().remove(model.getActiveImage());
 		}
 	}
 

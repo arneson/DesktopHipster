@@ -43,7 +43,6 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 		
 		setPreferredSize(new Dimension(side,side));
 		setLayout(new BorderLayout());
-		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		setOpaque(true);
 
 		chooseFile = new JFileChooser();
@@ -51,7 +50,7 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 		label = new JLabel(new ImageIcon(getClass().getResource("/addPanelImage.png")));
 		label.setPreferredSize(new Dimension(side,side));
 		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		label.setBackground(Constants.ADDPANELBACKGROUND.getColor());
+		label.setBackground(Constants.CONTRASTCOLORLIGHT.getColor());
 		label.setToolTipText("Click here to add an image to your library");
 		label.setOpaque(true);
 		add(label, BorderLayout.CENTER);

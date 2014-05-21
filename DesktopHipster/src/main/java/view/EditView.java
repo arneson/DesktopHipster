@@ -15,6 +15,7 @@ import model.ExtendedImage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 
 /**
  * The edit view is a card that is used by the View.java. The edit view is the
@@ -58,6 +59,7 @@ public class EditView extends Card implements PropertyChangeListener {
 		proceedButton = new JButton(proceedImage);
 		proceedButton.setBorder(new LineBorder(Color.WHITE, 10));
 		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		proceedButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		proceedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pcs.firePropertyChange(PropertyNames.VIEW_APPLY_FILTER, null,
@@ -71,6 +73,7 @@ public class EditView extends Card implements PropertyChangeListener {
 		backButton = new JButton(backImage);
 		backButton.setBorder(new LineBorder(Color.WHITE, 10));
 		backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

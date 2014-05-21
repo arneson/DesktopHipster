@@ -3,6 +3,7 @@ package view;
 import general.PropertyNames;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -88,6 +89,7 @@ public class ThumbnailGrid extends JScrollPane implements
 			} else if(i < size) {
 				ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i-1), side);
 				tp.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+				tp.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				tp.addMouseMotionL(ma);
 				wrapper.add(tp);
 				panelList.add(tp);
