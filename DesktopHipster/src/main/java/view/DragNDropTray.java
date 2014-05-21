@@ -1,4 +1,4 @@
-package dragNdrop;
+package view;
 /**
  * Class to represent and add the system tray icon of the application
  * 

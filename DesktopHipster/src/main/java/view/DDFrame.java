@@ -1,4 +1,4 @@
-package dragNdrop;
+package view;
 
 import java.awt.*;
 import java.awt.dnd.*;
