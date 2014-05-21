@@ -75,8 +75,8 @@ public class TagItem extends JPanel{
  			}
 		};
 		
-		addMouseListener(hoverAdapter);
-		label.addMouseListener(hoverAdapter);
+		//addMouseListener(hoverAdapter);
+		//label.addMouseListener(hoverAdapter);
 		remove.addMouseListener(hoverAdapter);
 		
 		setPreferredSize(new Dimension(width,height));
@@ -109,5 +109,8 @@ public class TagItem extends JPanel{
 		setBackground(c);
 		label.setBackground(c);
 		label.setOpaque(true);
+	}
+	public void setRemoveIconVisible(boolean modifier){
+		remove.setVisible(modifier);
 	}
 }

@@ -121,6 +121,7 @@ public class Model {
 	 */
 	public boolean removeTag(String tag) {
 		if (tags.remove(tag)) {
+			library.removeTagFromAllImages(tag);
 			pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null, tags);
 			return true;
 		} else

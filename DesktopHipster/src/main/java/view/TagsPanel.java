@@ -67,12 +67,23 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 						tagsToShow);
 			}
 		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			TagItem src = (TagItem) e.getSource();
+			src.setRemoveIconVisible(true);
+		}
+		
+		@Override
+		public void mouseExited(MouseEvent e) {
+			TagItem src = (TagItem) e.getSource();
+			src.setRemoveIconVisible(false);
+		}
 	};
 
 	public TagsPanel(PropertyChangeSupport p) {
 		super();
 		pcs = p;
-		setItems(new ArrayList<TagItem>());
+		items = new ArrayList<TagItem>();
 		initialize();
 	}
 	
@@ -168,5 +179,18 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	public List<TagItem> getItems() {
 		return items;
 	}
+
+	public int getNrOfTags() {
+		return items.size();
+	}
+
+	public int getNrOfSelectedTags() {
+		int count = 0;
+		for(TagItem ti: items)
+			if(ti.isSelected())
+				count++;
+		return count;
+	}
+	
 
 }

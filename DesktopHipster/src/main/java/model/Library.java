@@ -19,8 +19,8 @@ import javax.swing.ImageIcon;
 /**
  * The Library will keep track of the imported images.
  * 
- * @authour Lovisa Jäberg
- * @revised Edvard Hübinette
+ * @authour Lovisa J��berg
+ * @revised Edvard H��binette
  */
 
 public class Library {
@@ -181,5 +181,11 @@ public class Library {
 		if(imageList.contains(extendedImage)){
 			imageList.remove(extendedImage);
 		}
+	}
+
+	public void removeTagFromAllImages(String tag) {
+		for(ExtendedImage img:getImageList())
+			img.removeTag(tag);
+		
 	}
 }

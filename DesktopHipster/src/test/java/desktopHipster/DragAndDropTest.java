@@ -5,7 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class DragAndDropTest {
-	public DragAndDropTest(){
+	@Test
+	public void main(){
 	
 		DDFrameTest frameTest = new DDFrameTest();
 		//Test if real image is accepted by file filter
