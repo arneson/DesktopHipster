@@ -57,7 +57,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 			}
 			else {
 				tagsToShow.clear();
-				for (TagItem item : items) {
+				for (TagItem item : getItems()) {
 					if (item.isSelected()){
 						tagsToShow.add(item.getText());
 					}	
@@ -72,7 +72,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	public TagsPanel(PropertyChangeSupport p) {
 		super();
 		pcs = p;
-		items = new ArrayList<TagItem>();
+		setItems(new ArrayList<TagItem>());
 		initialize();
 	}
 	
@@ -96,12 +96,12 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	 * @Param The ExtendedImage from which tags should be loaded from.
 	 */
 	public void loadActiveTagsFromImage(ExtendedImage img) {
-		for (TagItem item : items){
+		for (TagItem item : getItems()){
 			item.setSelected(false);
 		}
 		if (img != null) {
 			for (String t : img.getTags()) {
-				for (TagItem item : items) {
+				for (TagItem item : getItems()) {
 					if (item.getText().equals(t)) {
 						item.setSelected(true);
 					}
@@ -109,7 +109,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 			}
 		} else {
 			for(String t : tagsToShow) {
-				for(TagItem item : items) {
+				for(TagItem item : getItems()) {
 					if(item.getText().equals(t)) {
 						item.setSelected(true);
 					}
@@ -146,7 +146,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	 * @Param Tags to be marked in TagsPanel
 	 */
 	private void updateTagList(TreeSet<String> tags) {
-		items.clear();
+		getItems().clear();
 		
 		tagPanel.setLayout(new BoxLayout(tagPanel, BoxLayout.PAGE_AXIS));
 		tagPanel.setPreferredSize(new Dimension(getWidth(), tags.size()*height));
@@ -156,7 +156,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 		for(String t : tags) {
 			TagItem item = new TagItem(pcs, t, height, getWidth(), i%2==0);
 			item.addMouseListener(ma);
-			items.add(item);
+			getItems().add(item);
 			tagPanel.add(item);
 			i++;
 		}
@@ -164,4 +164,9 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 		tagPanel.revalidate();
 		tagPanel.repaint();
 	}
+
+	public List<TagItem> getItems() {
+		return items;
+	}
+
 }
