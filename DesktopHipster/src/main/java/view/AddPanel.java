@@ -81,7 +81,7 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 			System.out.println("Open this file");
 			for(File file : fileList){
 				System.out.println("This file is: " + file.getName());
-				pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY, null, file);
+				pcs.firePropertyChange(PropertyNames.VIEW_ADD_NEW_IMAGE_TO_LIBRARY, null, file);
 			}
 			break;
 		case JFileChooser.ERROR_OPTION:

@@ -19,6 +19,7 @@ public class PropertyNames {
 	public static final String VIEW_TAGS_ON_IMAGE_CHANGED = "VIEW_TAGS_ON_IMAGE_CHANGED";
 	public static final String VIEW_ADD_NEW_TAG = "VIEW_ADD_NEW_TAG";
 	public static final String VIEW_SHOW_IMAGES_WITH_TAGS = "VIEW_SHOW_IMAGES_WITH_TAGS";
+	public static final String VIEW_ADD_NEW_IMAGE_TO_LIBRARY = "ADD_NEW_IMAGE_TO_LIBRARY";
 
 	public static final String MODEL_CARD_CHANGE = "MODEL_CARD_CHANGE";
 	public static final String MODEL_ACTIVE_IMAGE_CHANGE = "MODEL_ACTIVE_IMAGE_CHANGE";
@@ -29,5 +30,4 @@ public class PropertyNames {
 	public static final String SAVE_LIST_TO_DISC = "SAVE_LIST_TO_DISC";
 	public static final String REMOVE_IMAGE_FROM_LIBRARY = "REMOVE_IMAGE_FROM_LIBRARY";
 	public static final String VIEW_REMOVE_TAG = "VIEW_REMOVE_TAG";
-
 }

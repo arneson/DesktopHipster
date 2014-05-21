@@ -137,7 +137,7 @@ public class Controller implements PropertyChangeListener {
 				model.removeTagOnActiveImage(evt.getNewValue().toString());
 			}
 			break;
-		case PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY:
+		case PropertyNames.VIEW_ADD_NEW_IMAGE_TO_LIBRARY:
 			File imageFile = (File) evt.getNewValue();
 			try {
 				model.addFileToLibrary(imageFile);

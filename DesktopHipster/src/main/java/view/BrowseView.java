@@ -169,7 +169,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 					for (int j = 0; j < list.size(); j++) {
 						// ta.append(list.get(j) + "\n");
 						pcs.firePropertyChange(
-								PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY, null,
+								PropertyNames.VIEW_ADD_NEW_IMAGE_TO_LIBRARY, null,
 								list.get(j));
 					}
 

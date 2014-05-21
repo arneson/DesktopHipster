@@ -64,7 +64,7 @@ public class DDFrame extends JFrame implements DropTargetListener {
 		    boolean valid = true;
 		    for (int j = 0; j < droppedFiles.size(); j++) {
 		    	if(isAcceptedImage(droppedFiles.get(j))){
-		    		firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY,null,droppedFiles.get(j));
+		    		firePropertyChange(PropertyNames.VIEW_ADD_NEW_IMAGE_TO_LIBRARY,null,droppedFiles.get(j));
 		    		setDropOKLogo();
 		    	}
 		    	else{
