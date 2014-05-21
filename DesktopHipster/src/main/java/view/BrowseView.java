@@ -3,6 +3,7 @@ package view;
 import general.PropertyNames;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
@@ -109,6 +110,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
 			proceedButton.setIcon(new ImageIcon(getClass().getResource(
 					"/proceedButton.jpg")));
+			proceedButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			proceedButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					pcs.firePropertyChange(
@@ -127,7 +129,6 @@ public class BrowseView extends Card implements PropertyChangeListener,
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

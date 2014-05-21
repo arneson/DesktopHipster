@@ -3,24 +3,21 @@ package view;
 import general.PropertyNames;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * 
@@ -46,15 +43,15 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 		
 		setPreferredSize(new Dimension(side,side));
 		setLayout(new BorderLayout());
-		setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		setToolTipText("Add image to library");
-		setCursor(new Cursor(Cursor.HAND_CURSOR));
-		
+		setOpaque(true);
+
 		chooseFile = new JFileChooser();
 
-		//setOpaque(true);
-		label = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
+		label = new JLabel(new ImageIcon(getClass().getResource("/addPanelImage.png")));
+		label.setPreferredSize(new Dimension(side,side));
 		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		label.setBackground(Constants.CONTRASTCOLORLIGHT.getColor());
+		label.setToolTipText("Click here to add an image to your library");
 		label.setOpaque(true);
 		add(label, BorderLayout.CENTER);
 		label.addMouseListener(new MouseAdapter(){
@@ -82,9 +79,6 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 			break;
 		case JFileChooser.APPROVE_OPTION:
 			System.out.println("Open this file");
-			/*System.out.println("This file is: " + file.getName());
-			pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY, null, file);
-*/
 			for(File file : fileList){
 				System.out.println("This file is: " + file.getName());
 				pcs.firePropertyChange(PropertyNames.ADD_NEW_IMAGE_TO_LIBRARY, null, file);
@@ -94,7 +88,6 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 			System.out.println("Error");
 			break;
 		}
-
 	}
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {

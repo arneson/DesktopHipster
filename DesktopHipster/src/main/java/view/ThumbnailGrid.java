@@ -3,6 +3,7 @@ package view;
 import general.PropertyNames;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -46,16 +47,18 @@ public class ThumbnailGrid extends JScrollPane implements
 	}
 
 	public void initialize() {
+		
 		content = new JPanel();
-		content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		wrapper = new JPanel();
 		wrapper.setBackground(Constants.BACKGROUNDCOLOR.getColor());
-
+		
 		content.setLayout(new BorderLayout());
 		content.add(wrapper, BorderLayout.NORTH);
+		content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
 		setBorder(null);
 		setViewportView(content);
+		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
 		ma = new MouseAdapter() {
 			@Override
@@ -69,6 +72,7 @@ public class ThumbnailGrid extends JScrollPane implements
 
 	private void updateGrid() {
 		addPanel = new AddPanel(side, pcs);
+		addPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		addPanel.setOpaque(true);
 		
 		int size = data.size()+1;
@@ -85,6 +89,7 @@ public class ThumbnailGrid extends JScrollPane implements
 			} else if(i < size) {
 				ThumbnailPanel tp = new ThumbnailPanel(pcs, data.get(i-1), side);
 				tp.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+				tp.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				tp.addMouseMotionL(ma);
 				wrapper.add(tp);
 				panelList.add(tp);

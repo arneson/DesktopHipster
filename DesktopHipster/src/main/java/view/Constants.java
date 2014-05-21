@@ -7,8 +7,11 @@ public enum Constants {
 
 	BACKGROUNDCOLOR(new Color(255, 255, 255)),
 	BACKGROUNDCOLOR_1(new Color(245, 245, 245)),
-	BACKGROUNDCOLOR_2(new Color(240, 240, 240)), 
-	TEXTCOLOR(new Color(104, 106,108));
+	BACKGROUNDCOLOR_2(new Color(240, 240, 240)),
+	TEXTCOLOR(new Color(104, 106, 108)),
+	ADDPANELBACKGROUND(new Color(250, 240, 200)),
+	CONTRASTCOLOR(new Color(129, 238, 206)),
+	CONTRASTCOLORLIGHT(new Color(186, 245, 228));
 
 	private Color color;
 	private Font font;

@@ -4,9 +4,12 @@ import general.PropertyNames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -29,9 +32,10 @@ public class ThumbnailPanelLayer extends JPanel {
 	private final int iconSide = 35;
 
 	private JScrollPane scroll;
-	private JPanel content, contentWrapper, iconWrapper, tagIcon, deleteIcon,
-			saveIcon;
+	private JPanel content, contentWrapper, iconWrapper;
+	private JButton deleteIcon, tagIcon, saveIcon;
 	private PropertyChangeSupport pcs;
+	private ThumbnailData data;
 
 	public ThumbnailPanelLayer(PropertyChangeSupport pcs, ThumbnailData data,
 			int side) {
@@ -44,15 +48,18 @@ public class ThumbnailPanelLayer extends JPanel {
 		hideLayer();
 		setOpaque(false);
 
+		this.data = data;
 		content = new JPanel();
 		contentWrapper = new JPanel();
 		scroll = new JScrollPane(contentWrapper,
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		tagIcon = new JPanel();
-		deleteIcon = new JPanel();
-		saveIcon = new JPanel();
+		tagIcon = new JButton();
+		deleteIcon = new JButton(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
+		saveIcon = new JButton();
 		iconWrapper = new JPanel();
+
+		deleteIcon.addActionListener(myActionListener);
 
 		scroll.setBorder(null);
 		scroll.setPreferredSize(new Dimension(0, side / 4
@@ -69,7 +76,10 @@ public class ThumbnailPanelLayer extends JPanel {
 		saveIcon.setPreferredSize(new Dimension(iconSide, iconSide));
 		saveIcon.setBackground(Color.green);
 		tagIcon.setBackground(Color.red);
-		deleteIcon.setBackground(Color.blue);
+		//JLabel deleteLabel = new JLabel(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
+		//deleteIcon.add(deleteLabel, BorderLayout.CENTER);
+
+		deleteIcon.setToolTipText("Remove image from library");
 
 		iconWrapper.setOpaque(false);
 		iconWrapper.setPreferredSize(new Dimension(0, iconSide + 10));
@@ -77,22 +87,40 @@ public class ThumbnailPanelLayer extends JPanel {
 		iconWrapper.add(deleteIcon);
 		iconWrapper.add(tagIcon);
 		iconWrapper.add(saveIcon);
+		iconWrapper.setBackground(null);
 
 		contentWrapper.setLayout(new BorderLayout());
 		contentWrapper.add(content, BorderLayout.WEST);
 
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN,
-						null, data);
-			}
-		});
+		addMouseListener(myMouseAdapter);
 
 		setLayout(new BorderLayout());
 		add(scroll, BorderLayout.SOUTH);
 		add(iconWrapper, BorderLayout.NORTH);
 	}
+
+	private ActionListener myActionListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource().equals(deleteIcon)){
+				System.out.println("Remove chosen image");
+				pcs.firePropertyChange(PropertyNames.REMOVE_IMAGE_FROM_LIBRARY, null, null);
+			} else if (e.getSource().equals(tagIcon)){
+				System.out.println("Show tags");
+			}
+		}
+
+	};
+
+	private MouseAdapter myMouseAdapter = new MouseAdapter() {
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN,
+					null, data);
+
+		}
+	};
 
 	public void showLayer() {
 		setVisible(true);
@@ -120,15 +148,15 @@ public class ThumbnailPanelLayer extends JPanel {
 
 		if (versions.size() > 4) {
 			contentWrapper
-					.setPreferredSize(new Dimension(versions.size() * side,
-							side
-									+ scroll.getHorizontalScrollBar()
-											.getPreferredSize().height));
+			.setPreferredSize(new Dimension(versions.size() * side,
+					side
+					+ scroll.getHorizontalScrollBar()
+					.getPreferredSize().height));
 		} else {
 			contentWrapper
-					.setPreferredSize(new Dimension(4 * side, side
-							+ scroll.getHorizontalScrollBar()
-									.getPreferredSize().height));
+			.setPreferredSize(new Dimension(4 * side, side
+					+ scroll.getHorizontalScrollBar()
+					.getPreferredSize().height));
 		}
 
 		if (versions.size() == 0) {
@@ -146,6 +174,7 @@ public class ThumbnailPanelLayer extends JPanel {
 					150, 150), 1));
 			content.add(version);
 		}
+		content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		content.revalidate();
 		content.repaint();
 	}

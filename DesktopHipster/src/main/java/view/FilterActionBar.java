@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class FilterActionBar extends JPanel {
 		}
 
 		for (FilterButton button : buttons) {
+			button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			container.add(button);
 		}
 

@@ -161,6 +161,11 @@ public class Model {
 		getLibrary().load(imageFile);
 		updateGrid(null);
 	}
+	
+	public void removeFileFromLibrary(ExtendedImage imageFile) {
+		getLibrary().remove(imageFile);
+		updateGrid(null);
+	}
 
 	/**
 	 * Adds a tag to the currently active image
@@ -202,7 +207,6 @@ public class Model {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**

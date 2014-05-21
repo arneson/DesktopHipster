@@ -109,7 +109,6 @@ public class Controller implements PropertyChangeListener {
 				}
 				model.getLibrary().save(imageToSave, (File) evt.getNewValue());
 
-
 			} catch (NoSuchVersionException e) {
 				System.out.println("No such version!");
 				e.printStackTrace();
@@ -126,6 +125,7 @@ public class Controller implements PropertyChangeListener {
 
 		case PropertyNames.VIEW_ADD_NEW_TAG:
 			model.addTag(evt.getNewValue().toString());
+
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
 			if ((boolean) evt.getOldValue()){
@@ -151,6 +151,9 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS:
 			model.updateGrid((TreeSet<String>) evt.getNewValue());
+			break;
+		case PropertyNames.REMOVE_IMAGE_FROM_LIBRARY:
+			model.getLibrary().remove(model.getActiveImage());
 		}
 	}
 
