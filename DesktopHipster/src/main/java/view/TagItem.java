@@ -1,8 +1,12 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
@@ -11,7 +15,7 @@ import javax.swing.border.Border;
 @SuppressWarnings("serial")
 public class TagItem extends JPanel{
 	private PropertyChangeSupport pcs;
-	private JLabel label;
+	private JLabel label, remove;
 	private boolean selected;
 	private boolean odd;
 	
@@ -26,6 +30,10 @@ public class TagItem extends JPanel{
 		label = new JLabel(tagName);
 		label.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		label.setOpaque(true);
+		label.setPreferredSize(new Dimension(width - 15 - 20, height));
+		
+		remove = new JLabel("x");
+		remove.setPreferredSize(new Dimension(15,15));
 		
 		if(odd) {
 			setAllBackgrounds(Constants.BACKGROUNDCOLOR_1.getColor());
@@ -33,8 +41,34 @@ public class TagItem extends JPanel{
 			setAllBackgrounds(Constants.BACKGROUNDCOLOR_2.getColor());
 		}
 		
-		setLayout(new GridLayout(1,1));
-		add(label);
+		remove.setVisible(false);
+		
+		setLayout(new BorderLayout());
+		add(label, BorderLayout.CENTER);
+		add(remove, BorderLayout.EAST);
+		
+		remove.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+		});
+		
+		MouseListener hoverAdapter = new MouseAdapter(){
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				remove.setVisible(true);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				remove.setVisible(false);
+ 			}
+		};
+		
+		addMouseListener(hoverAdapter);
+		label.addMouseListener(hoverAdapter);
+		remove.addMouseListener(hoverAdapter);
 		
 		setPreferredSize(new Dimension(width,height));
 		setMaximumSize(new Dimension(width,height));

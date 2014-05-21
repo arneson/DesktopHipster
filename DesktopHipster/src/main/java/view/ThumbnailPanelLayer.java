@@ -33,7 +33,7 @@ public class ThumbnailPanelLayer extends JPanel {
 
 	private JScrollPane scroll;
 	private JPanel content, contentWrapper, iconWrapper;
-	private JButton deleteIcon, tagIcon, saveIcon;
+	private JButton deleteIcon;//, tagIcon, saveIcon;
 	private PropertyChangeSupport pcs;
 	private ThumbnailData data;
 
@@ -54,9 +54,9 @@ public class ThumbnailPanelLayer extends JPanel {
 		scroll = new JScrollPane(contentWrapper,
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		tagIcon = new JButton();
+		//tagIcon = new JButton();
 		deleteIcon = new JButton(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
-		saveIcon = new JButton();
+		//saveIcon = new JButton();
 		iconWrapper = new JPanel();
 
 		deleteIcon.addActionListener(myActionListener);
@@ -71,11 +71,11 @@ public class ThumbnailPanelLayer extends JPanel {
 		content.setOpaque(false);
 		scroll.getViewport().setOpaque(false);
 
-		tagIcon.setPreferredSize(new Dimension(iconSide, iconSide));
+		//tagIcon.setPreferredSize(new Dimension(iconSide, iconSide));
 		deleteIcon.setPreferredSize(new Dimension(iconSide, iconSide));
-		saveIcon.setPreferredSize(new Dimension(iconSide, iconSide));
-		saveIcon.setBackground(Color.green);
-		tagIcon.setBackground(Color.red);
+		//saveIcon.setPreferredSize(new Dimension(iconSide, iconSide));
+		//saveIcon.setBackground(Color.green);
+		//tagIcon.setBackground(Color.red);
 		//JLabel deleteLabel = new JLabel(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
 		//deleteIcon.add(deleteLabel, BorderLayout.CENTER);
 
@@ -85,8 +85,8 @@ public class ThumbnailPanelLayer extends JPanel {
 		iconWrapper.setPreferredSize(new Dimension(0, iconSide + 10));
 		iconWrapper.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 		iconWrapper.add(deleteIcon);
-		iconWrapper.add(tagIcon);
-		iconWrapper.add(saveIcon);
+		//iconWrapper.add(tagIcon);
+		//iconWrapper.add(saveIcon);
 		iconWrapper.setBackground(null);
 
 		contentWrapper.setLayout(new BorderLayout());
@@ -106,9 +106,9 @@ public class ThumbnailPanelLayer extends JPanel {
 			if(e.getSource().equals(deleteIcon)){
 				System.out.println("Remove chosen image");
 				pcs.firePropertyChange(PropertyNames.REMOVE_IMAGE_FROM_LIBRARY, null, null);
-			} else if (e.getSource().equals(tagIcon)){
+			}/* else if (e.getSource().equals(tagIcon)){
 				System.out.println("Show tags");
-			}
+			}*/
 		}
 
 	};
@@ -135,12 +135,12 @@ public class ThumbnailPanelLayer extends JPanel {
 		scroll.addMouseMotionListener(ma);
 		content.addMouseMotionListener(ma);
 		deleteIcon.addMouseMotionListener(ma);
-		tagIcon.addMouseMotionListener(ma);
+		//tagIcon.addMouseMotionListener(ma);
 	}
 
 	public boolean isChild(Object o) {
 		return o.equals(this) || o.equals(scroll) || o.equals(content)
-				|| o.equals(deleteIcon) || o.equals(tagIcon);
+				|| o.equals(deleteIcon);// || o.equals(tagIcon);
 	}
 
 	public void addVersionList(List<BufferedImage> versions, int side) {
