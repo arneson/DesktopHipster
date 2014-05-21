@@ -16,6 +16,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Textfield for adding new tags to library
+ * 
+ * @authour Simon Arneson
+ */
+
+
 @SuppressWarnings("serial")
 public class NewTagTextField extends JPanel {
 	PropertyChangeSupport pcs;
@@ -42,6 +49,7 @@ public class NewTagTextField extends JPanel {
 		tf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//Tells the model that the user has added a new tag in the view.
 				pcs.firePropertyChange(PropertyNames.VIEW_ADD_NEW_TAG, null,
 						tf.getText());
 				tf.setText("");

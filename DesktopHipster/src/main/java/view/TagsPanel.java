@@ -28,6 +28,13 @@ import javax.swing.border.Border;
 
 import model.ExtendedImage;
 
+/**
+ * Panel in GUI containing the tags and actions made on tags
+ * 
+ * @authour Simon Arneson
+ * @revised Robin Sveningson
+ */
+
 @SuppressWarnings("serial")
 public class TagsPanel extends JPanel implements PropertyChangeListener {
 	private PropertyChangeSupport pcs;
@@ -83,7 +90,11 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 		add(scroll, BorderLayout.CENTER);
 		add(new NewTagTextField(pcs, height), BorderLayout.SOUTH);
 	}
-
+	/**
+	 * Method in charge of determining which tags should be 
+	 * marked when an image is selected
+	 * @Param The ExtendedImage from which tags should be loaded from.
+	 */
 	public void loadActiveTagsFromImage(ExtendedImage img) {
 		for (TagItem item : items){
 			item.setSelected(false);
@@ -111,6 +122,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch (evt.getPropertyName()) {
+		//Fires when the model changes it's active image
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
 			if (evt.getNewValue() != null) {
 				ExtendedImage img = (ExtendedImage) evt.getNewValue();
@@ -121,6 +133,7 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 				imageChosen = false;
 			}
 			break;
+		//Fires when a tag is added or removed from the library
 		case PropertyNames.MODEL_TAGS_CHANGED:
 			tags = (TreeSet<String>) evt.getNewValue();
 			updateTagList(tags);
@@ -128,7 +141,10 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 		}
 
 	}
-	
+	/**
+	 * Method in charge of marking the tags which are sent in.
+	 * @Param Tags to be marked in TagsPanel
+	 */
 	private void updateTagList(TreeSet<String> tags) {
 		items.clear();
 		

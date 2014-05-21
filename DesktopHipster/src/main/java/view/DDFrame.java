@@ -110,7 +110,6 @@ public class DDFrame extends JFrame implements DropTargetListener {
 		dropArea.setIcon(new ImageIcon(getClass()
 				.getResource("/AddPanelOK.png")));
 	}
-
 	@Override
 	public void dragOver(DropTargetDragEvent dtde) {
 		//Has to be here to implement interface.

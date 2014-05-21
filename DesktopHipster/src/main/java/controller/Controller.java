@@ -25,6 +25,7 @@ import view.View;
  * @author Robin Sveningson
  * @revised Lovisa Jäberg
  * @revised Edvard Hübinette
+ * @revised Simon Arneson
  */
 public class Controller implements PropertyChangeListener {
 	private Model model;

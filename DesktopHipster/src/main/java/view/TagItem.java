@@ -14,6 +14,13 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+/**
+ * Items displaying tags in TagPanel
+ * 
+ * @authour Simon Arneson
+ * @revised Robin Sveningson
+ */
+
 @SuppressWarnings("serial")
 public class TagItem extends JPanel{
 	private PropertyChangeSupport pcs;
