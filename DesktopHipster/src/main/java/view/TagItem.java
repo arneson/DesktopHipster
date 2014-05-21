@@ -1,5 +1,7 @@
 package view;
 
+import general.PropertyNames;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,7 +52,7 @@ public class TagItem extends JPanel{
 		remove.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				
+				pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_TAG, null, label.getText());
 			}
 		});
 		

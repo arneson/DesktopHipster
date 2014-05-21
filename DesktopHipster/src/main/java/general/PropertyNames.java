@@ -28,5 +28,6 @@ public class PropertyNames {
 	public static final String ADD_NEW_IMAGE_TO_LIBRARY = "ADD_NEW_IMAGE_TO_LIBRARY";
 	public static final String SAVE_LIST_TO_DISC = "SAVE_LIST_TO_DISC";
 	public static final String REMOVE_IMAGE_FROM_LIBRARY = "REMOVE_IMAGE_FROM_LIBRARY";
+	public static final String VIEW_REMOVE_TAG = "VIEW_REMOVE_TAG";
 
 }

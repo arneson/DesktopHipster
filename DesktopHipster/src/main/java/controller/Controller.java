@@ -125,7 +125,8 @@ public class Controller implements PropertyChangeListener {
 
 		case PropertyNames.VIEW_ADD_NEW_TAG:
 			model.addTag(evt.getNewValue().toString());
-
+		case PropertyNames.VIEW_REMOVE_TAG:
+			model.removeTag(evt.getNewValue().toString());
 			break;
 		case PropertyNames.VIEW_TAGS_ON_IMAGE_CHANGED:
 			if ((boolean) evt.getOldValue()){
