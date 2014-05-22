@@ -13,9 +13,4 @@ public class BlackWhiteFilter implements IFilter {
 		return ImageTools.applyGrayscale(image);
 	}
 
-	@Override
-	public String getName() {
-		return "BlackWhiteFilter";
-	}
-
 }

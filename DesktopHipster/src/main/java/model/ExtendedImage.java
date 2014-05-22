@@ -40,6 +40,7 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	private transient BufferedImage preview;
 	private transient BufferedImage thumbnail;
 	private transient BufferedImage original;
+	private transient BufferedImage previewOriginal;
 
 	private transient Map<FiltersEnum, BufferedImage> versions = new HashMap<FiltersEnum, BufferedImage>();
 
@@ -66,7 +67,9 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		graphics.dispose();
 
 		preview = filter.ImageTools.toBufferedImage(original.getScaledInstance(
-				750, -1, Image.SCALE_SMOOTH));
+				750, -1, Image.SCALE_FAST));
+		previewOriginal = filter.ImageTools.toBufferedImage(original.getScaledInstance(
+				750, -1, Image.SCALE_FAST));
 		thumbnail = filter.ImageTools.toBufferedImage(original
 				.getScaledInstance(50, -1, Image.SCALE_FAST));
 		imageID = id += 1;
@@ -246,6 +249,8 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		original = ImageIO.read(stream);
 		preview = filter.ImageTools.toBufferedImage(original.getScaledInstance(
 				750, -1, Image.SCALE_FAST));
+		previewOriginal = filter.ImageTools.toBufferedImage(original.getScaledInstance(
+				750, -1, Image.SCALE_FAST));
 		thumbnail = filter.ImageTools.toBufferedImage(original
 				.getScaledInstance(50, -1, Image.SCALE_FAST));
 
@@ -338,4 +343,9 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		}
 		return true;
 	}
+
+	public BufferedImage getPreviewOriginal() {
+		return previewOriginal;
+	}
+
 }

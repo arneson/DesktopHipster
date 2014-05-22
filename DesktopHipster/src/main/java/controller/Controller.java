@@ -3,6 +3,7 @@ package controller;
 import filter.FiltersEnum;
 import general.PropertyNames;
 
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -46,8 +47,15 @@ public class Controller implements PropertyChangeListener {
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
 		dndTray.addPropertyChangeListener(this);
-		model.startUp();
+		uploadPop.setVisible(true);
+		try{
+			model.startUp();
+		}
+		catch(ClassNotFoundException e){
+			model.clearBackup();
+		}
 		model.updateGrid(null);
+		uploadPop.setVisible(false);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -71,9 +79,12 @@ public class Controller implements PropertyChangeListener {
 					getFilter()
 					.applyFilter(
 							tempImg.
-							getPreview()));
+							getPreviewOriginal()));
 			model.setActiveImage(tempImg);
-			model.setActiveFilter((FiltersEnum) evt.getNewValue());
+			if( evt.getNewValue()!=null)
+				model.setActiveFilter((FiltersEnum) evt.getNewValue());
+			else
+				model.setActiveFilter(null);
 			break;
 		case PropertyNames.VIEW_APPLY_FILTER:
 			FiltersEnum activeFilterName = model.getActiveFilter();

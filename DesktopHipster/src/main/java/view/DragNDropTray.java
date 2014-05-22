@@ -39,8 +39,15 @@ public class DragNDropTray {
 				@Override
 				public void mousePressed(MouseEvent e) {
 					if (!popup.isVisible()) {
-						popup.setLocation(MouseInfo.getPointerInfo()
-								.getLocation().x - 5, 24);
+						if(MouseInfo.getPointerInfo().getLocation().x>
+						  (int)((Toolkit.getDefaultToolkit().getScreenSize().height)*0.5)){
+							popup.setLocation(MouseInfo.getPointerInfo()
+									.getLocation().x - 5, 24);
+						}
+						else{
+							popup.setLocation(MouseInfo.getPointerInfo()
+								.getLocation().x - 5, (int)((Toolkit.getDefaultToolkit().getScreenSize().height-24)));
+						}
 						popPosition =MouseInfo.getPointerInfo()
 								.getLocation().x - 5;
 						popup.setVisible(true);
