@@ -165,13 +165,20 @@ public class ThumbnailPanelLayer extends JPanel {
 		content.removeAll();
 		content.setLayout(new GridLayout(1, versions.size()));
 		content.setPreferredSize(new Dimension(side * versions.size(), side));
-		for (BufferedImage img : versions) {
-			JLabel version = new JLabel(new ImageIcon(img.getScaledInstance(
+		for (int i = 0; i < versions.size(); i++) {
+			final JLabel version = new JLabel(new ImageIcon(versions.get(i).getScaledInstance(
 					side - 1, -1, WIDTH)));
 			version.setPreferredSize(new Dimension(side - 1, side - 1));
 			version.setBorder(BorderFactory.createLineBorder(new Color(150,
 					150, 150), 1));
 			content.add(version);
+			final int j = i;
+			version.addMouseListener(new MouseAdapter(){
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					
+				}
+			});
 		}
 		content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		content.revalidate();

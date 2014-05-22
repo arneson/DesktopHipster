@@ -20,6 +20,7 @@ public class PropertyNames {
 	public static final String VIEW_ADD_NEW_TAG = "VIEW_ADD_NEW_TAG";
 	public static final String VIEW_SHOW_IMAGES_WITH_TAGS = "VIEW_SHOW_IMAGES_WITH_TAGS";
 	public static final String VIEW_ADD_NEW_IMAGE_TO_LIBRARY = "ADD_NEW_IMAGE_TO_LIBRARY";
+	public static final String VIEW_VERSION_SELECTED = "VERSION_SELECTED";
 
 	public static final String MODEL_CARD_CHANGE = "MODEL_CARD_CHANGE";
 	public static final String MODEL_ACTIVE_IMAGE_CHANGE = "MODEL_ACTIVE_IMAGE_CHANGE";
