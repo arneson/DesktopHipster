@@ -1,7 +1,7 @@
 package filter;
 
 /**
- * Simple grayscale filter
+ * A simple grayscale filter.
  * 
  * @author Edvard Hübinette
  */
