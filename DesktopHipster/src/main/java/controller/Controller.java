@@ -3,7 +3,6 @@ package controller;
 import filter.FiltersEnum;
 import general.PropertyNames;
 
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -48,6 +47,7 @@ public class Controller implements PropertyChangeListener {
 		model.addPropertyChangeListener(view);
 		dndTray.addPropertyChangeListener(this);
 		uploadPop.setVisible(true);
+		uploadPop.setText("Loading library...");
 		try{
 			model.startUp();
 		}
@@ -99,6 +99,7 @@ public class Controller implements PropertyChangeListener {
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
 			uploadPop.setLocation(dndTray.getPopPosition(), 24);
 			uploadPop.setVisible(true);
+			uploadPop.setText("Uploading to host...");
 			IHost chosenHost = (IHost) evt.getNewValue();
 			try {
 				BufferedImage imageToUpload;

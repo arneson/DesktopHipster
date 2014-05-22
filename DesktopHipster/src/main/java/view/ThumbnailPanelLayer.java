@@ -14,7 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeSupport;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
@@ -175,7 +174,6 @@ public class ThumbnailPanelLayer extends JPanel {
 			version.setBorder(BorderFactory.createLineBorder(new Color(150,
 					150, 150), 1));
 			content.add(version);
-			final int j = i;
 			version.addMouseListener(new MouseAdapter(){
 				@Override
 				public void mouseReleased(MouseEvent e) {

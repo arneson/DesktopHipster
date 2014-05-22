@@ -139,9 +139,9 @@ public class Library {
 	}
 
 	public void updateThumbnailSizes(final int width) {
-		for (final ExtendedImage image : imageList) {
+		for (final Object image : imageList.toArray()) {
 			try {
-				image.setThumbnailSize(width);
+				((ExtendedImage)image).setThumbnailSize(width);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
