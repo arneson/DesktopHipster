@@ -1,5 +1,6 @@
 package view;
 
+import filter.FiltersEnum;
 import general.PropertyNames;
 
 import java.awt.BorderLayout;
@@ -14,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -142,7 +144,7 @@ public class ThumbnailPanelLayer extends JPanel {
 				|| o.equals(deleteIcon);// || o.equals(tagIcon);
 	}
 
-	public void addVersionList(List<BufferedImage> versions, int side) {
+	public void addVersionList(Map<FiltersEnum, BufferedImage> versions, int side) {
 		side = side / 4;
 
 		if (versions.size() > 4) {
@@ -168,6 +170,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		for (int i = 0; i < versions.size(); i++) {
 			final JLabel version = new JLabel(new ImageIcon(versions.get(i).getScaledInstance(
 					side - 1, -1, WIDTH)));
+			version.setName(versions.keySet().toArray()[i].toString());
 			version.setPreferredSize(new Dimension(side - 1, side - 1));
 			version.setBorder(BorderFactory.createLineBorder(new Color(150,
 					150, 150), 1));
@@ -176,7 +179,11 @@ public class ThumbnailPanelLayer extends JPanel {
 			version.addMouseListener(new MouseAdapter(){
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					
+					JLabel sourceLabel = (JLabel) e.getSource();
+					pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_FILTER_CHANGE, null, sourceLabel.getName());
+					pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN,
+							null, data);
+					pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.CardState.UPLOAD);
 				}
 			});
 		}

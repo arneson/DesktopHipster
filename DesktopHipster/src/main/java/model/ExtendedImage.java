@@ -146,8 +146,8 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	 * Returns a list of all versions of this image
 	 */
 	@Override
-	public List<BufferedImage> getVersions() {
-		return new ArrayList<BufferedImage>(versions.values());
+	public Map<FiltersEnum, BufferedImage> getVersions() {
+		return new TreeMap<FiltersEnum, BufferedImage>(versions);
 	}
 
 	/**

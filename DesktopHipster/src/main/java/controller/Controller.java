@@ -75,14 +75,15 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.VIEW_ACTIVE_FILTER_CHANGE:
 			ExtendedImage tempImg = model.getActiveImage();
-			tempImg.setPreview(((FiltersEnum) evt.getNewValue()).
-					getFilter()
-					.applyFilter(
-							tempImg.
-							getPreviewOriginal()));
-			model.setActiveImage(tempImg);
-			if( evt.getNewValue()!=null)
+			if( evt.getNewValue()!=null){
+				tempImg.setPreview(((FiltersEnum) evt.getNewValue()).
+						getFilter()
+						.applyFilter(
+								tempImg.
+								getPreviewOriginal()));
+				model.setActiveImage(tempImg);
 				model.setActiveFilter((FiltersEnum) evt.getNewValue());
+			}
 			else
 				model.setActiveFilter(null);
 			break;
