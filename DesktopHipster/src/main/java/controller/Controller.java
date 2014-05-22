@@ -113,7 +113,6 @@ public class Controller implements PropertyChangeListener {
 				UploadRunnable upRun = new UploadRunnable(imageToUpload,chosenHost,uploadPop);
 				Thread uploadThread = new Thread(upRun);  
 				uploadThread.start();
-				//chosenHost.uploadImage(imageToUpload);
 
 			} catch (NoSuchVersionException e) {
 				// Should be impossible

@@ -131,7 +131,6 @@ public class UploadView extends Card implements PropertyChangeListener {
 				add(libraryButton,BorderLayout.CENTER);
 			}});
 			addSouth(new JPanel(new BorderLayout()){{
-				//add(saveLogo,BorderLayout.NORTH);
 			add(saveIcon,BorderLayout.NORTH);
 			}});
 	}
@@ -187,7 +186,6 @@ public class UploadView extends Card implements PropertyChangeListener {
 	private List<JButton> createHostButtons() {
 		ArrayList<JButton> list = new ArrayList<JButton>();
 		for(final HostsEnum host : HostsEnum.values()){
-
 			JButton btn = new JButton(host.getIcon());
 			Dimension btnDimension = new Dimension(ICONWIDTH, -1);
 			btn.setIcon(host.getScaledIcon(btnDimension));

@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 /**
  * Interface for host implementations
  * 
- * @author Edvard H��binette
+ * @author Edvard Hübinette
  * 
  */
 public interface IHost {
 	public static final String TMPFILE_PATH = "/tmp/DHtmp";
 
-	public boolean uploadImage(BufferedImage image);
+	public void uploadImage(BufferedImage image) throws UploadFailedException;
 }

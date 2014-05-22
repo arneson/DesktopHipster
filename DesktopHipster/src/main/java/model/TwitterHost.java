@@ -19,37 +19,48 @@ public class TwitterHost implements IHost {
 	private static final String CONSUMER_SECRET = "0DPbqRPEXRhmS4UOILnBtOsNokRTemwZ48ImzdpepKQcLvuKUX";
 	private static final String ACCESS_TOKEN = "168234981-62TkCNlvrTCjYAeW6KKYj6NB6IRBzmWFx8Sme6D3";
 	private static final String ACCESS_SECRET = "xYF1ghJShCVnJNEhrDtETF3xic9u3oMF7rdREdQJog85i";
-	Twitter twitter;
+	private ConfigurationBuilder cb;
+	private TwitterFactory tf;
+	private Twitter twitter;
+	private boolean authed;
 
 	public TwitterHost() {
-		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true).setOAuthConsumerKey(CONSUMER_KEY)
 				.setOAuthConsumerSecret(CONSUMER_SECRET)
 				.setOAuthAccessToken(ACCESS_TOKEN)
 				.setOAuthAccessTokenSecret(ACCESS_SECRET);
+		tf = new TwitterFactory(cb.build());
+		auth();
+	}
 
-		TwitterFactory tf = new TwitterFactory(cb.build());
-		twitter = tf.getInstance();
+	private boolean auth() {
+		try {
+			twitter = tf.getInstance();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public boolean uploadImage(BufferedImage image) {
+	public void uploadImage(BufferedImage image) throws UploadFailedException {
+		if (!authed) {
+			if (!auth()) {
+				throw new UploadFailedException(
+						"Could not authenticate with Twitter, please check your internet connection!");
+			}
+		}
+
 		StatusUpdate status = new StatusUpdate("DesktopHipster");
 		File tmp = new File(TMP_PATH);
-		FileOutputStream out = null;
 		try {
-			out = new FileOutputStream(tmp);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		}
-		try {
+			FileOutputStream out = new FileOutputStream(tmp);
 			ImageIO.write(image, "png", out);
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
+			throw new UploadFailedException();
 		}
 
 		status.setMedia(tmp);
@@ -57,11 +68,11 @@ public class TwitterHost implements IHost {
 		try {
 			twitter.updateStatus(status);
 		} catch (TwitterException e) {
-			e.printStackTrace();
-			return false;
+			throw new UploadFailedException(
+					"Could not perform upload, Twitter says this: "
+							+ e.getMessage());
 		}
 		tmp.delete();
-		return true;
 	}
 
 }
