@@ -3,14 +3,14 @@ package filter;
 /**
  * Enum of all filters. Add new filters here.
  * 
- * @author Edvard Hübinette
- * @revised Lovisa Jäberg
+ * @author Edvard H��binette
+ * @revised Lovisa J��berg
  * 
  */
 public enum FiltersEnum {
 
-	BWFILTER(new BlackWhiteFilter()), SEPIAFILTER(new SepiaFilter()), OLDSTYLEFILTER(
-			new OldStyleFilter());
+	NOFILTERFILTER(new NoFilterFilter()),BWFILTER(new BlackWhiteFilter()), 
+	SEPIAFILTER(new SepiaFilter()), OLDSTYLEFILTER(new OldStyleFilter());
 
 	private IFilter filter;
 

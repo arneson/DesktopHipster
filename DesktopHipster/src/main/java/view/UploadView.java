@@ -37,7 +37,7 @@ import model.HostsEnum;
  * select which site to upload the image to.
  * 
  * @author Robin Sveningson
- * @revised Lovisa Jäberg
+ * @revised Lovisa J��berg
  */
 
 @SuppressWarnings("serial")
@@ -60,6 +60,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 				saveDialog();
 			} else if(e.getSource().equals(libraryButton)){
 				pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.CardState.BROWSE.toString());
+				pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_FILTER_CHANGE, null, null);
 			}
 		}
 	};

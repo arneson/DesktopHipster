@@ -214,7 +214,7 @@ public class Model {
 	 * Reads in old applied tags and continues to read the library image dump.
 	 */
 	@SuppressWarnings("unchecked")
-	public void startUp() {
+	public void startUp() throws ClassNotFoundException {
 		if (new File(library.hiddenPath.toString()).length() > 0) {
 			ObjectInputStream stream = null;
 			try {
@@ -224,11 +224,16 @@ public class Model {
 				tags = (TreeSet<String>) stream.readObject();
 				pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null,
 						new TreeSet<String>(tags));
-			} catch (IOException | ClassNotFoundException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			library.loadFromHiddenDirectory(stream);
 		}
+	}
+
+	public void clearBackup() {
+		library.hiddenPath.toFile().delete();
+		
 	}
 
 }

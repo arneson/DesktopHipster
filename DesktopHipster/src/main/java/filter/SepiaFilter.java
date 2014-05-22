@@ -14,9 +14,5 @@ public class SepiaFilter implements IFilter {
 		return ImageTools.applySepia(image);
 	}
 
-	@Override
-	public String getName() {
-		return "SepiaFilter";
-	}
 
 }

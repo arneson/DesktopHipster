@@ -22,6 +22,7 @@ public class UploadPop extends JFrame {
 	    add(progBar);
 	    addWindowListener(null);
 	    setUndecorated(true);
-	    setLocation((int)((Toolkit.getDefaultToolkit().getScreenSize().width)*0.8), 24);
+	    setLocation((int)((Toolkit.getDefaultToolkit().getScreenSize().width)*0.4),
+	    		(int)((Toolkit.getDefaultToolkit().getScreenSize().height)*0.4));
 	}
 }
