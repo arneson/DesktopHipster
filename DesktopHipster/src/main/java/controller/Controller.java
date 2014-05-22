@@ -11,11 +11,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.TreeSet;
+
 import model.ExtendedImage;
 import model.IHost;
 import model.Model;
 import model.NoSuchVersionException;
 import view.DragNDropTray;
+import view.UploadPop;
 import view.View;
 
 /**
@@ -31,12 +33,14 @@ public class Controller implements PropertyChangeListener {
 	private Model model;
 	private View view;
 	private DragNDropTray dndTray;
+	private UploadPop uploadPop;
 
 	public Controller() {
 		view = new View();
 		model = new Model();
 
 		dndTray = new DragNDropTray();
+		uploadPop = new UploadPop();
 
 		view.addPropertyChangeListener(this);
 		model.addPropertyChangeListener(view);
@@ -79,6 +83,8 @@ public class Controller implements PropertyChangeListener {
 			}
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
+			uploadPop.setLocation(dndTray.getPopPosition(), 24);
+			uploadPop.setVisible(true);
 			IHost chosenHost = (IHost) evt.getNewValue();
 			try {
 				BufferedImage imageToUpload;
@@ -157,6 +163,10 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.REMOVE_IMAGE_FROM_LIBRARY:
 			model.getLibrary().remove(model.getActiveImage());
+			break;
+		case PropertyNames.VIEW_HIDE_UPLOAD_POPUP:
+			uploadPop.setVisible(false);
+			break;
 		}
 	}
 

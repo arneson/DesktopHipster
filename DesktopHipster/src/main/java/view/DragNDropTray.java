@@ -28,13 +28,13 @@ import javax.swing.JPopupMenu;
 
 public class DragNDropTray {
 	static DDFrame popup = new DDFrame();
-
+	private static int popPosition =(int)((Toolkit.getDefaultToolkit().getScreenSize().width)*0.8);
 	public DragNDropTray() {
 		TrayIcon trayIcon = null;
 		popup.setVisible(false);
 
 		if (SystemTray.isSupported()) {
-			// get the SystemTray instance
+			// get the SystemTray instance,
 			SystemTray tray = SystemTray.getSystemTray();
 			// load an image
 			Image image = null;
@@ -52,6 +52,8 @@ public class DragNDropTray {
 					if (!popup.isVisible()) {
 						popup.setLocation(MouseInfo.getPointerInfo()
 								.getLocation().x - 5, 24);
+						popPosition =MouseInfo.getPointerInfo()
+								.getLocation().x - 5;
 						popup.setVisible(true);
 						popup.setAlwaysOnTop(true);
 					} else {
@@ -69,5 +71,8 @@ public class DragNDropTray {
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		popup.addPropertyChangeListener(listener);
+	}
+	public int getPopPosition(){
+		return popPosition;
 	}
 }
