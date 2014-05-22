@@ -4,7 +4,6 @@ import general.PropertyNames;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -25,9 +24,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
 
 /**
  * One of the cards used in View.java. This jPanel represents the browse view
@@ -46,8 +42,8 @@ public class BrowseView extends Card implements PropertyChangeListener,
 	private JButton proceedButton;
 	private ThumbnailGrid grid;
 	private TagsPanel tags;
+	@SuppressWarnings("unused")
 	private DropTarget dt;
-	private JLabel logo, chooseImage;
 	private JPanel southPanel, centerPanel;
 
 	public BrowseView(PropertyChangeSupport pcs) {
@@ -57,6 +53,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 		pcs.addPropertyChangeListener(grid);
 	}
 
+	@SuppressWarnings("serial")
 	public void initialize() {
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
@@ -164,6 +161,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 					dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
 
 					// And add the list of file names to our text area
+					@SuppressWarnings("rawtypes")
 					java.util.List list = (java.util.List) tr
 							.getTransferData(flavors[i]);
 					for (int j = 0; j < list.size(); j++) {

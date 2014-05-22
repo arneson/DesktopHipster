@@ -3,9 +3,11 @@ package view;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import filter.FiltersEnum;
 
 /**
@@ -15,6 +17,8 @@ import filter.FiltersEnum;
  * @author Simon Arneson
  * @revised Edvard Hübinette
  */
+
+@SuppressWarnings("serial")
 public class FilterButton extends JButton {
 	private FiltersEnum filter;
 	private ImageIcon icon;

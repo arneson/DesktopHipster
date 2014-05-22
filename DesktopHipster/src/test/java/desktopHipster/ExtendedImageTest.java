@@ -114,7 +114,7 @@ public class ExtendedImageTest {
 		ExtendedImage readImage = (ExtendedImage) inStream.readObject();
 		assertTrue("Works if the image is equal to itself after serialization",
 				testImage.equals(readImage));
-
+		inStream.close();
 	}
 	
 	@Test

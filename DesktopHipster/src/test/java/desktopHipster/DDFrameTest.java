@@ -54,6 +54,7 @@ public class DDFrameTest {
 	@Test
 	public boolean testTrayIcon(){
 		try{
+			@SuppressWarnings("unused")
 			DragNDropTray ddtray = new DragNDropTray();
 			return true;
 		}catch(Exception e){

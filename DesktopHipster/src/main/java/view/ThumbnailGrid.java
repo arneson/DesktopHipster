@@ -19,8 +19,6 @@ import javax.swing.*;
 
 import model.ThumbnailData;
 
-import java.awt.Color;
-
 /**
  * This class displays all the images in the library as thumnails in a grid.
  * 

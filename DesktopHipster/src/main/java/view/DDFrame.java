@@ -5,7 +5,6 @@ import java.awt.dnd.*;
 import java.awt.datatransfer.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -60,8 +59,8 @@ public class DDFrame extends JFrame implements DropTargetListener {
 		  if (flavors[i].isFlavorJavaFileListType()) {
 		    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
 		    //Adds all the files dropped to a list
-		    java.util.List droppedFiles = (java.util.List)tr.getTransferData(flavors[i]);
-		    boolean valid = true;
+		    @SuppressWarnings("rawtypes")
+			java.util.List droppedFiles = (java.util.List)tr.getTransferData(flavors[i]);
 		    for (int j = 0; j < droppedFiles.size(); j++) {
 		    	if(isAcceptedImage(droppedFiles.get(j))){
 		    		firePropertyChange(PropertyNames.VIEW_ADD_NEW_IMAGE_TO_LIBRARY,null,droppedFiles.get(j));

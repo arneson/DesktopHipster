@@ -2,14 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public abstract class Card extends JPanel {

@@ -49,6 +49,7 @@ public class Controller implements PropertyChangeListener {
 		model.updateGrid(null);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void propertyChange(PropertyChangeEvent evt) {
 		String name = evt.getPropertyName();
 

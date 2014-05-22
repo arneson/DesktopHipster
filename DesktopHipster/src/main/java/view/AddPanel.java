@@ -25,10 +25,10 @@ import javax.swing.JPanel;
  * 
  */
 
+@SuppressWarnings("serial")
 public class AddPanel extends JPanel implements PropertyChangeListener {
 
 	private JLabel label;
-	private int side;
 	private JFileChooser chooseFile;
 	private final PropertyChangeSupport pcs;
 
@@ -39,7 +39,6 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 	public AddPanel(int side, PropertyChangeSupport pcs) {
 		
 		this.pcs = pcs; 
-		this.side = side;
 		
 		setPreferredSize(new Dimension(side,side));
 		setLayout(new BorderLayout());

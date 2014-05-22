@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import model.ThumbnailData;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
