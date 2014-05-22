@@ -177,9 +177,13 @@ public class Library {
 	return returnList;
 }
 
-	public void remove(ExtendedImage extendedImage) {
-		if(imageList.contains(extendedImage)){
-			imageList.remove(extendedImage);
+	public void remove(int imageID) {
+		System.out.println("Remove please!");
+		for (ExtendedImage image : imageList) {
+			if (image.getID() == imageID){
+				System.out.println("REMOVE!");
+				imageList.remove(image); 
+			}
 		}
 	}
 

@@ -184,9 +184,9 @@ public class Controller implements PropertyChangeListener {
 		case PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS:
 			updateGrid((TreeSet<String>) evt.getNewValue());
 			break;
-		case PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY:
-			model.getLibrary().remove(model.getActiveImage());
-			break;
+//		case PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY:
+//			model.getLibrary().remove(model.getActiveImage());
+//			break;
 		case PropertyNames.VIEW_GO_STRAIGHT_TO_UPLOAD:
 			ExtendedImage img = (ExtendedImage)evt.getNewValue();
 			if( evt.getNewValue()!=null){
@@ -201,6 +201,8 @@ public class Controller implements PropertyChangeListener {
 			else
 				model.setActiveFilter(null);
 			break;
+		case PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY:
+			model.getLibrary().remove((int)evt.getNewValue());
 		}
 	}
 

@@ -18,4 +18,6 @@ public interface ThumbnailData {
 	public TreeSet<String> getTags();
 
 	public BufferedImage getSelectedVersion();
+	
+	public int getID();
 }

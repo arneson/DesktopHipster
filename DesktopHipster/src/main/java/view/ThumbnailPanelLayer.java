@@ -106,8 +106,10 @@ public class ThumbnailPanelLayer extends JPanel {
 			if(e.getSource().equals(deleteIcon)){
 				System.out.println("Remove chosen image");
 				pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, null);
-			}/* else if (e.getSource().equals(tagIcon)){
-				System.out.println("Show tags");
+			}
+			/* else if (e.getSource().equals(tagIcon)){
+				pcs.firePropertyChange(PropertyNames.REMOVE_IMAGE_FROM_LIBRARY, null, data.getID());
+			} else if (e.getSource().equals(tagIcon)){
 			}*/
 		}
 
