@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.util.TreeSet;
 
-import view.View;
 import filter.FiltersEnum;
 import general.PropertyNames;
 
@@ -214,6 +213,7 @@ public class Model {
 	 * Reads the previous state written to disk to preserve application state.
 	 * Reads in old applied tags and continues to read the library image dump.
 	 */
+	@SuppressWarnings("unchecked")
 	public void startUp() {
 		if (new File(library.hiddenPath.toString()).length() > 0) {
 			ObjectInputStream stream = null;

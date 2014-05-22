@@ -6,25 +6,14 @@ package view;
  */
 
 import java.awt.AWTException;
-import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.MenuItem;
 import java.awt.MouseInfo;
-import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 
 public class DragNDropTray {
 	static DDFrame popup = new DDFrame();

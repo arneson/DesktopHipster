@@ -18,6 +18,7 @@ public class FlickrHost implements IHost {
 
 	// Hardcoded to specific user in this implementation
 	private static final String API_KEY = "c06a492a32f8896e4c9c9598c8d17cbb";
+	@SuppressWarnings("unused")
 	private static final String API_SECRET = "32ac7ec38b1df570";
 	private Flickr flickr;
 
@@ -26,6 +27,7 @@ public class FlickrHost implements IHost {
 	}
 
 	private void auth() {
+		@SuppressWarnings("unused")
 		Transport transport = flickr.getTransport();
 		flickr = new Flickr(API_KEY);
 	}

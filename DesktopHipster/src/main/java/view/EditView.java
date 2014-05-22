@@ -9,7 +9,6 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-import filter.FiltersEnum;
 import general.PropertyNames;
 import model.ExtendedImage;
 

@@ -7,6 +7,7 @@ package model;
  * @author Edvard Hübinette
  * 
  */
+@SuppressWarnings("serial")
 public class NoSuchVersionException extends Exception {
 	public NoSuchVersionException() {
 		super();

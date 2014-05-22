@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.TreeSet;
+
 import model.ExtendedImage;
 import model.IHost;
 import model.Model;
@@ -45,6 +46,7 @@ public class Controller implements PropertyChangeListener {
 		model.updateGrid(null);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void propertyChange(PropertyChangeEvent evt) {
 		String name = evt.getPropertyName();
 

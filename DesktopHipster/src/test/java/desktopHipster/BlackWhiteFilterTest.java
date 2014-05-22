@@ -21,6 +21,7 @@ public class BlackWhiteFilterTest {
 
 	@Test
 	public void testFilter() {
+		@SuppressWarnings("unused")
 		BufferedImage testImage = new BlackWhiteFilter()
 				.applyFilter(new ExtendedImage(new ImageIcon(getClass()
 						.getResource("/robin.jpg"))).getOriginal());

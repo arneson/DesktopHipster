@@ -3,7 +3,6 @@ package view;
 import general.PropertyNames;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;

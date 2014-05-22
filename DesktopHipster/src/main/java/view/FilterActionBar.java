@@ -19,6 +19,8 @@ import filter.FiltersEnum;
  * @author Edvard Hübinette
  * 
  */
+
+@SuppressWarnings("serial")
 public class FilterActionBar extends JPanel {
 	private final int WIDTH = 1000;
 	private final int HEIGHT = 300;

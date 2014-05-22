@@ -7,8 +7,6 @@ import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 
-import org.scribe.exceptions.OAuthConnectionException;
-
 import com.tumblr.jumblr.JumblrClient;
 import com.tumblr.jumblr.types.Blog;
 import com.tumblr.jumblr.types.Photo;
