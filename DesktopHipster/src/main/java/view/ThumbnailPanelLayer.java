@@ -168,9 +168,9 @@ public class ThumbnailPanelLayer extends JPanel {
 		content.setLayout(new GridLayout(1, versions.size()));
 		content.setPreferredSize(new Dimension(side * versions.size(), side));
 		for (int i = 0; i < versions.size(); i++) {
-			final JLabel version = new JLabel(new ImageIcon(((BufferedImage)versions.entrySet().toArray()[i]).getScaledInstance(
+			final JLabel version = new JLabel(new ImageIcon((versions.get(versions.keySet().toArray()[i])).getScaledInstance(
 					side - 1, -1, WIDTH)));
-			version.setName(versions.keySet().toArray()[i].toString());
+			version.setName(FiltersEnum.valueOf(versions.keySet().toArray()[i].toString()).getName());
 			version.setPreferredSize(new Dimension(side - 1, side - 1));
 			version.setBorder(BorderFactory.createLineBorder(new Color(150,
 					150, 150), 1));
@@ -180,10 +180,9 @@ public class ThumbnailPanelLayer extends JPanel {
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					JLabel sourceLabel = (JLabel) e.getSource();
-					pcs.firePropertyChange(PropertyNames.VIEW_ACTIVE_FILTER_CHANGE, null, sourceLabel.getName());
-					pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN,
-							null, data);
-					pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.CardState.UPLOAD);
+					pcs.firePropertyChange(PropertyNames.GO_STRAIGHT_TO_UPLOAD,
+							FiltersEnum.valueOf(sourceLabel.getName()), data);
+					pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.CardState.UPLOAD.toString());
 				}
 			});
 		}

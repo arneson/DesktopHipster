@@ -181,6 +181,20 @@ public class Controller implements PropertyChangeListener {
 		case PropertyNames.REMOVE_IMAGE_FROM_LIBRARY:
 			model.getLibrary().remove(model.getActiveImage());
 			break;
+		case PropertyNames.GO_STRAIGHT_TO_UPLOAD:
+			ExtendedImage img = (ExtendedImage)evt.getNewValue();
+			if( evt.getNewValue()!=null){
+				img.setPreview(((FiltersEnum) evt.getOldValue()).
+						getFilter()
+						.applyFilter(
+								img.
+								getPreviewOriginal()));
+				model.setActiveImage(img);
+				model.setActiveFilter((FiltersEnum) evt.getOldValue());
+			}
+			else
+				model.setActiveFilter(null);
+			break;
 		}
 	}
 
