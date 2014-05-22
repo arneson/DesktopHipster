@@ -153,14 +153,14 @@ public class Library {
 		ArrayList<ExtendedImage> returnList = new ArrayList<ExtendedImage>();
 
 		boolean ok = true;
-		
+
 		//List of all ExtendedImages in library.
 		List<ExtendedImage> list = getImageList();
 
 		/*For every ExtendedImage the method gets the tags for this specific image.
 		For every tag in the list containing the asked for tags, if any of those doesn't 
 		exist, the method breaks. Otherwise, the image will be added to the returnList.
-		*/
+		 */
 		for (ExtendedImage image : list){
 			TreeSet<String> imageTags = image.getTags();
 			for(String tag : tags){
@@ -172,8 +172,7 @@ public class Library {
 			if(ok){
 				returnList.add(image);
 			}
-		}
-	
+		}	
 	return returnList;
 }
 
@@ -188,8 +187,8 @@ public class Library {
 	}
 
 	public void removeTagFromAllImages(String tag) {
-		for(ExtendedImage img:getImageList())
+		for(ExtendedImage img:getImageList()){
 			img.removeTag(tag);
-		
+		}
 	}
 }

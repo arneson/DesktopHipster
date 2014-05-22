@@ -151,6 +151,10 @@ public class Model {
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
 		getLibrary().load(imageFile);
 	}
+	
+	public void removeFileFromLibrary(int imageID) {
+		getLibrary().remove(imageID);
+	}
 
 	/**
 	 * Adds a tag to the currently active image

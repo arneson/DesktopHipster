@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeSupport;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class ThumbnailPanelLayer extends JPanel {
 
 	private JScrollPane scroll;
 	private JPanel content, contentWrapper, iconWrapper;
-	private JButton deleteIcon;//, tagIcon, saveIcon;
+	private JLabel deleteIcon;//, tagIcon, saveIcon;
 	private PropertyChangeSupport pcs;
 	private ThumbnailData data;
 
@@ -54,63 +55,72 @@ public class ThumbnailPanelLayer extends JPanel {
 		scroll = new JScrollPane(contentWrapper,
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		//tagIcon = new JButton();
-		deleteIcon = new JButton(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
-		//saveIcon = new JButton();
-		iconWrapper = new JPanel();
+		deleteIcon = new JLabel(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
+	iconWrapper = new JPanel();
 
-		deleteIcon.addActionListener(myActionListener);
+	deleteIcon.addMouseListener(myMouseListener);
 
-		scroll.setBorder(null);
-		scroll.setPreferredSize(new Dimension(0, side / 4
-				+ scroll.getHorizontalScrollBar().getPreferredSize().height));
-		contentWrapper.setPreferredSize(new Dimension(0, side / 4
-				+ scroll.getHorizontalScrollBar().getPreferredSize().height));
-		contentWrapper.setOpaque(false);
-		scroll.setOpaque(false);
-		content.setOpaque(false);
-		scroll.getViewport().setOpaque(false);
+	scroll.setBorder(null);
+	scroll.setPreferredSize(new Dimension(0, side / 4
+			+ scroll.getHorizontalScrollBar().getPreferredSize().height));
+	contentWrapper.setPreferredSize(new Dimension(0, side / 4
+			+ scroll.getHorizontalScrollBar().getPreferredSize().height));
+	contentWrapper.setOpaque(false);
+	scroll.setOpaque(false);
+	content.setOpaque(false);
+	scroll.getViewport().setOpaque(false);
 
-		//tagIcon.setPreferredSize(new Dimension(iconSide, iconSide));
-		deleteIcon.setPreferredSize(new Dimension(iconSide, iconSide));
-		//saveIcon.setPreferredSize(new Dimension(iconSide, iconSide));
-		//saveIcon.setBackground(Color.green);
-		//tagIcon.setBackground(Color.red);
-		//JLabel deleteLabel = new JLabel(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
-		//deleteIcon.add(deleteLabel, BorderLayout.CENTER);
+	deleteIcon.setPreferredSize(new Dimension(iconSide, iconSide));
+	deleteIcon.setToolTipText("Remove image from library");
 
-		deleteIcon.setToolTipText("Remove image from library");
+	iconWrapper.setOpaque(false);
+	iconWrapper.setPreferredSize(new Dimension(0, iconSide + 10));
+	iconWrapper.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+	iconWrapper.add(deleteIcon);
+	iconWrapper.setBackground(null);
 
-		iconWrapper.setOpaque(false);
-		iconWrapper.setPreferredSize(new Dimension(0, iconSide + 10));
-		iconWrapper.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-		iconWrapper.add(deleteIcon);
-		//iconWrapper.add(tagIcon);
-		//iconWrapper.add(saveIcon);
-		iconWrapper.setBackground(null);
+	contentWrapper.setLayout(new BorderLayout());
+	contentWrapper.add(content, BorderLayout.WEST);
 
-		contentWrapper.setLayout(new BorderLayout());
-		contentWrapper.add(content, BorderLayout.WEST);
+	addMouseListener(myMouseAdapter);
 
-		addMouseListener(myMouseAdapter);
-
-		setLayout(new BorderLayout());
-		add(scroll, BorderLayout.SOUTH);
-		add(iconWrapper, BorderLayout.NORTH);
+	setLayout(new BorderLayout());
+	add(scroll, BorderLayout.SOUTH);
+	add(iconWrapper, BorderLayout.NORTH);
 	}
 
-	private ActionListener myActionListener = new ActionListener() {
+	private MouseListener myMouseListener = new MouseListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(deleteIcon)){
-				System.out.println("Remove chosen image");
-				pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, null);
-			}
-			/* else if (e.getSource().equals(tagIcon)){
-				pcs.firePropertyChange(PropertyNames.REMOVE_IMAGE_FROM_LIBRARY, null, data.getID());
-			} else if (e.getSource().equals(tagIcon)){
-			}*/
+		public void mouseClicked(MouseEvent e) {
+
+			System.out.println("Remove chosen image");
+			pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, (int)data.getID());
+
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+
 		}
 
 	};
