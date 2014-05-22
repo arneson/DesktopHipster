@@ -16,6 +16,7 @@ import model.ExtendedImage;
 import model.IHost;
 import model.Model;
 import model.NoSuchVersionException;
+import model.UploadRunnable;
 import view.DragNDropTray;
 import view.UploadPop;
 import view.View;
@@ -96,7 +97,10 @@ public class Controller implements PropertyChangeListener {
 				} else {
 					imageToUpload = model.getActiveImage().getOriginal();
 				}
-				chosenHost.uploadImage(imageToUpload);
+				UploadRunnable upRun = new UploadRunnable(imageToUpload,chosenHost,uploadPop);
+				Thread uploadThread = new Thread(upRun);  
+				uploadThread.start();
+				//chosenHost.uploadImage(imageToUpload);
 
 			} catch (NoSuchVersionException e) {
 				// Should be impossible
@@ -164,9 +168,6 @@ public class Controller implements PropertyChangeListener {
 			break;
 		case PropertyNames.REMOVE_IMAGE_FROM_LIBRARY:
 			model.getLibrary().remove(model.getActiveImage());
-			break;
-		case PropertyNames.VIEW_HIDE_UPLOAD_POPUP:
-			uploadPop.setVisible(false);
 			break;
 		}
 	}

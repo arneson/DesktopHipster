@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 /**
  * Interface for host implementations
  * 
- * @author Edvard Hübinette
+ * @author Edvard H��binette
  * 
  */
 public interface IHost {
