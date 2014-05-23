@@ -71,6 +71,7 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		thumbnail = filter.ImageTools.toBufferedImage(original
 				.getScaledInstance(50, -1, Image.SCALE_FAST));
 		imageID = id += 1;
+		id++;
 	}
 
 	/**
@@ -342,6 +343,10 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 		return true;
 	}
 
+	/**
+	 * Returns the original preview image.
+	 * @return The preview image.
+	 */
 	public BufferedImage getPreviewOriginal() {
 		return previewOriginal;
 	}
