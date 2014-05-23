@@ -6,6 +6,7 @@ import general.PropertyNames;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,14 +32,17 @@ import view.View;
  * @revised Simon Arneson
  */
 public class Controller implements PropertyChangeListener {
+	private final PropertyChangeSupport pcs;
 	private Model model;
 	private View view;
 	private DragNDropTray dndTray;
 	private UploadPop uploadPop;
 
 	public Controller() {
+		pcs = new PropertyChangeSupport(this);
+		
 		view = new View();
-		model = new Model();
+		model = new Model(pcs);
 
 		dndTray = new DragNDropTray();
 		uploadPop = new UploadPop();
@@ -54,7 +58,7 @@ public class Controller implements PropertyChangeListener {
 		catch(ClassNotFoundException e){
 			model.clearBackup();
 		}
-		model.updateGrid(null);
+		updateGrid(null);
 		uploadPop.setVisible(false);
 	}
 
@@ -94,6 +98,7 @@ public class Controller implements PropertyChangeListener {
 						activeFilterName,
 						activeFilterName.getFilter().applyFilter(
 								model.getActiveImage().getOriginal()));
+				updateGrid(null);
 			}
 			break;
 		case PropertyNames.VIEW_UPLOAD_ACTIVE_IMAGE:
@@ -164,24 +169,25 @@ public class Controller implements PropertyChangeListener {
 			File imageFile = (File) evt.getNewValue();
 			try {
 				model.addFileToLibrary(imageFile);
+				updateGrid(null);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
 			break;
 		case PropertyNames.VIEW_GRID_RESIZE:
 			model.gridWidthChanged((Integer) evt.getNewValue());
-			model.updateGrid(null);
+			updateGrid(null);
 			break;
 		case PropertyNames.VIEW_WIDTH_UPDATE:
 			model.gridWidthChanged((Integer) evt.getNewValue());
 			break;
 		case PropertyNames.VIEW_SHOW_IMAGES_WITH_TAGS:
-			model.updateGrid((TreeSet<String>) evt.getNewValue());
+			updateGrid((TreeSet<String>) evt.getNewValue());
 			break;
-		case PropertyNames.REMOVE_IMAGE_FROM_LIBRARY:
+		case PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY:
 			model.getLibrary().remove(model.getActiveImage());
 			break;
-		case PropertyNames.GO_STRAIGHT_TO_UPLOAD:
+		case PropertyNames.VIEW_GO_STRAIGHT_TO_UPLOAD:
 			ExtendedImage img = (ExtendedImage)evt.getNewValue();
 			if( evt.getNewValue()!=null){
 				img.setPreview(((FiltersEnum) evt.getOldValue()).
@@ -200,5 +206,14 @@ public class Controller implements PropertyChangeListener {
 
 	public void shutDownEverything() {
 		model.saveState();
+	}
+	
+	public void updateGrid(TreeSet<String> tags) {
+		if (tags == null || tags.isEmpty())
+			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null,
+					model.getLibrary().getImageList());
+		else
+			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null,
+					model.getLibrary().getImagesWithTagArray(tags));
 	}
 }

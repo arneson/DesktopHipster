@@ -30,8 +30,8 @@ public class Model {
 	private FiltersEnum activeFilter;
 	private TreeSet<String> tags = new TreeSet<String>();
 
-	public Model() {
-		pcs = new PropertyChangeSupport(this);
+	public Model(PropertyChangeSupport pcs) {
+		this.pcs = pcs;
 		//startUp();
 	}
 
@@ -136,15 +136,6 @@ public class Model {
 		return library;
 	}
 
-	public void updateGrid(TreeSet<String> tags) {
-		if (tags == null || tags.isEmpty())
-			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null,
-					library.getImageList());
-		else
-			pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null,
-					library.getImagesWithTagArray(tags));
-	}
-
 	public void gridWidthChanged(int width) {
 		library.updateThumbnailSizes(width);
 	}
@@ -159,12 +150,6 @@ public class Model {
 	 */
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
 		getLibrary().load(imageFile);
-		updateGrid(null);
-	}
-	
-	public void removeFileFromLibrary(ExtendedImage imageFile) {
-		getLibrary().remove(imageFile);
-		updateGrid(null);
 	}
 
 	/**
@@ -235,5 +220,4 @@ public class Model {
 		library.hiddenPath.toFile().delete();
 		
 	}
-
 }

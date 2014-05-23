@@ -105,7 +105,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(deleteIcon)){
 				System.out.println("Remove chosen image");
-				pcs.firePropertyChange(PropertyNames.REMOVE_IMAGE_FROM_LIBRARY, null, null);
+				pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, null);
 			}/* else if (e.getSource().equals(tagIcon)){
 				System.out.println("Show tags");
 			}*/
@@ -178,7 +178,7 @@ public class ThumbnailPanelLayer extends JPanel {
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					JLabel sourceLabel = (JLabel) e.getSource();
-					pcs.firePropertyChange(PropertyNames.GO_STRAIGHT_TO_UPLOAD,
+					pcs.firePropertyChange(PropertyNames.VIEW_GO_STRAIGHT_TO_UPLOAD,
 							FiltersEnum.valueOf(sourceLabel.getName()), data);
 					pcs.firePropertyChange(PropertyNames.VIEW_REQUEST_CARD_CHANGE, null, View.CardState.UPLOAD.toString());
 				}
