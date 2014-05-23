@@ -170,7 +170,7 @@ public class Library {
 
 	public void remove(int imageID) {
 		System.out.println("Remove please!");
-		for (ExtendedImage image : imageList) {
+		for (ExtendedImage image : getImageList()) {
 			if (image.getID() == imageID){
 				System.out.println("REMOVE!");
 				imageList.remove(image); 

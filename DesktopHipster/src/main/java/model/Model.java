@@ -153,6 +153,7 @@ public class Model {
 	
 	public void removeFileFromLibrary(int imageID) {
 		getLibrary().remove(imageID);
+		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, null);
 	}
 
 	/**
