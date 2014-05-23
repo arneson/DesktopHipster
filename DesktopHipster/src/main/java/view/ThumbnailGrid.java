@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import model.ThumbnailData;
 
@@ -70,7 +71,7 @@ public class ThumbnailGrid extends JScrollPane implements
 
 	private void updateGrid() {
 		addPanel = new AddPanel(side, pcs);
-		addPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		addPanel.setBorder(new LineBorder(Constants.BACKGROUNDCOLOR.getColor(),8));
 		addPanel.setOpaque(true);
 		
 		int size = data.size()+1;

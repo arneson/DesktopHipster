@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import model.ThumbnailData;
 
@@ -40,8 +41,9 @@ public class ThumbnailPanel extends JPanel {
 		side -= borderSize * 2;
 
 		setPreferredSize(new Dimension(side, side));
-		setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize,
-				borderSize, borderSize));
+		setBorder(new LineBorder(Constants.BACKGROUNDCOLOR.getColor(),8));
+		//setBorder(BorderFactory.createEmptyBorder(borderSize, borderSize,
+		//		borderSize, borderSize));
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		setOpaque(true);
 
@@ -94,9 +96,9 @@ public class ThumbnailPanel extends JPanel {
 
 	public void updateBorderColor() {
 		if (selected) {
-			setBackground(Constants.CONTRASTCOLOR.getColor());
+			setBorder(new LineBorder(Constants.CONTRASTCOLORLIGHT.getColor(),8));
 		} else {
-			setBackground(Constants.BACKGROUNDCOLOR.getColor());
+			setBorder(new LineBorder(Constants.BACKGROUNDCOLOR.getColor(),8));
 		}
 	}
 
