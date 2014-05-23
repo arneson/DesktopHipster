@@ -147,12 +147,11 @@ public class ThumbnailPanelLayer extends JPanel {
 		scroll.addMouseMotionListener(ma);
 		content.addMouseMotionListener(ma);
 		deleteIcon.addMouseMotionListener(ma);
-		//tagIcon.addMouseMotionListener(ma);
 	}
 
 	public boolean isChild(Object o) {
 		return o.equals(this) || o.equals(scroll) || o.equals(content)
-				|| o.equals(deleteIcon);// || o.equals(tagIcon);
+				|| o.equals(deleteIcon);
 	}
 
 	public void addVersionList(Map<FiltersEnum, BufferedImage> versions, int side) {
