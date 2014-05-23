@@ -19,13 +19,13 @@ public class PropertyNames {
 	public static final String VIEW_TAGS_ON_IMAGE_CHANGED = "VIEW_TAGS_ON_IMAGE_CHANGED";
 	public static final String VIEW_ADD_NEW_TAG = "VIEW_ADD_NEW_TAG";
 	public static final String VIEW_SHOW_IMAGES_WITH_TAGS = "VIEW_SHOW_IMAGES_WITH_TAGS";
-	public static final String VIEW_ADD_NEW_IMAGE_TO_LIBRARY = "ADD_NEW_IMAGE_TO_LIBRARY";
+	public static final String VIEW_ADD_NEW_IMAGE_TO_LIBRARY = "VIEW_ADD_NEW_IMAGE_TO_LIBRARY";
 	public static final String VIEW_REMOVE_TAG = "VIEW_REMOVE_TAG";
-	public static final String VIEW_REMOVE_IMAGE_FROM_LIBRARY = "REMOVE_IMAGE_FROM_LIBRARY";
-	public static final String VIEW_GO_STRAIGHT_TO_UPLOAD = "GO_STRAIGHT_TO_UPLOAD";
+	public static final String VIEW_REMOVE_IMAGE_FROM_LIBRARY = "VIEW_REMOVE_IMAGE_FROM_LIBRARY";
+	public static final String VIEW_GO_STRAIGHT_TO_UPLOAD = "VIEW_GO_STRAIGHT_TO_UPLOAD";
 
 	public static final String MODEL_CARD_CHANGE = "MODEL_CARD_CHANGE";
 	public static final String MODEL_ACTIVE_IMAGE_CHANGE = "MODEL_ACTIVE_IMAGE_CHANGE";
-	public static final String MODEL_GRID_UPDATE = "GRID_UPDATE";
+	public static final String MODEL_GRID_UPDATE = "MODEL_GRID_UPDATE";
 	public static final String MODEL_TAGS_CHANGED = "MODEL_TAGS_CHANGED";
 }
