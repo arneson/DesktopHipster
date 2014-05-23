@@ -5,6 +5,7 @@ package model;
  * @author Edvard Hübinette
  *
  */
+@SuppressWarnings("serial")
 public class UploadFailedException extends Exception {
 
 	public UploadFailedException(){
