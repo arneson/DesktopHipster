@@ -19,10 +19,9 @@ import javax.swing.ImageIcon;
 /**
  * The Library will keep track of the imported images.
  * 
- * @authour Lovisa J��berg
- * @revised Edvard H��binette
+ * @authour Lovisa Jäberg
+ * @revised Edvard Hübinette
  */
-
 public class Library {
 
 	/**
@@ -30,7 +29,6 @@ public class Library {
 	 * library.
 	 */
 	private final List<ExtendedImage> imageList = new ArrayList<ExtendedImage>();
-
 	protected transient Path path;
 	protected transient Path hiddenPath;
 
@@ -38,7 +36,6 @@ public class Library {
 	 * Create a directory where you save your images. If this directory already
 	 * exists then it sets the directory where to save your images.
 	 */
-
 	public Library() {
 
 		new File(System.getProperty("user.home") + "/Pictures/DesktopHipster")
@@ -74,9 +71,7 @@ public class Library {
 	 * or drops it in drop down panel this method will put it into the list of
 	 * ExtendedImages shown in the library
 	 */
-
 	public void load(final File imageFile) {
-
 		addToImageArray(new ExtendedImage(new ImageIcon(
 				imageFile.getAbsolutePath())));
 	}
@@ -104,37 +99,34 @@ public class Library {
 	 * Saves all data this library contains to disk. This can be used to restore
 	 * the posture of the application on restart.
 	 * @param stream The output stream for writing
+	 * @throws BackupCorruptException The backup write failed
 	 */
-	public void saveToHiddenDirectory(final ObjectOutputStream stream) {
+	public void saveToHiddenDirectory(final ObjectOutputStream stream) throws BackupCorruptException  {
 		try {
 			stream.writeInt(imageList.size());
 			for (ExtendedImage ei : imageList) {
 				stream.writeObject(ei);
 				stream.reset();
 			}
-
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e){
+			throw new BackupCorruptException("Backup write failed in library");
 		}
 	}
 
 	/**
 	 * Loads all data from disk to recreate an old session in this library instance.
 	 * @param stream The input stream for reading
+	 * @throws BackupCorruptException The backup read failed
 	 */
-	public void loadFromHiddenDirectory(final ObjectInputStream stream) {
+	public void loadFromHiddenDirectory(final ObjectInputStream stream) throws BackupCorruptException {
 		try {
 			final int size = stream.readInt();
 			for (int i = 0; i < size; i++) {
 				imageList.add((ExtendedImage) stream.readObject());
 			}
 			stream.close();
-		} catch (IOException | ClassNotFoundException e) {
-			// Could not restore the user DB, application will start with empty
-			// image library
-			e.printStackTrace();
+		} catch (Exception e){
+			throw new BackupCorruptException("Backup read failed in library");
 		}
 	}
 
@@ -178,7 +170,7 @@ public class Library {
 
 	public void remove(int imageID) {
 		System.out.println("Remove please!");
-		for (ExtendedImage image : imageList) {
+		for (ExtendedImage image : getImageList()) {
 			if (image.getID() == imageID){
 				System.out.println("REMOVE!");
 				imageList.remove(image); 

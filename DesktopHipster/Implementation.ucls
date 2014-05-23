@@ -46,16 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="model.FlickrHost" project="desktopHipster" 
-    file="/desktopHipster/src/main/java/model/FlickrHost.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1732" y="186"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="model.NoSuchVersionException" project="desktopHipster" 
+  <class id="6" language="java" name="model.NoSuchVersionException" project="desktopHipster" 
     file="/desktopHipster/src/main/java/model/NoSuchVersionException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1262" y="631"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -64,7 +55,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="8" language="java" name="model.HostsEnum" project="desktopHipster" 
+  <enumeration id="7" language="java" name="model.HostsEnum" project="desktopHipster" 
     file="/desktopHipster/src/main/java/model/HostsEnum.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1755" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -73,7 +64,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="9" language="java" name="model.ExtendedImage" project="desktopHipster" 
+  <class id="8" language="java" name="model.ExtendedImage" project="desktopHipster" 
     file="/desktopHipster/src/main/java/model/ExtendedImage.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1262" y="985"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -82,7 +73,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="view.TagsPanel" project="desktopHipster" 
+  <class id="9" language="java" name="view.TagsPanel" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/TagsPanel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1332" y="2380"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -91,7 +82,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="view.Card" project="desktopHipster" 
+  <class id="10" language="java" name="view.Card" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/Card.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="694" y="1581"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -100,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="12" language="java" name="model.ThumbnailData" project="desktopHipster" 
+  <interface id="11" language="java" name="model.ThumbnailData" project="desktopHipster" 
     file="/desktopHipster/src/main/java/model/ThumbnailData.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1634" y="2699"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -109,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="13" language="java" name="view.FilterActionBar" project="desktopHipster" 
+  <class id="12" language="java" name="view.FilterActionBar" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/FilterActionBar.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="689" y="2230"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -118,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="view.AddPanel" project="desktopHipster" 
+  <class id="13" language="java" name="view.AddPanel" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/AddPanel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="110" y="1274"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -127,7 +118,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="view.MenuBarFactory" project="desktopHipster" 
+  <class id="14" language="java" name="view.MenuBarFactory" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/MenuBarFactory.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="94" y="1442"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -136,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="view.ThumbnailGrid" project="desktopHipster" 
+  <class id="15" language="java" name="view.ThumbnailGrid" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/ThumbnailGrid.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="996" y="2452"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -145,7 +136,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="view.View" project="desktopHipster" 
+  <class id="16" language="java" name="view.View" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/View.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1140" y="1605"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -154,7 +145,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="view.NewTagTextField" project="desktopHipster" 
+  <class id="17" language="java" name="view.NewTagTextField" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/NewTagTextField.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="342" y="1443"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -163,7 +154,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="view.ThumbnailPanelLayer" project="desktopHipster" 
+  <class id="18" language="java" name="view.ThumbnailPanelLayer" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/ThumbnailPanelLayer.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1002" y="3208"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -172,7 +163,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="view.FilterButton" project="desktopHipster" 
+  <class id="19" language="java" name="view.FilterButton" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/FilterButton.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="434" y="2228"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -181,7 +172,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="view.ThumbnailPanel" project="desktopHipster" 
+  <class id="20" language="java" name="view.ThumbnailPanel" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/ThumbnailPanel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1006" y="2824"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -190,7 +181,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="view.EditView" project="desktopHipster" 
+  <class id="21" language="java" name="view.EditView" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/EditView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="685" y="1999"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -199,7 +190,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="view.BrowseView" project="desktopHipster" 
+  <class id="22" language="java" name="view.BrowseView" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/BrowseView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1005" y="2071"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -208,7 +199,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="24" language="java" name="view.Constants" project="desktopHipster" 
+  <enumeration id="23" language="java" name="view.Constants" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/Constants.java" binary="false" corner="BOTTOM_LEFT">    
     <position height="-1" width="-1" x="374" y="1274"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -217,7 +208,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="25" language="java" name="view.UploadView" project="desktopHipster" 
+  <class id="24" language="java" name="view.UploadView" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/UploadView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1325" y="2017"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -226,7 +217,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="filter.BlackWhiteFilter" project="desktopHipster" 
+  <class id="25" language="java" name="filter.BlackWhiteFilter" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/BlackWhiteFilter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-962" y="1087"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -235,7 +226,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="filter.ImageTools" project="desktopHipster" 
+  <class id="26" language="java" name="filter.ImageTools" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/ImageTools.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-441" y="796"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -244,7 +235,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="28" language="java" name="filter.IFilter" project="desktopHipster" 
+  <interface id="27" language="java" name="filter.IFilter" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/IFilter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-651" y="1082"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -253,7 +244,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="29" language="java" name="filter.OldStyleFilter" project="desktopHipster" 
+  <class id="28" language="java" name="filter.OldStyleFilter" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/OldStyleFilter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-965" y="1335"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -262,7 +253,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="30" language="java" name="filter.IModify" project="desktopHipster" 
+  <interface id="29" language="java" name="filter.IModify" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/IModify.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-859" y="893"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -271,7 +262,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="31" language="java" name="filter.ImageProcessor" project="desktopHipster" 
+  <class id="30" language="java" name="filter.ImageProcessor" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/ImageProcessor.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-847" y="763"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -280,7 +271,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="filter.SepiaFilter" project="desktopHipster" 
+  <class id="31" language="java" name="filter.SepiaFilter" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/SepiaFilter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-963" y="1213"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -289,7 +280,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="33" language="java" name="filter.FiltersEnum" project="desktopHipster" 
+  <enumeration id="32" language="java" name="filter.FiltersEnum" project="desktopHipster" 
     file="/desktopHipster/src/main/java/filter/FiltersEnum.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-384" y="1075"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -298,7 +289,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="34" language="java" name="controller.Controller" project="desktopHipster" 
+  <class id="33" language="java" name="controller.Controller" project="desktopHipster" 
     file="/desktopHipster/src/main/java/controller/Controller.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="64" y="486"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -307,7 +298,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="view.DragNDropTray" project="desktopHipster" 
+  <class id="34" language="java" name="view.DragNDropTray" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/DragNDropTray.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="58" y="353"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -316,7 +307,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="36" language="java" name="view.DDFrame" project="desktopHipster" 
+  <class id="35" language="java" name="view.DDFrame" project="desktopHipster" 
     file="/desktopHipster/src/main/java/view/DDFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-329" y="355"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -325,221 +316,217 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
   <association id="37">    
-    <end type="SOURCE" refId="13" navigable="false">      
+    <end type="SOURCE" refId="12" navigable="false">      
       <attribute id="38" name="buttons"/>      
       <multiplicity id="39" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="40">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="41" name="panelList"/>      
-      <multiplicity id="42" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="43">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <association id="44">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="45" name="filter"/>      
-      <multiplicity id="46" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="47">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="48" name="library"/>      
-      <multiplicity id="49" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="50">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <realization id="51">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="52">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <association id="53">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="54" name="browseView"/>      
-      <multiplicity id="55" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="56">    
-    <end type="SOURCE" refId="34" navigable="false">      
-      <attribute id="57" name="model"/>      
-      <multiplicity id="58" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="59">    
-    <end type="SOURCE" refId="35" navigable="false">      
-      <attribute id="60" name="popup"/>      
-      <multiplicity id="61" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="36" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="62">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="63" name="data"/>      
-      <multiplicity id="64" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="65">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="66" name="imageList"/>      
-      <multiplicity id="67" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="68">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <association id="69">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="70" name="tags"/>      
-      <multiplicity id="71" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="72">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="73" name="host"/>      
-      <multiplicity id="74" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="75">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="76" name="activeImage"/>      
-      <multiplicity id="77" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="78">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <realization id="79">    
-    <bendpoint x="-806" y="1326"/>    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <association id="80">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="81" name="activeFilter"/>      
-      <multiplicity id="82" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="83">    
-    <end type="SOURCE" refId="34" navigable="false">      
-      <attribute id="84" name="dndTray"/>      
-      <multiplicity id="85" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="35" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="86">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="87" name="topLayer"/>      
-      <multiplicity id="88" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="89">    
+  <association id="40">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="41" name="panelList"/>      
+      <multiplicity id="42" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="44" name="activeFilter"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="47" name="grid"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="49">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="50" name="topLayer"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <association id="53">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="54" name="data"/>      
+      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="57" name="filter"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="59">    
     <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="30"/>  
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <generalization id="60">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <association id="61">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="62" name="host"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="64">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="65" name="activeImage"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="67">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="29"/>  
   </dependency>  
-  <association id="90">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="91" name="grid"/>      
-      <multiplicity id="92" minimum="0" maximum="1"/>    
+  <realization id="68">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="69">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="70" name="view"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="73" name="dndTray"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="75">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="76" name="filter"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="78">    
+    <bendpoint x="-806" y="1326"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <association id="79">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="80" name="tags"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="83" name="uploadView"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="85">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <association id="86">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="87" name="imageList"/>      
+      <multiplicity id="88" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="90" name="model"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="92">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
   <association id="93">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="94" name="uploadView"/>      
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="94" name="editView"/>      
       <multiplicity id="95" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
+    <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="96">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="97" name="library"/>      
+      <multiplicity id="98" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="99">    
     <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="97" name="data"/>      
-      <multiplicity id="98" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="99">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <association id="100">    
-    <end type="SOURCE" refId="34" navigable="false">      
-      <attribute id="101" name="view"/>      
-      <multiplicity id="102" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="103">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <association id="104">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="105" name="filter"/>      
-      <multiplicity id="106" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="107">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="108" name="editView"/>      
-      <multiplicity id="109" minimum="0" maximum="1"/>    
+      <attribute id="100" name="browseView"/>      
+      <multiplicity id="101" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="22" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="110">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="111" name="filterActionBar"/>      
-      <multiplicity id="112" minimum="0" maximum="1"/>    
+  <association id="102">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="103" name="popup"/>      
+      <multiplicity id="104" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="105">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="106" name="data"/>      
+      <multiplicity id="107" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="108">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="109" name="filterActionBar"/>      
+      <multiplicity id="110" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

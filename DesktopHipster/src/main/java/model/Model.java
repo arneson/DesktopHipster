@@ -32,7 +32,6 @@ public class Model {
 
 	public Model(PropertyChangeSupport pcs) {
 		this.pcs = pcs;
-		//startUp();
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -154,6 +153,7 @@ public class Model {
 	
 	public void removeFileFromLibrary(int imageID) {
 		getLibrary().remove(imageID);
+		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, null);
 	}
 
 	/**
@@ -186,15 +186,12 @@ public class Model {
 			stream = new ObjectOutputStream(new FileOutputStream(
 					library.hiddenPath.toString()));
 			stream.writeObject(tags);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		library.saveToHiddenDirectory(stream);
-		try {
+			library.saveToHiddenDirectory(stream);
 			stream.flush();
 			stream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		}catch (Exception e) {
+			//Backup couldn't be written to disk, this is handled on the next start
+			clearBackup();
 		}
 	}
 
@@ -203,7 +200,7 @@ public class Model {
 	 * Reads in old applied tags and continues to read the library image dump.
 	 */
 	@SuppressWarnings("unchecked")
-	public void startUp() throws ClassNotFoundException {
+	public void startUp() {
 		if (new File(library.hiddenPath.toString()).length() > 0) {
 			ObjectInputStream stream = null;
 			try {
@@ -213,15 +210,16 @@ public class Model {
 				tags = (TreeSet<String>) stream.readObject();
 				pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null,
 						new TreeSet<String>(tags));
-			} catch (IOException e) {
-				e.printStackTrace();
+				library.loadFromHiddenDirectory(stream);
+			} catch (Exception e) {
+				//Couldn't read backup, start clean
+				clearBackup();
 			}
-			library.loadFromHiddenDirectory(stream);
+			
 		}
 	}
 
 	public void clearBackup() {
 		library.hiddenPath.toFile().delete();
-		
 	}
 }

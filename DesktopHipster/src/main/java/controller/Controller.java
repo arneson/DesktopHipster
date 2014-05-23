@@ -52,12 +52,7 @@ public class Controller implements PropertyChangeListener {
 		dndTray.addPropertyChangeListener(this);
 		uploadPop.setVisible(true);
 		uploadPop.setText("Loading library...");
-		try{
-			model.startUp();
-		}
-		catch(ClassNotFoundException e){
-			model.clearBackup();
-		}
+		model.startUp();
 		updateGrid(null);
 		uploadPop.setVisible(false);
 	}
