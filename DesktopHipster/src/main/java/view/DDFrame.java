@@ -36,7 +36,7 @@ public class DDFrame extends JFrame implements DropTargetListener {
 
     ta = new JTextArea();
     
-    dropArea = new JLabel(new ImageIcon(getClass().getResource("/AddPanel.png")));
+    dropArea = new JLabel(new ImageIcon(getClass().getResource("/Images/AddPanel.png")));
     
     ta.setBackground(Color.white);
     add(dropArea, BorderLayout.CENTER);
@@ -107,7 +107,7 @@ public class DDFrame extends JFrame implements DropTargetListener {
 	public void dragEnter(DropTargetDragEvent dtde) {
 		//Used to show the user if he has dropped and accepted file or not.
 		dropArea.setIcon(new ImageIcon(getClass()
-				.getResource("/AddPanelOK.png")));
+				.getResource("/Images/AddPanelOK.png")));
 	}
 	@Override
 	public void dragOver(DropTargetDragEvent dtde) {
@@ -121,14 +121,14 @@ public class DDFrame extends JFrame implements DropTargetListener {
 
 	@Override
 	public void dragExit(DropTargetEvent dte) {
-		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
+		dropArea.setIcon(new ImageIcon(getClass().getResource("/Images/AddPanel.png")));
 	}
 	/**
 	 * Sets the Drop Logo in the DDFrame to accepted file
 	 * 
 	 */
 	public void setDropOKLogo() {
-		dropArea.setIcon(new ImageIcon(getClass().getResource("/AddPanel.png")));
+		dropArea.setIcon(new ImageIcon(getClass().getResource("/Images/AddPanel.png")));
 	}
 
 	/**
@@ -137,6 +137,6 @@ public class DDFrame extends JFrame implements DropTargetListener {
 	 */
 	public void setDropNotOKLogo() {
 		dropArea.setIcon(new ImageIcon(getClass().getResource(
-				"/AddPanelNOK.png")));
+				"/Images/AddPanelNOK.png")));
 	}
 }

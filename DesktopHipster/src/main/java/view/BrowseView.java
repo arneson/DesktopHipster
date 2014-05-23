@@ -63,7 +63,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 		pcs.addPropertyChangeListener(tags);
 
 		ImageIcon proceedImage = new ImageIcon(getClass().getResource(
-				"/chooseImage.png"));
+				"/Images/chooseImage.png"));
 		proceedButton = new JButton(proceedImage);
 		proceedButton.setBorderPainted(false);
 		proceedButton.setBorder(null);
@@ -106,7 +106,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 		switch (evt.getPropertyName()) {
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
 			proceedButton.setIcon(new ImageIcon(getClass().getResource(
-					"/proceedButton.jpg")));
+					"/Images/proceedButton.jpg")));
 			proceedButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			proceedButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

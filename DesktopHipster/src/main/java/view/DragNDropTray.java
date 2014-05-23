@@ -28,7 +28,7 @@ public class DragNDropTray {
 			// load an image
 			Image image = null;
 			image = Toolkit.getDefaultToolkit().getImage(
-					getClass().getResource("/desktop_hipster.png"));
+					getClass().getResource("/Images/desktop_hipster.png"));
 			trayIcon = new TrayIcon(image, "Tray Demo", null);
 			try {
 				tray.add(trayIcon);

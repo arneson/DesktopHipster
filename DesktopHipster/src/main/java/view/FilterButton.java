@@ -34,11 +34,11 @@ public class FilterButton extends JButton {
 	FilterButton(FiltersEnum filter) {
 		super();
 		this.filter = filter;
-		icon = (new ImageIcon(getClass().getResource("/HipsterDemo.png")));
+		icon = (new ImageIcon(getClass().getResource("/Images/HipsterDemo.png")));
 		BufferedImage img = new BufferedImage(icon.getIconWidth(),
 				icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.createGraphics();
-		(new ImageIcon(getClass().getResource("/HipsterDemo.png"))).paintIcon(
+		(new ImageIcon(getClass().getResource("/Images/HipsterDemo.png"))).paintIcon(
 				null, g, 0, 0);
 		g.dispose();
 		img = filter.getFilter().applyFilter(img);

@@ -76,21 +76,21 @@ public class UploadView extends Card implements PropertyChangeListener {
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
 		fileChooser = new JFileChooser();
-		libraryButton = new JButton(new ImageIcon(getClass().getResource("/libraryImage.png")));
+		libraryButton = new JButton(new ImageIcon(getClass().getResource("/Images/libraryImage.png")));
 		libraryButton.setPreferredSize(new Dimension(100,100));
 		libraryButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		libraryButton.addMouseListener(myMouseListener);
 		libraryButton.setBorder(new LineBorder(Color.WHITE,10));
 		libraryButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
-		saveToDiscButton = new JButton(new ImageIcon(getClass().getResource("/down_mint.png")));
+		saveToDiscButton = new JButton(new ImageIcon(getClass().getResource("/Images/down_mint.png")));
 		saveToDiscButton.setBorder(null);
 		saveToDiscButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		saveToDiscButton.addMouseListener(myMouseListener);
 		saveToDiscButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		uploadLogo = new JPanel(new BorderLayout()){{
-			add((new JLabel(new ImageIcon(getClass().getResource("/upload.png")))),BorderLayout.CENTER);}};
+			add((new JLabel(new ImageIcon(getClass().getResource("/Images/upload.png")))),BorderLayout.CENTER);}};
 			uploadLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
 			centerPanel = new JPanel(new BorderLayout());
@@ -102,7 +102,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 				hostButtonPanel.add(btn);
 			}
 			saveLogo = new JPanel(new BorderLayout()){{
-				add((new JLabel(new ImageIcon(getClass().getResource("/save.png")))),BorderLayout.CENTER);
+				add((new JLabel(new ImageIcon(getClass().getResource("/Images/save.png")))),BorderLayout.CENTER);
 			}};
 			saveLogo.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
@@ -111,7 +111,7 @@ public class UploadView extends Card implements PropertyChangeListener {
 
 			hostButtonPanel.add(saveLogo);
 
-			backButton = new JButton(new ImageIcon(getClass().getResource("/left.png")));
+			backButton = new JButton(new ImageIcon(getClass().getResource("/Images/left.png")));
 			backButton.setBorder(new LineBorder(Color.WHITE,10));
 			backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());

@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 /**
  * 
- * @authour Lovisa Jaberg
+ * @authour Lovisa Jäberg
  * 
  */
 
@@ -46,7 +46,7 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 
 		chooseFile = new JFileChooser();
 
-		label = new JLabel(new ImageIcon(getClass().getResource("/addPanelImage.png")));
+		label = new JLabel(new ImageIcon(getClass().getResource("/Images/addPanelImage.png")));
 		label.setPreferredSize(new Dimension(side,side));
 		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		label.setBackground(Constants.CONTRASTCOLORLIGHT.getColor());

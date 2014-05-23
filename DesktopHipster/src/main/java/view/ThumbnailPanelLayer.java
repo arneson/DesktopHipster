@@ -25,8 +25,8 @@ import model.ThumbnailData;
  * Provides support for representing image thumbnails with version management.
  * 
  * @author Robin Sveningson
- * @revised Edvard H��binette
- * 
+ * @revised Edvard Hübinette
+ * @revised Lovisa Jäberg
  */
 @SuppressWarnings("serial")
 public class ThumbnailPanelLayer extends JPanel {
@@ -34,7 +34,7 @@ public class ThumbnailPanelLayer extends JPanel {
 
 	private JScrollPane scroll;
 	private JPanel content, contentWrapper, iconWrapper;
-	private JLabel deleteIcon;//, tagIcon, saveIcon;
+	private JLabel deleteIcon;
 	private PropertyChangeSupport pcs;
 	private ThumbnailData data;
 
@@ -55,7 +55,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		scroll = new JScrollPane(contentWrapper,
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		deleteIcon = new JLabel(new ImageIcon(getClass().getResource("/iconPanel_remove.png")));
+		deleteIcon = new JLabel(new ImageIcon(getClass().getResource("/Images/iconPanel_remove.png")));
 	iconWrapper = new JPanel();
 
 	deleteIcon.addMouseListener(myMouseListener);
@@ -95,7 +95,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 
 			System.out.println("Remove chosen image");
-			pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, (int)data.getID());
+			pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null,null);
 
 		}
 

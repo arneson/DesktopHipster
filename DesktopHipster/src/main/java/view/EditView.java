@@ -54,7 +54,7 @@ public class EditView extends Card implements PropertyChangeListener {
 		filterPanel.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 
 		ImageIcon proceedImage = new ImageIcon(getClass().getResource(
-				"/right.png"));
+				"/Images/right.png"));
 		proceedButton = new JButton(proceedImage);
 		proceedButton.setBorder(new LineBorder(Color.WHITE, 10));
 		proceedButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());
@@ -68,7 +68,7 @@ public class EditView extends Card implements PropertyChangeListener {
 			}
 		});
 
-		ImageIcon backImage = new ImageIcon(getClass().getResource("/left.png"));
+		ImageIcon backImage = new ImageIcon(getClass().getResource("/Images/left.png"));
 		backButton = new JButton(backImage);
 		backButton.setBorder(new LineBorder(Color.WHITE, 10));
 		backButton.setBackground(Constants.BACKGROUNDCOLOR.getColor());

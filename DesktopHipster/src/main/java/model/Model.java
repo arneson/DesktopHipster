@@ -151,8 +151,8 @@ public class Model {
 		getLibrary().load(imageFile);
 	}
 	
-	public void removeFileFromLibrary(int imageID) {
-		getLibrary().remove(imageID);
+	public void removeFileFromLibrary(ExtendedImage image) {
+		getLibrary().remove(image);
 		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, null);
 	}
 
