@@ -28,4 +28,5 @@ public class PropertyNames {
 	public static final String MODEL_ACTIVE_IMAGE_CHANGE = "MODEL_ACTIVE_IMAGE_CHANGE";
 	public static final String MODEL_GRID_UPDATE = "MODEL_GRID_UPDATE";
 	public static final String MODEL_TAGS_CHANGED = "MODEL_TAGS_CHANGED";
+	public static final String VIEW_SHUTDOWN = "VIEW_SHUTDOWN";
 }

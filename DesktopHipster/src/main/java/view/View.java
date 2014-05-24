@@ -70,6 +70,13 @@ public class View extends JFrame implements PropertyChangeListener {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 		setMinimumSize(new Dimension(1000,660));
+		
+		addWindowListener(new WindowAdapter(){
+			@Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        pcs.firePropertyChange(PropertyNames.VIEW_SHUTDOWN, null, null);
+		    }
+		});
 
 		addComponentListener(new ComponentListener() {
 			@Override
@@ -114,4 +121,5 @@ public class View extends JFrame implements PropertyChangeListener {
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		pcs.removePropertyChangeListener(listener);
 	}
+
 }
