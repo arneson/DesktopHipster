@@ -182,7 +182,8 @@ public class Controller implements PropertyChangeListener {
 
 		case PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY:
 			System.out.println("Trying to remove");
-			model.removeFileFromLibrary(model.getActiveImage());
+			model.removeFileFromLibrary((int)evt.getNewValue());
+			updateGrid(null);
 		}
 	}
 

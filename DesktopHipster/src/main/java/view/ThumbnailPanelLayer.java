@@ -58,7 +58,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		deleteIcon = new JLabel(new ImageIcon(getClass().getResource("/Images/iconPanel_remove.png")));
 	iconWrapper = new JPanel();
 
-	deleteIcon.addMouseListener(myMouseListener);
+	deleteIcon.addMouseListener(myMouseAdapter);
 
 	scroll.setBorder(null);
 	scroll.setPreferredSize(new Dimension(0, side / 4
@@ -89,14 +89,12 @@ public class ThumbnailPanelLayer extends JPanel {
 	add(iconWrapper, BorderLayout.NORTH);
 	}
 
-	private MouseListener myMouseListener = new MouseListener() {
+	/*private MouseListener myMouseListener = new MouseListener() {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-
 			System.out.println("Remove chosen image");
 			pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null,null);
-
 		}
 
 		@Override
@@ -123,13 +121,19 @@ public class ThumbnailPanelLayer extends JPanel {
 
 		}
 
-	};
+	};*/
 
 	private MouseAdapter myMouseAdapter = new MouseAdapter() {
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN,
+			if(e.getSource().equals(deleteIcon)) {
+				System.out.println("Remove chosen image");
+				pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, (int)data.getID());
+			} else {
+				pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN,
 					null, data);
+			}
+			
 
 		}
 	};

@@ -168,12 +168,12 @@ public class Library {
 	return returnList;
 }
 
-	public void remove(ExtendedImage image) {
+	public void remove(int imageID) {
 		System.out.println("Remove please!");
 		for (ExtendedImage exImage : getImageList()) {
-			if (image.getID() == exImage.getID()){
+			if (imageID == exImage.getID()){
 				System.out.println("REMOVE!");
-				imageList.remove(image); 
+				imageList.remove(exImage); 
 			}
 		}
 	}

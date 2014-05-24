@@ -150,9 +150,8 @@ public class Model {
 		getLibrary().load(imageFile);
 	}
 	
-	public void removeFileFromLibrary(ExtendedImage image) {
-		getLibrary().remove(image);
-		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, null);
+	public void removeFileFromLibrary(int imageID) {
+		getLibrary().remove(imageID);
 	}
 
 	/**
@@ -189,6 +188,7 @@ public class Model {
 			stream.flush();
 			stream.close();
 		}catch (Exception e) {
+			e.printStackTrace();
 			//Backup couldn't be written to disk, this is handled on the next start
 			clearBackup();
 		}
@@ -211,6 +211,7 @@ public class Model {
 						new TreeSet<String>(tags));
 				library.loadFromHiddenDirectory(stream);
 			} catch (Exception e) {
+				e.printStackTrace();
 				//Couldn't read backup, start clean
 				clearBackup();
 			}
