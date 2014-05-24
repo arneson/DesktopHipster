@@ -109,6 +109,7 @@ public class Library {
 				stream.reset();
 			}
 		} catch (Exception e){
+			e.printStackTrace();
 			throw new BackupCorruptException("Backup write failed in library");
 		}
 	}
@@ -126,6 +127,7 @@ public class Library {
 			}
 			stream.close();
 		} catch (Exception e){
+			e.printStackTrace();
 			throw new BackupCorruptException("Backup read failed in library");
 		}
 	}
@@ -165,15 +167,14 @@ public class Library {
 				returnList.add(image);
 			}
 		}	
-	return returnList;
-}
+		return returnList;
+	}
 
-	public void remove(int imageID) {
-		System.out.println("Remove please!");
+	public void remove(ExtendedImage image) {
 		for (ExtendedImage exImage : getImageList()) {
-			if (imageID == exImage.getID()){
-				System.out.println("REMOVE!");
-				imageList.remove(exImage); 
+			if (image.getImageID() 
+					== exImage.getImageID()){
+				imageList.remove(image); 
 			}
 		}
 	}

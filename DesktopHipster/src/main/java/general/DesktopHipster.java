@@ -12,11 +12,8 @@ import controller.Controller;
  * 
  */
 public class DesktopHipster {
-	private Controller myController;
-
 	public DesktopHipster() {
-		Controller c = new Controller();
-		myController = c;
+		new Controller();
 	}
 
 	public static void main(String[] args) {
@@ -24,15 +21,7 @@ public class DesktopHipster {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 
-		final DesktopHipster dh = new DesktopHipster();
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			public void run() {
-				dh.getController().shutDownEverything();
-			}
-		});
-	}	
-
-	public Controller getController() {
-		return myController;
+		new DesktopHipster();
 	}
+
 }

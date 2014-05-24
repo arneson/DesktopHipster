@@ -150,8 +150,9 @@ public class Model {
 		getLibrary().load(imageFile);
 	}
 	
-	public void removeFileFromLibrary(int imageID) {
-		getLibrary().remove(imageID);
+	public void removeFileFromLibrary(ExtendedImage image) {
+		getLibrary().remove(image);
+		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageList());
 	}
 
 	/**
@@ -183,6 +184,7 @@ public class Model {
 		try {
 			stream = new ObjectOutputStream(new FileOutputStream(
 					library.hiddenPath.toString()));
+			stream.writeInt(ExtendedImage.getID());
 			stream.writeObject(tags);
 			library.saveToHiddenDirectory(stream);
 			stream.flush();
@@ -206,6 +208,7 @@ public class Model {
 				FileInputStream fis = new FileInputStream(
 						library.hiddenPath.toString());
 				stream = new ObjectInputStream(fis);
+				ExtendedImage.setID(stream.readInt());
 				tags = (TreeSet<String>) stream.readObject();
 				pcs.firePropertyChange(PropertyNames.MODEL_TAGS_CHANGED, null,
 						new TreeSet<String>(tags));

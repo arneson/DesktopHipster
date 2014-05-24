@@ -181,14 +181,20 @@ public class Controller implements PropertyChangeListener {
 			break;
 
 		case PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY:
-			System.out.println("Trying to remove");
-			model.removeFileFromLibrary((int)evt.getNewValue());
-			updateGrid(null);
+			model.removeFileFromLibrary((ExtendedImage)evt.getNewValue());
+			break;
+		case PropertyNames.VIEW_SHUTDOWN:
+			shutDownEverything();
+			break;
 		}
 	}
 
 	public void shutDownEverything() {
+		UploadPop pop = new UploadPop();
+		pop.setText("Saving library...");
+		pop.setVisible(true);
 		model.saveState();
+		pop.setVisible(false);
 	}
 	
 	public void updateGrid(TreeSet<String> tags) {

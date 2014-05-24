@@ -128,7 +128,7 @@ public class ThumbnailPanelLayer extends JPanel {
 		public void mouseReleased(MouseEvent e) {
 			if(e.getSource().equals(deleteIcon)) {
 				System.out.println("Remove chosen image");
-				pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, (int)data.getID());
+				pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null, data.getExtendedImage());
 			} else {
 				pcs.firePropertyChange(PropertyNames.VIEW_NEW_IMAGE_CHOSEN,
 					null, data);

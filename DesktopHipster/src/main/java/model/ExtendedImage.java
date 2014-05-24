@@ -49,7 +49,7 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	}
 
 	/**
-	 * Generates a new ExtendedImage from an
+	 * Generates a new ExtendedImage from an image.
 	 * 
 	 * @param image
 	 *            The original image to represent
@@ -140,6 +140,10 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	public BufferedImage getOriginal() {
 		return original;
 	}
+	
+	public ExtendedImage getExtendedImage() {
+		return this;
+	}
 
 	/**
 	 * Returns a list of all versions of this image
@@ -207,8 +211,23 @@ public class ExtendedImage implements ThumbnailData, Serializable {
 	 * 
 	 * @return The image ID
 	 */
-	public int getID() {
+	public int getImageID() {
 		return imageID;
+	}
+	
+	/**
+	 * Returns the current class ID counter
+	 * @return The current counter value
+	 */
+	public static int getID(){
+		return id;
+	}
+	
+	/**
+	 * Allows the model to set the counter value.
+	 */
+	public static void setID(int val){
+		id = val;
 	}
 
 	/**
