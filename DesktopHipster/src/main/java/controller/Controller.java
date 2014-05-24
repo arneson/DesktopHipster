@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.TreeSet;
 
+import javax.swing.JLabel;
+
 import model.ExtendedImage;
 import model.IHost;
 import model.Model;
@@ -190,11 +192,10 @@ public class Controller implements PropertyChangeListener {
 	}
 
 	public void shutDownEverything() {
-		UploadPop pop = new UploadPop();
-		pop.setText("Saving library...");
-		pop.setVisible(true);
+		uploadPop.setText("Saving library...");
+		uploadPop.setVisible(true);
 		model.saveState();
-		pop.setVisible(false);
+		uploadPop.setVisible(false);
 	}
 	
 	public void updateGrid(TreeSet<String> tags) {

@@ -89,39 +89,6 @@ public class ThumbnailPanelLayer extends JPanel {
 	add(iconWrapper, BorderLayout.NORTH);
 	}
 
-	/*private MouseListener myMouseListener = new MouseListener() {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			System.out.println("Remove chosen image");
-			pcs.firePropertyChange(PropertyNames.VIEW_REMOVE_IMAGE_FROM_LIBRARY, null,null);
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-	};*/
 
 	private MouseAdapter myMouseAdapter = new MouseAdapter() {
 		@Override
@@ -186,8 +153,8 @@ public class ThumbnailPanelLayer extends JPanel {
 					side - 1, -1, WIDTH)));
 			version.setName(FiltersEnum.valueOf(versions.keySet().toArray()[i].toString()).getName());
 			version.setPreferredSize(new Dimension(side - 1, side - 1));
-			version.setBorder(BorderFactory.createLineBorder(new Color(150,
-					150, 150), 1));
+			/*version.setBorder(BorderFactory.createLineBorder(new Color(150,
+					150, 150), 1));*/
 			content.add(version);
 			version.addMouseListener(new MouseAdapter(){
 				@Override
@@ -199,7 +166,7 @@ public class ThumbnailPanelLayer extends JPanel {
 				}
 			});
 		}
-		content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
+		//content.setBackground(Constants.BACKGROUNDCOLOR.getColor());
 		content.revalidate();
 		content.repaint();
 	}
