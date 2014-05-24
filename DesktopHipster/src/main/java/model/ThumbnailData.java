@@ -19,5 +19,5 @@ public interface ThumbnailData {
 
 	public BufferedImage getSelectedVersion();
 	
-	public int getID();
+	public int getImageID();
 }
