@@ -17,13 +17,15 @@ public class UploadRunnable implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public void run()  {
 		upPop.setVisible(true);
 		try {
 			host.uploadImage(imageToUpload);
 		} catch (UploadFailedException e) {
-			// TODO Show the user something went wrong, e.getMessage() shows
-			// proper messages
+			upPop.setText("Failed. Connected?");
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e1) {}
 		} finally {
 			upPop.setVisible(false);
 		}

@@ -189,10 +189,11 @@ public class Controller implements PropertyChangeListener {
 	}
 
 	public void shutDownEverything() {
-		uploadPop.setText("Saving library...");
-		uploadPop.setVisible(true);
+		UploadPop pop = new UploadPop();
+		pop.setText("Saving library...");
+		pop.setVisible(true);
 		model.saveState();
-		uploadPop.setVisible(false);
+		pop.setVisible(false);
 	}
 	
 	public void updateGrid(TreeSet<String> tags) {
