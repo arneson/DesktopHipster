@@ -53,7 +53,7 @@ public class Controller implements PropertyChangeListener {
 		model.addPropertyChangeListener(view);
 		dndTray.addPropertyChangeListener(this);
 		uploadPop.setVisible(true);
-		uploadPop.setText("Loading library...");
+		uploadPop.setText("Wait a minute...");
 		model.startUp();
 		updateGrid(null);
 		uploadPop.setVisible(false);
@@ -192,7 +192,7 @@ public class Controller implements PropertyChangeListener {
 	}
 
 	public void shutDownEverything() {
-		uploadPop.setText("Saving library...");
+		
 		uploadPop.setVisible(true);
 		model.saveState();
 		uploadPop.setVisible(false);
