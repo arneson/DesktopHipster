@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 public class NewTagTextField extends JPanel {
 	PropertyChangeSupport pcs;
 	private JTextField tf;
-	private Color foreColor = new Color(150,150,150);
+	private Color foreColor = Constants.TEXTCOLOR.getColor();
 
 	public NewTagTextField(PropertyChangeSupport p, int height) {
 		super();
@@ -36,7 +36,7 @@ public class NewTagTextField extends JPanel {
 		tf.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
 		setBackground(Constants.BACKGROUNDCOLOR.getColor());
-		tf.setBackground(Constants.BACKGROUNDCOLOR_1.getColor());
+		tf.setBackground(Constants.BACKGROUNDCOLOR_2.getColor());
 		tf.setOpaque(true);
 		pcs = p;
 		

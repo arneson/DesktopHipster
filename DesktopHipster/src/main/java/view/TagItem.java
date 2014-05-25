@@ -4,6 +4,7 @@ import general.PropertyNames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 /**
  * Items displaying tags in TagPanel
@@ -34,19 +36,20 @@ public class TagItem extends JPanel{
 	}
 	
 	private void initialize(String tagName, int height, int width) {
+		setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		label = new JLabel(tagName);
+		label.setForeground(Constants.TEXTCOLORDARK.getColor());
 		label.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		label.setOpaque(true);
 		label.setPreferredSize(new Dimension(width - 15 - 20, height));
+		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		remove = new JLabel("x");
 		remove.setPreferredSize(new Dimension(15,15));
+		remove.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		if(odd) {
-			setAllBackgrounds(Constants.BACKGROUNDCOLOR_1.getColor());
-		} else {
-			setAllBackgrounds(Constants.BACKGROUNDCOLOR_2.getColor());
-		}
+		setBackground();
 		
 		remove.setVisible(false);
 		
@@ -97,9 +100,18 @@ public class TagItem extends JPanel{
 	
 	private void update() {
 		if(selected) {
-			setBorder(BorderFactory.createEtchedBorder());
+			setAllBackgrounds(Constants.CONTRASTCOLORLIGHT.getColor());
+			//setBorder(BorderFactory.createEtchedBorder());
 		} else {
-			setBorder(null);
+			setBackground();
+			//setBorder(null);
+		}
+	}
+	private void setBackground(){
+		if(odd) {
+			setAllBackgrounds(Constants.BACKGROUNDCOLOR_1.getColor());
+		} else {
+			setAllBackgrounds(Constants.BACKGROUNDCOLOR_2.getColor());
 		}
 	}
 	

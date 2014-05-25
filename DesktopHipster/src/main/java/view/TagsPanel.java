@@ -18,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import model.ExtendedImage;
 
@@ -91,8 +92,10 @@ public class TagsPanel extends JPanel implements PropertyChangeListener {
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setBorder(null);
 		
+		NewTagTextField tagTextField = new NewTagTextField(pcs, height);
+		
 		add(scroll, BorderLayout.CENTER);
-		add(new NewTagTextField(pcs, height), BorderLayout.SOUTH);
+		add(tagTextField, BorderLayout.NORTH);
 	}
 	/**
 	 * Method in charge of determining which tags should be 

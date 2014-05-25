@@ -34,7 +34,7 @@ import javax.swing.*;
  * @revised Lovisa J��berg
  */
 public class BrowseView extends Card implements PropertyChangeListener,
-		DropTargetListener {
+DropTargetListener {
 	private static final long serialVersionUID = 5488743145525577005L;
 
 	private final PropertyChangeSupport pcs;
@@ -45,6 +45,15 @@ public class BrowseView extends Card implements PropertyChangeListener,
 	@SuppressWarnings("unused")
 	private DropTarget dt;
 	private JPanel southPanel, centerPanel;
+	private ImageIcon proceedImage;
+
+	private ActionListener proceedActionListener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			pcs.firePropertyChange(
+					PropertyNames.VIEW_REQUEST_CARD_CHANGE, null,
+					View.CardState.EDIT.toString());
+		}
+	};
 
 	public BrowseView(PropertyChangeSupport pcs) {
 		super();
@@ -62,7 +71,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 		tags = new TagsPanel(pcs);
 		pcs.addPropertyChangeListener(tags);
 
-		ImageIcon proceedImage = new ImageIcon(getClass().getResource(
+		proceedImage = new ImageIcon(getClass().getResource(
 				"/Images/chooseImage.png"));
 		proceedButton = new JButton(proceedImage);
 		proceedButton.setBorderPainted(false);
@@ -105,17 +114,20 @@ public class BrowseView extends Card implements PropertyChangeListener,
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch (evt.getPropertyName()) {
 		case PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE:
-			proceedButton.setIcon(new ImageIcon(getClass().getResource(
-					"/Images/proceedButton.jpg")));
-			proceedButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			proceedButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					pcs.firePropertyChange(
-							PropertyNames.VIEW_REQUEST_CARD_CHANGE, null,
-							View.CardState.EDIT.toString());
-				}
-			});
+			if(evt.getNewValue() == null){
+				proceedButton.removeAll();
+				proceedButton.setIcon(proceedImage);
+				proceedButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				proceedButton.removeActionListener(proceedActionListener);
+				proceedButton.revalidate();
+			} else {
+				proceedButton.setIcon(new ImageIcon(getClass().getResource(
+						"/Images/proceedButton.jpg")));
+				proceedButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				proceedButton.addActionListener(proceedActionListener);
+			}
 			break;
+
 		}
 	}
 
@@ -163,7 +175,7 @@ public class BrowseView extends Card implements PropertyChangeListener,
 					// And add the list of file names to our text area
 					@SuppressWarnings("rawtypes")
 					java.util.List list = (java.util.List) tr
-							.getTransferData(flavors[i]);
+					.getTransferData(flavors[i]);
 					for (int j = 0; j < list.size(); j++) {
 						// ta.append(list.get(j) + "\n");
 						pcs.firePropertyChange(

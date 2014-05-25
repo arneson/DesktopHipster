@@ -55,6 +55,8 @@ public class Model {
 		activeImage = newImage;
 		pcs.firePropertyChange(PropertyNames.MODEL_ACTIVE_IMAGE_CHANGE, null,
 				activeImage);
+
+
 	}
 
 	/**
@@ -149,7 +151,7 @@ public class Model {
 	public void addFileToLibrary(File imageFile) throws MalformedURLException {
 		getLibrary().load(imageFile);
 	}
-	
+
 	public void removeFileFromLibrary(ExtendedImage image) {
 		getLibrary().remove(image);
 		pcs.firePropertyChange(PropertyNames.MODEL_GRID_UPDATE, null, library.getImageList());
@@ -218,7 +220,7 @@ public class Model {
 				//Couldn't read backup, start clean
 				clearBackup();
 			}
-			
+
 		}
 	}
 
