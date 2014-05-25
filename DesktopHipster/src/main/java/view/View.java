@@ -40,6 +40,7 @@ public class View extends JFrame implements PropertyChangeListener {
 		pcs.addPropertyChangeListener(browseView);
 		pcs.addPropertyChangeListener(editView);
 		pcs.addPropertyChangeListener(uploadView);
+		this.setResizable(false);
 	}
 
 	public void initialize() {
