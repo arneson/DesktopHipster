@@ -26,7 +26,7 @@ import javax.swing.JPanel;
  */
 
 @SuppressWarnings("serial")
-public class AddPanel extends JPanel implements PropertyChangeListener {
+public class AddPanel extends JPanel {
 
 	private JLabel label;
 	private JFileChooser chooseFile;
@@ -61,7 +61,7 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 			}
 		});
 	}
-	private void openDialog(){
+	public void openDialog(){
 		
 		chooseFile.setMultiSelectionEnabled(true);
 		int openChoice = chooseFile.showOpenDialog(this);
@@ -69,7 +69,7 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 		logChoice(openChoice, fileList);
 	}
 
-	private void logChoice(int openChoice, List<File> fileList){
+	public void logChoice(int openChoice, List<File> fileList){
 		
 		switch (openChoice)
 		{
@@ -88,9 +88,5 @@ public class AddPanel extends JPanel implements PropertyChangeListener {
 			break;
 		}
 	}
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
